@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ADC6F0"
-
     tools:context=".Splash">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="111dp"
+<<<<<<< HEAD
         android:layout_height="112dp"
         android:layout_marginEnd="136dp"
         android:layout_marginStart="137dp"
@@ -21,11 +21,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
+=======
+        android:layout_height="118dp"
+        app:srcCompat="@drawable/logo"
+        android:translationX="137dp"
+        android:translationY="157dp"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="157dp" />
+
+
+>>>>>>> 4b1331c22f2bb621dd3d361330114778eed8e555
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="142dp"
         android:layout_height="49dp"
+<<<<<<< HEAD
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -35,11 +46,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:srcCompat="@drawable/logo2" />
+=======
+        app:srcCompat="@drawable/logo2"
+        android:translationY="275dp"
+        android:translationX="121dp"
+        tools:layout_editor_absoluteX="121dp"
+        tools:layout_editor_absoluteY="275dp" />
+>>>>>>> 4b1331c22f2bb621dd3d361330114778eed8e555
+
+
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="186dp"
         android:layout_height="26dp"
+<<<<<<< HEAD
         android:layout_marginBottom="225dp"
         android:layout_marginEnd="99dp"
         android:layout_marginStart="99dp"
@@ -50,3 +71,12 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:srcCompat="@drawable/tag" />
 </android.support.constraint.ConstraintLayout>
+=======
+        app:srcCompat="@drawable/tag"
+        android:translationX="99dp"
+        android:translationY="316dp"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="316dp" />
+
+</RelativeLayout>
+>>>>>>> 4b1331c22f2bb621dd3d361330114778eed8e555
