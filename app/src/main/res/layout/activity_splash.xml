@@ -36,6 +36,10 @@
         android:id="@+id/imageView2"
         android:layout_width="142dp"
         android:layout_height="49dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="142dp" />
 <<<<<<< HEAD
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
