@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ReCouture</string>
     <string name="username">Username</string>
-    <string name="username">Username</string>
     <string name="password">Password</string>
 </resources>
