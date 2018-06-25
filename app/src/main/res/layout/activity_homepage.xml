@@ -66,6 +66,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="229dp"
         android:layout_toStartOf="@+id/button8"
-        android:background="@drawable/calendar-alt" />
+        android:background="@drawable/calendar_alt" />
 
 </RelativeLayout>
