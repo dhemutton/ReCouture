@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/baseee"
+    tools:context=".SignUpActivity">
+
+    <EditText
+        android:id="@+id/button4"
+        android:layout_width="283dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="139dp"
+        android:background="@drawable/username"
+        android:hint="@string/confirm_password"
+        android:paddingBottom="10dp"
+        android:inputType="textPassword"
+        android:paddingEnd="30dp"
+        android:paddingStart="70dp"
+        android:textColorHint="#FFF" />
+
+    <EditText
+        android:id="@+id/button3"
+        android:layout_width="283dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="231dp"
+        android:background="@drawable/username"
+        android:inputType="textPersonName"
+        android:hint="@string/username"
+        android:paddingBottom="10dp"
+        android:paddingEnd="30dp"
+        android:paddingStart="90dp"
+        android:textColorHint="#FFF" />
+
+    <EditText
+        android:id="@+id/button2"
+        android:layout_width="283dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="209dp"
+        android:background="@drawable/username"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingBottom="10dp"
+        android:paddingEnd="30dp"
+        android:paddingStart="90dp"
+        android:textColorHint="#FFF" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="63dp"
+        android:background="@drawable/registerbutton"
+        android:layout_width="290dp"
+        android:layout_height="52dp" />
+
+</RelativeLayout>
