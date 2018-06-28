@@ -49,7 +49,8 @@
                 android:layout_width="40dp"
                 android:layout_height="43dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/home" />
+                android:background="@drawable/home"
+                android:layout_marginTop="8dp"/>
 
 
             <Button
@@ -59,7 +60,8 @@
                 android:layout_height="40dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="32dp"
-                android:background="@drawable/calendar_alt" />
+                android:background="@drawable/calendar_alt"
+                android:layout_marginTop="8dp"/>
 
 
             <Button
@@ -68,7 +70,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="124dp"
-                android:background="@drawable/oval_84" />
+                android:background="@drawable/oval_84"
+                android:layout_marginTop="8dp"/>
 
 
             <Button
@@ -78,7 +81,9 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="32dp"
-                android:background="@drawable/user" />
+                android:background="@drawable/user"
+                android:layout_marginTop="8dp"
+                />
 
 
         </LinearLayout>
@@ -94,6 +99,12 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/group" />
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="331dp"
+        android:layout_height="405dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="57dp" />
 
 
 </RelativeLayout>
