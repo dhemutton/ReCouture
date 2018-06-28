@@ -9,13 +9,14 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="383dp"
-        android:layout_height="55dp"
+        android:layout_height="80dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@color/pink"
         android:gravity="center"
-        android:textSize="24sp"
-        android:text="My Wardrobe" />
+        android:paddingBottom="40dp"
+        android:text="My Wardrobe"
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/editText3"
@@ -23,7 +24,7 @@
         android:layout_height="32dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/search"
         android:ems="10"
         android:hint="@null"
@@ -107,11 +108,12 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_below="@+id/editText3"
         android:layout_width="331dp"
-        android:layout_height="405dp"
+        android:layout_height="424dp"
         android:layout_above="@+id/toolbar"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/editText3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
 
 
 </RelativeLayout>
