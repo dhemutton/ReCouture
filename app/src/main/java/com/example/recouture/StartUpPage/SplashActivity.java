@@ -1,10 +1,13 @@
-package com.example.recouture;
+package com.example.recouture.StartUpPage;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
+
+import com.example.recouture.R;
+
 
 public class SplashActivity extends AppCompatActivity {
 

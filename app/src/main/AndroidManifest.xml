@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.recouture">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,17 +11,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".StartUpPage.SplashActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".HomepageActivity" />
-        <activity android:name=".ProfileActivity"></activity>
+
+        <activity android:name=".StartUpPage.LoginActivity">
+        </activity>
+
+        <activity android:name=".StartUpPage.SignUpActivity">
+        </activity>
+
+        <activity android:name="com.example.recouture.HomepageActivity">
+        </activity>
+
+        <activity android:name="com.example.recouture.ProfileActivity">
+        </activity>
+
+
     </application>
 
 </manifest>
