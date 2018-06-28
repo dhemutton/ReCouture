@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-<<<<<<< HEAD
     <TextView
         android:id="@+id/textView2"
         android:layout_alignParentStart="true"
@@ -35,7 +34,7 @@
         android:layout_marginEnd="112dp"
         android:contentDescription="@null"
         app:srcCompat="@drawable/editable" />
-=======
+
 
     <TextView
         android:id="@+id/ProfileHeader"
@@ -180,5 +179,5 @@
         android:gravity="center"
         android:text="TextView" />
 
->>>>>>> 6944c39ff097fce4951a405d1aae02ae07736a83
+
 </RelativeLayout>

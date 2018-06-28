@@ -25,7 +25,8 @@
         <activity android:name=".StartUpPage.SignUpActivity">
         </activity>
 
-        <activity android:name="com.example.recouture.HomepageActivity">
+        <activity android:name="com.example.recouture.HomePage.HomepageActivity"
+            android:windowSoftInputMode="adjustNothing">
         </activity>
 
         <activity android:name="com.example.recouture.ProfileActivity">
