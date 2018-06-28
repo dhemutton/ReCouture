@@ -26,6 +26,7 @@
         android:layout_marginTop="63dp"
         android:background="@drawable/search"
         android:ems="10"
+        android:hint="@null"
         android:inputType="textPersonName" />
 
 
@@ -102,6 +103,10 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/group" />
 
+<<<<<<< HEAD
+
+    =======
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="331dp"
         android:layout_height="405dp"
@@ -109,5 +114,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="57dp" />
 
+>>>>>>> 6944c39ff097fce4951a405d1aae02ae07736a83
 
 </RelativeLayout>
