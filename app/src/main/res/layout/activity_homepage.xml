@@ -12,7 +12,10 @@
         android:layout_height="55dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/mywardrobe" />
+        android:background="@color/pink"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:text="My Wardrobe" />
 
     <EditText
         android:id="@+id/editText3"
