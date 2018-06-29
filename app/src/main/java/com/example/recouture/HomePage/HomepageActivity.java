@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.example.recouture.R;
+import android.util.Log;
+import com.example.recouture.utils.BottomNavigationViewHelper;
+
 
 public class HomepageActivity extends AppCompatActivity {
+    private static final String TAG = "HomeActivity";
 
 
     private RecyclerView recyclerView;
@@ -18,9 +22,12 @@ public class HomepageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
+        setContentView(R.layout.activity_home_2);
+        Log.d(TAG, "onCreate: starting.");
 
-        recyclerView = findViewById(R.id.recyclerView);
+        setupBottomNavigationView();
+
+      /* recyclerView = findViewById(R.id.recyclerView);
         imageAdapter = new ImageAdapter(this);
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL));
@@ -31,6 +38,12 @@ public class HomepageActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(HomepageActivity.this,3));
         recyclerView.setAdapter(imageAdapter);
+*/
+    }
 
+    private void setupBottomNavigationView(){
+        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
     }
 }
