@@ -29,7 +29,7 @@
             android:windowSoftInputMode="adjustNothing">
         </activity>
 
-        <activity android:name="com.example.recouture.ProfileActivity">
+        <activity android:name="com.example.recouture.Profile.ProfileActivity">
         </activity>
 
 
