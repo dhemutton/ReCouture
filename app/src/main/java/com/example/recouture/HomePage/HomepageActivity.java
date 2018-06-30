@@ -9,11 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.example.recouture.R;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import com.example.recouture.utils.BottomNavigationViewHelper;
 
 
 public class HomepageActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
+    private static final int ACTIVITY_NUM = 0;
 
 
     private RecyclerView recyclerView;
@@ -50,5 +53,8 @@ public class HomepageActivity extends AppCompatActivity {
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(HomepageActivity.this, bottomNavigationViewEx);
+        Menu menu = bottomNavigationViewEx.getMenu();
+        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
     }
 }
