@@ -10,6 +10,7 @@ import com.example.recouture.Profile.ProfileActivity;
 import com.example.recouture.CalendarActivity;
 import com.example.recouture.AddActivity;
 import com.example.recouture.R;
+import android.view.MenuItem;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class BottomNavigationViewHelper {
@@ -25,7 +26,7 @@ public class BottomNavigationViewHelper {
     }
 
     public static void enableNavigation(final Context context, BottomNavigationViewEx view){
-        view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()) {
+        view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -56,9 +57,8 @@ public class BottomNavigationViewHelper {
                         context.startActivity(intent5);
                         break;
                 }
-
                 return false;
             }
-        }
+        });
     }
 }
