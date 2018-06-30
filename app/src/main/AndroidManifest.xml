@@ -38,6 +38,9 @@
         <activity android:name=".Add.AddActivity">
         </activity>
 
+        <activity android:name=".Profile.ProfileActivity">
+        </activity>
+
     </application>
 
 </manifest>
