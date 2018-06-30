@@ -21,6 +21,28 @@ android:layout_height="match_parent"
 
         <include layout="@layout/layout_top_tabs" />
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="11dp"
+            android:text="My Wardrobe"
+            android:textSize="20sp" />
+
+        <EditText
+        android:id="@+id/editText3"
+        android:layout_width="341dp"
+        android:layout_height="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/search"
+        android:ems="10"
+        android:hint="@null"
+        android:inputType="textPersonName" />
+
     </RelativeLayout>
 
     <!-- Middle section (body) -->

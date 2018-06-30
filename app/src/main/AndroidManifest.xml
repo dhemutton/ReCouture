@@ -18,13 +18,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartUpPage.LoginActivity"></activity>
-        <activity android:name=".StartUpPage.SignUpActivity"></activity>
-        <activity
-            android:name=".HomePage.HomepageActivity"
-            android:windowSoftInputMode="adjustNothing"></activity>
-        <activity android:name=".Profile.ProfileActivity"></activity>
-        <activity android:name=".Shirt.ShirtActivity"></activity>
+
+        <activity android:name=".StartUpPage.LoginActivity">
+        </activity>
+
+
+        <activity android:name=".StartUpPage.SignUpActivity">
+        </activity>
+
+        <activity android:name=".HomePage.HomepageActivity"
+            android:windowSoftInputMode="adjustNothing">
+        </activity>
+
+        <activity android:name=".Profile.ProfileActivity">
+        </activity>
+
+        <activity android:name=".Shirt.ShirtActivity">
+        </activity>
+
+        <activity android:name=".Calendar.CalendarActivity">
+        </activity>
+
+        <activity android:name=".Likes.LikesActivity">
+        </activity>
+
+        <activity android:name=".Add.AddActivity">
+        </activity>
+
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.recouture.Profile;
+package com.example.recouture.Calendar;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,9 +11,9 @@ import com.example.recouture.R;
 import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-public class ProfileActivity extends AppCompatActivity {
-    private static final String TAG = "ProfileActivity";
-    private static final int ACTIVITY_NUM = 4;
+public class CalendarActivity extends AppCompatActivity {
+    private static final String TAG = "CalendarActivity";
+    private static final int ACTIVITY_NUM = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,13 +27,9 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(ProfileActivity.this, bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(CalendarActivity.this, bottomNavigationViewEx);
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
-        setContentView(R.layout.activity_profile);
-
     }
-
-
 }
