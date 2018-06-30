@@ -1,16 +1,16 @@
-package com.example.recouture;
+package com.example.recouture.Search;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.recouture.HomePage.HomepageActivity;
+import com.example.recouture.R;
 import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-public class LikesActivity extends AppCompatActivity {
-    private static final String TAG = "LikesActivity";
+public class SearchActivity extends AppCompatActivity {
+    private static final String TAG = "SearchActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +24,5 @@ public class LikesActivity extends AppCompatActivity {
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(LikesActivity.this, bottomNavigationViewEx);
     }
 }

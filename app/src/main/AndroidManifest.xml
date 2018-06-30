@@ -29,13 +29,13 @@
             android:windowSoftInputMode="adjustNothing">
         </activity>
 
-        <activity android:name=".CalendarActivity">
+        <activity android:name=".Calendar.CalendarActivity">
         </activity>
 
-        <activity android:name=".LikesActivity">
+        <activity android:name=".Likes.LikesActivity">
         </activity>
 
-        <activity android:name=".AddActivity">
+        <activity android:name=".Add.AddActivity">
         </activity>
 
     </application>

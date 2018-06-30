@@ -1,11 +1,11 @@
-package com.example.recouture;
+package com.example.recouture.Add;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.recouture.HomePage.HomepageActivity;
+import com.example.recouture.R;
 import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
