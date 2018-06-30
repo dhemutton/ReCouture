@@ -6,6 +6,9 @@
     android:background="#ffff"
     android:padding="15dp"
     android:foreground="?android:selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/linearLayout"
     >
         <ImageView
             android:id="@+id/imageViewCategory"
