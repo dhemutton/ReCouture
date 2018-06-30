@@ -27,7 +27,7 @@ public class HomepageActivity extends AppCompatActivity {
 
         setupBottomNavigationView();
 
-       recyclerView = findViewById(R.id.recyclerView1);
+       recyclerView = findViewById(R.id.recyclerViewHomePage);
         imageAdapter = new ImageAdapter(this);
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL));

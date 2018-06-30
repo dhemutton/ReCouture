@@ -12,27 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".StartUpPage.SplashActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
-        <activity android:name=".StartUpPage.LoginActivity">
-        </activity>
-
-        <activity android:name=".StartUpPage.SignUpActivity">
-        </activity>
-
-        <activity android:name="com.example.recouture.HomePage.HomepageActivity"
-            android:windowSoftInputMode="adjustNothing">
-        </activity>
-
-        <activity android:name="com.example.recouture.Profile.ProfileActivity">
-        </activity>
-
-
+        <activity android:name=".StartUpPage.LoginActivity"></activity>
+        <activity android:name=".StartUpPage.SignUpActivity"></activity>
+        <activity
+            android:name=".HomePage.HomepageActivity"
+            android:windowSoftInputMode="adjustNothing"></activity>
+        <activity android:name=".Profile.ProfileActivity"></activity>
+        <activity android:name=".Shirt.ShirtActivity"></activity>
     </application>
 
 </manifest>

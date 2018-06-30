@@ -1,6 +1,7 @@
 package com.example.recouture.HomePage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recouture.R;
+import com.example.recouture.Shirt.ShirtActivity;
 
 import org.w3c.dom.Text;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
@@ -77,7 +81,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             switch (category) {
                 case "Shirts":
                     Toast.makeText(context,"you clicked on " + category,Toast.LENGTH_SHORT).show();
-        }
+                    context.startActivity(new Intent(context, ShirtActivity.class));
+
+            }
         }
 
     }

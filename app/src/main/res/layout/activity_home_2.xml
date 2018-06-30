@@ -33,7 +33,7 @@ android:layout_height="match_parent"
         <include layout="@layout/layout_center_viewpager"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView1"
+            android:id="@+id/recyclerViewHomePage"
             android:layout_width="match_parent"
             android:layout_height="438dp"
             android:layout_alignParentStart="true"
