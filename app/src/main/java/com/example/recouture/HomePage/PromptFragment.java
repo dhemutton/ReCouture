@@ -26,8 +26,8 @@ public class PromptFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_promptforadd,container,false);
         textViewTakePhoto = v.findViewById(R.id.textViewTakePhoto);
-        //textViewAlbum = v.findViewById(R.id.textViewAlbum);
-        //textViewAddOutfit = v.findViewById(R.id.textViewAddOutfit);
+        textViewAlbum = v.findViewById(R.id.textViewAlbum);
+        textViewAddOutfit = v.findViewById(R.id.textViewAddOutfit);
         buttonCancel = v.findViewById(R.id.buttonCancel);
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
