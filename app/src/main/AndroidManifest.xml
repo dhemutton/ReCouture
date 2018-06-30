@@ -29,9 +29,14 @@
             android:windowSoftInputMode="adjustNothing">
         </activity>
 
-        <activity android:name="com.example.recouture.Profile.ProfileActivity">
+        <activity android:name=".CalendarActivity">
         </activity>
 
+        <activity android:name=".LikesActivity">
+        </activity>
+
+        <activity android:name=".AddActivity">
+        </activity>
 
     </application>
 

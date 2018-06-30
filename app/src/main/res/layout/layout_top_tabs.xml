@@ -2,17 +2,17 @@
 
 <RelativeLayout
 android:layout_width="match_parent"
-android:layout_height="50dp"
+android:layout_height="80dp"
 android:layout_alignParentTop="true">
 
 <android.support.design.widget.AppBarLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="80dp">
 
     <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/pink_border_bottom">
 
 
