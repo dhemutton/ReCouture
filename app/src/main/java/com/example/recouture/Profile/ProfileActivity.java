@@ -15,6 +15,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
         setContentView(R.layout.activity_home_2);
         Log.d(TAG, "onCreate: started");
         setupBottomNavigationView();
@@ -25,5 +26,12 @@ public class ProfileActivity extends AppCompatActivity {
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(ProfileActivity.this, bottomNavigationViewEx);
+=======
+        setContentView(R.layout.activity_profile);
+
+
+>>>>>>> 02510aa6db2b1fad8d4ccfd1ace37eff7f848210
     }
+
+
 }

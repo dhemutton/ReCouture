@@ -10,9 +10,9 @@ android:layout_alignParentTop="true">
     android:layout_height="80dp">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/tabs"
         android:background="@drawable/pink_border_bottom">
 
 

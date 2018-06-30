@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.recouture.R;
 
@@ -54,7 +56,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         return names.length;
     }
 
-    class ImageViewHolder extends RecyclerView.ViewHolder {
+    class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView categoryName;
         ImageView categoryImage;
@@ -65,7 +67,19 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
             categoryName = itemView.findViewById(R.id.textViewCategory);
             categoryImage = itemView.findViewById(R.id.imageViewCategory);
+            LinearLayout linearLayout = itemView.findViewById(R.id.linearLayout);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            String category = categoryName.getText().toString();
+            switch (category) {
+                case "Shirts":
+                    Toast.makeText(context,"you clicked on " + category,Toast.LENGTH_SHORT).show();
+        }
+        }
+
     }
 
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    tools:context=".StartUpPage.LoginActivity"
     android:background="@drawable/baseee">
 
     <EditText
@@ -14,20 +14,21 @@
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="53dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/username"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingBottom="10dp"
-        android:paddingStart="90dp"
         android:paddingEnd="30dp"
+        android:paddingStart="90dp"
         android:textColorHint="#FFF"
         app:layout_constraintBottom_toTopOf="@+id/signIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/signIn"

@@ -27,7 +27,7 @@ public class HomepageActivity extends AppCompatActivity {
 
         setupBottomNavigationView();
 
-      /* recyclerView = findViewById(R.id.recyclerView);
+       recyclerView = findViewById(R.id.recyclerView1);
         imageAdapter = new ImageAdapter(this);
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL));
@@ -38,7 +38,11 @@ public class HomepageActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(HomepageActivity.this,3));
         recyclerView.setAdapter(imageAdapter);
-*/
+
+
+
+
+
     }
 
     private void setupBottomNavigationView(){
