@@ -1,10 +1,13 @@
 package com.example.recouture.utils;
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.util.Log;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.content.Intent;
 import com.example.recouture.HomePage.HomepageActivity;
+import com.example.recouture.HomePage.PromptFragment;
 import com.example.recouture.Likes.LikesActivity;
 import com.example.recouture.Profile.ProfileActivity;
 import com.example.recouture.Calendar.CalendarActivity;
@@ -12,6 +15,9 @@ import com.example.recouture.Add.AddActivity;
 import com.example.recouture.R;
 import android.view.MenuItem;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import android.app.FragmentTransaction;
+
+
 
 public class BottomNavigationViewHelper {
 
@@ -43,9 +49,9 @@ public class BottomNavigationViewHelper {
 
 
                     case R.id.ic_add:
-                        Intent intent3 = new Intent(context, AddActivity.class);//ACTIVITY_NUM = 2
-                        context.startActivity(intent3);
+                        addFragmentView(context);
                         break;
+
 
                     case R.id.ic_like:
                         Intent intent4 = new Intent(context, LikesActivity.class);//ACTIVITY_NUM = 3
@@ -61,4 +67,14 @@ public class BottomNavigationViewHelper {
             }
         });
     }
+
+    private static void addFragmentView(Context context) {
+        FragmentManager fragmentManager = ((Activity)context).getFragmentManager();
+        PromptFragment fragment = new PromptFragment();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.promptFragment,fragment);
+        fragmentTransaction.commit();
+    }
+
 }
+

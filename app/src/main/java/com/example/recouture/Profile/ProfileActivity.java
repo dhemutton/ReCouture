@@ -18,7 +18,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_2);
+        setContentView(R.layout.activity_profile);
         Log.d(TAG, "onCreate: started");
         setupBottomNavigationView();
     }
@@ -31,7 +31,6 @@ public class ProfileActivity extends AppCompatActivity {
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
-        setContentView(R.layout.activity_profile);
 
     }
 
