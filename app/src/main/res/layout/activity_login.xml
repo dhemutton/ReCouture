@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StartUpPage.LoginActivity"
-    android:background="@drawable/baseee">
+    android:background="@drawable/baseee"
+    tools:context=".StartUpPage.LoginActivity">
 
     <EditText
         android:id="@+id/password"
         android:layout_width="283dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="53dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="200dp"
         android:background="@drawable/username"
         android:ems="10"
         android:hint="@string/password"
@@ -22,29 +21,16 @@
         android:paddingBottom="10dp"
         android:paddingEnd="30dp"
         android:paddingStart="90dp"
-        android:textColorHint="#FFF"
-        app:layout_constraintBottom_toTopOf="@+id/signIn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        android:textColorHint="#FFF" />
 
     <Button
         android:id="@+id/signIn"
         android:layout_width="290dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="114dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/signinbutton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="125dp"
+        android:background="@drawable/signinbutton" />
 
     <EditText
         android:id="@+id/username"
@@ -58,30 +44,18 @@
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textPersonName"
-        android:paddingStart="90dp"
         android:paddingEnd="30dp"
-        android:textColorHint="#FFF"
-        app:layout_constraintBottom_toTopOf="@+id/signIn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingStart="90dp"
+        android:textColorHint="#FFF" />
 
     <TextView
         android:id="@+id/signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Dont have an account? Sign up Here !"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signIn"
-        app:layout_constraintVertical_bias="0.259" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="76dp"
+        android:text="Dont have an account? Sign up Here !" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="181dp"
+        android:text="Required Details"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="119dp"
+        android:layout_marginStart="96dp"
+        android:text="Optional Details"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="276dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="221dp"
+        android:background="@drawable/rect"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textAlignment="viewStart" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="278dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="243dp"
+        android:background="@drawable/rect"
+        android:ems="10"
+        android:inputType="textAutoCorrect|textPersonName"
+        android:text="Category" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="279dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="179dp"
+        android:background="@drawable/rect"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Colours" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="279dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="67dp"
+        android:background="@drawable/rect"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Style Tags" />
+
+    <TextView
+        android:id="@+id/ProfileHeader"
+        android:layout_width="383dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/pink"
+        android:textSize="24sp"
+        android:text="Add Item"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        app:srcCompat="@mipmap/ic_image" />
+
+    <include layout="@layout/layout_bottom_navigation_view"/>
+
+</RelativeLayout>

@@ -1,14 +1,20 @@
-package com.example.recouture.Shirt;
+package com.example.recouture.ShirtGallery;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.R;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
 
 public class ShirtActivity extends AppCompatActivity {
 
@@ -29,8 +35,11 @@ public class ShirtActivity extends AppCompatActivity {
 
      */
 
-    private RecyclerView mRecyclerViewShirt;
+    private EmptyRecyclerView mRecyclerViewShirt;
     private DatabaseReference mDatabaseReference;
+    private ShirtAdapter shirtAdapter;
+    private ValueEventListener mDBlistener;
+    private List<Shirt> shirts;
 
 
     @Override
@@ -47,7 +56,23 @@ public class ShirtActivity extends AppCompatActivity {
                 Toast.makeText(ShirtActivity.this,"Pressed back",Toast.LENGTH_SHORT).show();
             }
         });
+
+        mRecyclerViewShirt = findViewById(R.id.recyclerViewShirt);
+        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.HORIZONTAL));
+        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
+
+
+        mRecyclerViewShirt.setHasFixedSize(true);
+        mRecyclerViewShirt.setLayoutManager(new GridLayoutManager(ShirtActivity.this,3));
+
+        
+
+
     }
+
+
 
 
 }

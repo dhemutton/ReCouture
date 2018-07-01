@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recouture.R;
-import com.example.recouture.Shirt.ShirtActivity;
+import com.example.recouture.ShirtGallery.ShirtActivity;
 
 import org.w3c.dom.Text;
 
