@@ -15,9 +15,11 @@ import android.widget.Toast;
 import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.ShirtActivity;
 
+
 import org.w3c.dom.Text;
 
 import static android.support.v4.content.ContextCompat.startActivity;
+
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 

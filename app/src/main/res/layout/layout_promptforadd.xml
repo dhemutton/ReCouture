@@ -34,7 +34,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="247dp"
         android:text="Take Photo"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:id="@+id/textViewAlbum"
@@ -44,7 +46,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="170dp"
         android:text="Choose from album"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:clickable="true"
+        android:focusable="true"
+        />
 
     <TextView
         android:id="@+id/textViewAddOutfit"
@@ -54,6 +59,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="99dp"
         android:text="Add Outfit"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:clickable="true"
+        android:focusable="true"/>
 
 </RelativeLayout>
