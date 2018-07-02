@@ -51,6 +51,15 @@ public class SignOutFragment extends Fragment {
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         tvSigningOut = (TextView) view.findViewById(R.id.tvSigningOut);
         Button btnConfirmSignout = (Button) view.findViewById(R.id.btnConfirmSignout);
+        Button cancel = (Button) view.findViewById(R.id.cancel);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: navigating back to homepage");
+                    getFragmentManager().beginTransaction().remove(SignOutFragment.this).commit();
+            }
+        });
 
         mProgressBar.setVisibility(View.GONE);
         tvSigningOut.setVisibility(View.GONE);
