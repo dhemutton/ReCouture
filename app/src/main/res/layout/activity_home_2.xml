@@ -8,91 +8,98 @@ android:layout_height="match_parent"
     tools:context=".HomePage.HomepageActivity">
 
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <!-- top toolbar -->
-    <RelativeLayout
-        android:id="@+id/relLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="80dp">
-
-        <include layout="@layout/layout_top_tabs" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="11dp"
-            android:text="My Wardrobe"
-            android:textSize="20sp" />
-
-        <EditText
-        android:id="@+id/editText3"
-        android:layout_width="341dp"
-        android:layout_height="32dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/search"
-        android:ems="10"
-        android:hint="@null"
-        android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/textView3"
-            android:layout_marginEnd="14dp"
-            android:text="Logout" />
-
-    </RelativeLayout>
-
-    <!-- Middle section (body) -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/relLayout2"
-        android:layout_below="@+id/relLayout1">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/layout_center_viewpager"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerViewHomePage"
+        <!-- top toolbar -->
+        <RelativeLayout
+            android:id="@+id/relLayout1"
             android:layout_width="match_parent"
-            android:layout_height="438dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
+            android:layout_height="80dp">
 
+            <include layout="@layout/layout_top_tabs" />
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:text="My Wardrobe"
+                android:textSize="20sp" />
 
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="341dp"
+                android:layout_height="32dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/search"
+                android:ems="10"
+                android:hint="@null"
+                android:inputType="textPersonName" />
 
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/textView3"
+                android:layout_marginEnd="14dp"
+                android:text="Logout" />
 
-        <FrameLayout
-            android:id="@+id/promptFragment"
+        </RelativeLayout>
+
+        <!-- Middle section (body) -->
+        <RelativeLayout
+            android:id="@+id/relLayout2"
             android:layout_width="match_parent"
-            android:layout_height="342dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="52dp">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relLayout1">
 
-        </FrameLayout>
+            <include layout="@layout/layout_center_viewpager" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewHomePage"
+                android:layout_width="match_parent"
+                android:layout_height="438dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true" />
+
+            <FrameLayout
+                android:id="@+id/signoutfragment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="102dp">
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:id="@+id/promptFragment"
+                android:layout_width="match_parent"
+                android:layout_height="342dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="52dp">
+
+            </FrameLayout>
+
+
+        </RelativeLayout>
+
+
+        <!-- bottom navigation -->
+        <include layout="@layout/layout_bottom_navigation_view" />
 
 
     </RelativeLayout>
-
-
-    <!-- bottom navigation -->
-    <include layout="@layout/layout_bottom_navigation_view"/>
-
-
-</RelativeLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

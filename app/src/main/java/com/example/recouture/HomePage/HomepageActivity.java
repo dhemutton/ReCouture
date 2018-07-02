@@ -1,5 +1,9 @@
 package com.example.recouture.HomePage;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +15,10 @@ import com.example.recouture.R;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
 import com.example.recouture.utils.BottomNavigationViewHelper;
 
 
@@ -21,6 +29,7 @@ public class HomepageActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ImageAdapter imageAdapter;
+    private FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +39,17 @@ public class HomepageActivity extends AppCompatActivity {
 
         setupBottomNavigationView();
 
-       recyclerView = findViewById(R.id.recyclerViewHomePage);
+        TextView signOut = (TextView) findViewById(R.id.logout);
+        manager = getFragmentManager();
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: navigating back to 'signout fragment'");
+                addFragmentView();
+            }
+        });
+
+        recyclerView = findViewById(R.id.recyclerViewHomePage);
         imageAdapter = new ImageAdapter(this);
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL));
@@ -54,4 +73,12 @@ public class HomepageActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
     }
+
+    private void addFragmentView() {
+        SignOutFragment fragment = new SignOutFragment();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.add(R.id.signoutfragment,fragment);
+        fragmentTransaction.commit();
+    }
+
 }
