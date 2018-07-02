@@ -1,14 +1,18 @@
 package com.example.recouture.Add;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -47,9 +51,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import dalvik.system.PathClassLoader;
+
 public class AddActivity extends AppCompatActivity {
     private static final String TAG = "AddActivity";
     private static final int ACTIVITY_NUM = 2;
+    private int STORAGE_PERMISSION_CODE = 3;
 
     ImageView imageView;
     EditText editTextName;
@@ -97,13 +104,15 @@ public class AddActivity extends AppCompatActivity {
 
         int requestCode = extras.getInt("requestCode");
 
+        requestStoragePermission();
+
         switch (requestCode) {
             case 2: {
                 if (extras != null) {
                     Bitmap image = (Bitmap) extras.get("image");
                     if (image != null) {
                         imageView.setImageBitmap(image);
-                        //imageUri = getImageUri(this, image);
+                        imageUri = getImageUri(this, image);
                     }
                 }
                 break;
@@ -124,6 +133,30 @@ public class AddActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this,"Permission Granted",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this,"Permission Denied",Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void requestStoragePermission() {
+        if (ContextCompat.checkSelfPermission(AddActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(AddActivity.this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+    }
+
+
+
+
 
     private void uploadFile() {
 
@@ -153,7 +186,7 @@ public class AddActivity extends AppCompatActivity {
                                     databaseRef.child(uploadId).setValue(shirt);
                                 }
                             });
-                            Toast.makeText(AddActivity.this, "upload successfuk", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddActivity.this, "upload successful", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -173,6 +206,7 @@ public class AddActivity extends AppCompatActivity {
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(AddActivity.this, bottomNavigationViewEx);
     }
+
 
 
 
