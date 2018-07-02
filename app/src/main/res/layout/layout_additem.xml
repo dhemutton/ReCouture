@@ -19,9 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="119dp"
-        android:layout_marginStart="96dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="123dp"
         android:text="Optional Details"
         android:textSize="24sp" />
 
@@ -31,11 +30,11 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="221dp"
+        android:layout_marginTop="226dp"
         android:background="@drawable/rect"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="Name"
         android:textAlignment="viewStart" />
 
     <EditText
@@ -44,11 +43,11 @@
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="243dp"
+        android:layout_marginBottom="237dp"
         android:background="@drawable/rect"
         android:ems="10"
         android:inputType="textAutoCorrect|textPersonName"
-        android:text="Category" />
+        android:hint="Category" />
 
     <EditText
         android:id="@+id/editTextColor"
@@ -56,11 +55,11 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="179dp"
+        android:layout_marginBottom="169dp"
         android:background="@drawable/rect"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Colours" />
+        android:hint="Colours" />
 
     <EditText
         android:id="@+id/editTextTags"
@@ -72,7 +71,7 @@
         android:background="@drawable/rect"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Style Tags" />
+        android:hint="Style Tags" />
 
     <TextView
         android:id="@+id/ProfileHeader"
@@ -88,8 +87,8 @@
 
     <ImageView
         android:id="@+id/addPic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
@@ -100,10 +99,12 @@
     <Button
         android:id="@+id/upload"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="105dp"
-        android:layout_toStartOf="@+id/textView5"
+        android:layout_toEndOf="@+id/textView5"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/pink_rounded_button"
         android:text="Upload" />
 
 </RelativeLayout>
