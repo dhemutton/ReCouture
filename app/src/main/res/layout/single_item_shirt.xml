@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#ffff"
-    android:padding="15dp"
+    android:padding="10dp"
     android:foreground="?android:selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
@@ -13,7 +13,8 @@
         <ImageView
             android:id="@+id/imageViewShirt"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="105dp"
+            android:scaleType="fitXY"
             />
 
         <TextView

@@ -33,23 +33,6 @@ import java.util.List;
 
 public class ShirtActivity extends AppCompatActivity {
 
-
-    /*
-    get the images from firebase.
-    firebase storage URL -> Photos/shirts
-    store a shirt class. {
-                            ArrayList<String> tags;
-                            ImageUri uri;
-                            }
-                           edittext can be separated with commas and store them into array.
-
-
-
-
-
-
-     */
-
     private EmptyRecyclerView mRecyclerViewShirt;
 
     private DatabaseReference mDatabaseReference;
