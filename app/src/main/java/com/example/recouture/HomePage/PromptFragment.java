@@ -68,7 +68,8 @@ public class PromptFragment extends Fragment {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "you clicked on button ", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: navigating back to homepage");
+                getFragmentManager().beginTransaction().remove(PromptFragment.this).commit();
             }
         });
         return v;

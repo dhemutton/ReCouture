@@ -19,7 +19,29 @@
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
-            <include layout="@layout/layout_category_tabs" />
+            <TextView
+                android:id="@+id/ProfileHeader"
+                android:layout_width="383dp"
+                android:layout_height="55dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/pink"
+                android:textSize="24sp"
+                android:text="Shirts"
+                android:gravity="center"
+                />
+
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="11dp"
+                app:srcCompat="@drawable/ic_back" />
 
         </RelativeLayout>
 

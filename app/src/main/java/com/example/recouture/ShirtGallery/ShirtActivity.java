@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.recouture.R;
@@ -63,16 +64,14 @@ public class ShirtActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shirts);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.categoryToolbar);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        ImageView backButton = findViewById(R.id.back);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ShirtActivity.this,"Pressed back",Toast.LENGTH_SHORT).show();
+                ShirtActivity.super.onBackPressed();
             }
         });
+        
         mRecyclerViewShirt = findViewById(R.id.recyclerViewShirt);
 
         mRecyclerViewShirt.setHasFixedSize(true);
