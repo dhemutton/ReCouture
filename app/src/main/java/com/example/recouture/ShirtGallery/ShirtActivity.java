@@ -113,16 +113,11 @@ public class ShirtActivity extends AppCompatActivity {
                 }
                 shirtAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
-
-
-
     }
 
     @Override

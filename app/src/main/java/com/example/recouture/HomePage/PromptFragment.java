@@ -32,7 +32,7 @@ public class PromptFragment extends Fragment {
 
     String TAG = "Fragment";
 
-    static final int REQUEST_IMAGE_CAPTURE = 0;
+    static final int REQUEST_IMAGE_CAPTURE = 2;
     private static final int PICK_IMAGE_REQUEST = 1;
     TextView textViewTakePhoto;
     TextView textViewAlbum;
