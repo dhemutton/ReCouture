@@ -99,7 +99,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         if (task.isSuccessful()) {
                             //user is successfully registered and logged in
                             //we will start the profile activity here
-                            startActivity(new Intent(getApplicationContext(),HomepageActivity.class));
+                            Toast.makeText(SignUpActivity.this,"Account Registered",
+                                    Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                         } else {
                             Toast.makeText(SignUpActivity.this,"Could not register... please try again",
                                     Toast.LENGTH_SHORT).show();

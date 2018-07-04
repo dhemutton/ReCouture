@@ -80,8 +80,9 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="196dp"
-        android:layout_above="@+id/toolbar"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="104dp" />
 
     <TextView
         android:id="@+id/textViewFollowing"
@@ -107,5 +108,15 @@
 
     <!-- bottom navigation -->
     <include layout="@layout/layout_bottom_navigation_view"/>
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="11dp"
+        app:srcCompat="@drawable/ic_addpeople" />
 
 </RelativeLayout>
