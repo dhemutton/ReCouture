@@ -30,13 +30,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         this.context = context;
     }
 
-    private int[] resourceId = new int[] {R.drawable.shirt,R.drawable.sleeveless,R.drawable.outerwear,
-            R.drawable.sweater,R.drawable.pants,R.drawable.shorts,R.drawable.skirt,R.drawable.dresses,
-            R.drawable.shoes,R.drawable.bags,R.drawable.accessories,R.drawable.swimwear
+    private int[] resourceId = new int[] {R.drawable.shirt1,R.drawable.sleeveless1,R.drawable.outerwear1,
+            R.drawable.sweater1,R.drawable.pants1,R.drawable.shorts1,R.drawable.skirt1,R.drawable.dress1,
+            R.drawable.shoes1,R.drawable.bag1,R.drawable.accessories1,R.drawable.swimwear1
     };
 
     private String[] names = new String[]{
-            "Shirts","Sleevless","Outerwear","Sweater","Pants","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear"
+            "Shirts","Sleeveless","Outerwear","Sweater","Pants","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear"
     };
 
 
