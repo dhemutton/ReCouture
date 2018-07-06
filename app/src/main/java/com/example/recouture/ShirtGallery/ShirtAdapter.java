@@ -1,6 +1,7 @@
 package com.example.recouture.ShirtGallery;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,6 +40,9 @@ public class ShirtAdapter extends EmptyRecyclerView.Adapter<ShirtAdapter.ShirtVi
         Shirt currentShirt = shirts.get(position);
         holder.descriptionText.setText(currentShirt.getmName());
         Glide.with(mContext).load(currentShirt.getmImageUrl()).into(holder.imageView);
+        if (position % 2 == 0) {
+            holder.itemView.setBackgroundColor(Color.argb(50,0,0,0));
+        }
     }
 
     @Override
