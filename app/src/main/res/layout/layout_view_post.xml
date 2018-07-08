@@ -38,7 +38,7 @@
             <com.example.recouture.utils.SquareImageView
                 android:id="@+id/post_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="249dp"
                 android:layout_below="@id/relLayout1"
                 android:scaleType="centerCrop" />
 
@@ -66,16 +66,74 @@
                         android:id="@+id/image_heart"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="20dp"
                         android:src="@drawable/ic_heartoutline"
                         android:visibility="visible" />
 
                 </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/speech_bubble"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/heartLayout"
+                    android:src="@drawable/ic_speechbubble"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relLayout2"
+                android:layout_marginBottom="50dp"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/image_likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Liked by 1, 2, 3 and 30 others"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/image_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_likes"
+                    android:layout_marginTop="15dp"
+                    android:text="dhemutton outfit1 chic"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/image_comments_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_caption"
+                    android:layout_marginTop="15dp"
+                    android:text="View all 3 comments"
+                    android:textColor="@color/grey"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/image_time_posted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_comments_link"
+                    android:layout_marginTop="15dp"
+                    android:text="3 DAYS AGO"
+                    android:textColor="@color/grey"
+                    android:textSize="18sp" />
+
             </RelativeLayout>
 
         </RelativeLayout>
 
     </ScrollView>
+
+    <include layout="@layout/layout_bottom_navigation_view"
 
 </RelativeLayout>
