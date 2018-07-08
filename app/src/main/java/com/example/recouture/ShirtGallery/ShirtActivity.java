@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recouture.HomePage.HomepageActivity;
@@ -52,6 +54,8 @@ public class ShirtActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shirts);
         setupBottomNavigationView();
+        TextView selectButton = (TextView) findViewById(R.id.selectButton);
+
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         ImageView backButton = findViewById(R.id.back);
@@ -122,6 +126,7 @@ public class ShirtActivity extends AppCompatActivity {
         BottomNavigationViewHelper.enableNavigation(ShirtActivity.this, bottomNavigationViewEx);
         Menu menu = bottomNavigationViewEx.getMenu();
     }
+
 
 
 }
