@@ -3,10 +3,12 @@
     package="com.example.recouture">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -22,38 +24,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".StartUpPage.LoginActivity">
-        </activity>
-
-
-        <activity android:name=".StartUpPage.SignUpActivity">
-        </activity>
-
-        <activity android:name=".HomePage.HomepageActivity"
-            android:windowSoftInputMode="adjustNothing">
-        </activity>
-
-        <activity android:name=".Profile.ProfileActivity"
-            >
-        </activity>
-
-        <activity android:name=".ShirtGallery.ShirtActivity">
-        </activity>
-
-        <activity android:name=".Calendar.CalendarActivity"
-            android:windowSoftInputMode="adjustNothing">
-        </activity>
-
-        <activity android:name=".Likes.LikesActivity"
-            android:windowSoftInputMode="adjustNothing">
-        </activity>
-
-
-        <activity android:name=".Add.AddActivity"
-            android:windowSoftInputMode="adjustNothing">
-        </activity>
-
+        <activity android:name=".StartUpPage.LoginActivity"></activity>
+        <activity android:name=".StartUpPage.SignUpActivity"></activity>
+        <activity
+            android:name=".HomePage.HomepageActivity"
+            android:windowSoftInputMode="adjustNothing"></activity>
+        <activity android:name=".Profile.ProfileActivity"></activity>
+        <activity android:name=".ShirtGallery.ShirtActivity"></activity>
+        <activity
+            android:name=".Calendar.CalendarActivity"
+            android:windowSoftInputMode="adjustNothing"></activity>
+        <activity
+            android:name=".Likes.LikesActivity"
+            android:windowSoftInputMode="adjustNothing"></activity>
+        <activity
+            android:name=".Add.AddActivity"
+            android:windowSoftInputMode="adjustNothing"></activity>
+        <activity android:name=".ShirtGallery.click_shirt_activity"></activity>
     </application>
 
 </manifest>
