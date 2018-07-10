@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,6 +31,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.Shirt;
 import com.example.recouture.StartUpPage.ActivityIndicator;
+import com.example.recouture.TagHolder;
 import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -71,6 +73,9 @@ public class AddActivity extends AppCompatActivity {
     private StorageTask mUploadTask;
     private ActivityIndicator activityIndicator;
 
+    // firebase database for TAGS
+    private DatabaseReference mDatabaseTagRef;
+
     private String FIREBASE_IMAGE_STORAGE = "photos/users";
 
 
@@ -95,6 +100,8 @@ public class AddActivity extends AppCompatActivity {
                 .child(FIREBASE_IMAGE_STORAGE + "/" + firebaseUser.getUid() + "/Shirts");
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
+
+        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags");
 
         activityIndicator = new ActivityIndicator(this);
 
@@ -165,6 +172,7 @@ public class AddActivity extends AppCompatActivity {
         final String category = editTextCategory.getText().toString().trim();
         final String tags = editTextTags.getText().toString().trim();
         final DatabaseReference databaseRef = mDatabaseRef.child("/" + category);
+        //final DatabaseReference tagDataBaseRef = mDatabaseTagRef;
 
 
         if (imageUri != null) {
@@ -175,13 +183,23 @@ public class AddActivity extends AppCompatActivity {
             mUploadTask = fileReference.putFile(imageUri).
                     addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     Shirt shirt = new Shirt(name, color, uri.toString());
                                     List<String> stringTag = Arrays.asList(tags.split(","));
                                     shirt.setTags(stringTag);
+
+                                    // for each tag in the list, upload it onto firebase database.
+                                    for (String shirtTag : stringTag) {
+
+                                        DatabaseReference dataRef = mDatabaseTagRef.child(shirtTag);
+                                        TagHolder tagHolder = new TagHolder(name,uri.toString());
+                                        dataRef.setValue(tagHolder);
+                                    }
+
+
                                     String uploadId = databaseRef.push().getKey();
                                     databaseRef.child(uploadId).setValue(shirt);
                                 }

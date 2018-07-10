@@ -98,7 +98,6 @@ public class ShirtActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mShirtList.clear();
-
                 for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
                     Shirt shirt = postSnapShot.getValue(Shirt.class);
                     shirt.setMkey(shirt.getKey());
