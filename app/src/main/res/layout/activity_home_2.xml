@@ -71,6 +71,15 @@ android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true" />
 
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="438dp"
+                android:id="@+id/searchRecyclerView"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                />
+
+
             <FrameLayout
                 android:id="@+id/signoutfragment"
                 android:layout_width="match_parent"
