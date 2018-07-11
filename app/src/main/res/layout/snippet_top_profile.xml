@@ -45,17 +45,19 @@
         <TextView
             android:id="@+id/textFollowers"
             android:layout_width="63dp"
-            android:layout_height="21dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="TextView"
+            android:layout_marginTop="2dp"
+            android:text="Followers"
             android:textAlignment="center"
             android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView12"
             app:layout_constraintEnd_toStartOf="@+id/textFollowing"
             app:layout_constraintHorizontal_bias="0.547"
             app:layout_constraintStart_toEndOf="@+id/textPost"
-            tools:layout_editor_absoluteY="26dp"
-            tools:text="Followers" />
+            app:layout_constraintTop_toBottomOf="@+id/tvFollowers" />
 
         <TextView
             android:id="@+id/tvFollowing"
@@ -77,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvFollowing" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/editProfile"
             android:layout_width="173dp"
             android:layout_height="20dp"
             android:layout_marginBottom="8dp"

@@ -24,23 +24,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartUpPage.LoginActivity"></activity>
-        <activity android:name=".StartUpPage.SignUpActivity"></activity>
+        <activity android:name=".StartUpPage.LoginActivity" />
+        <activity android:name=".StartUpPage.SignUpActivity" />
         <activity
             android:name=".HomePage.HomepageActivity"
-            android:windowSoftInputMode="adjustNothing"></activity>
-        <activity android:name=".Profile.ProfileActivity"></activity>
-        <activity android:name=".ShirtGallery.ShirtActivity"></activity>
+            android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".Profile.ProfileActivity" />
+        <activity android:name=".ShirtGallery.ShirtActivity" />
         <activity
             android:name=".Calendar.CalendarActivity"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Likes.LikesActivity"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Add.AddActivity"
-            android:windowSoftInputMode="adjustNothing"></activity>
-        <activity android:name=".ShirtGallery.click_shirt_activity"></activity>
+            android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".ShirtGallery.click_shirt_activity" />
+        <activity android:name=".Profile.EditProfileFragment"></activity>
     </application>
 
 </manifest>
