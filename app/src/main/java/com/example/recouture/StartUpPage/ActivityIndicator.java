@@ -2,6 +2,7 @@ package com.example.recouture.StartUpPage;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Window;
@@ -25,6 +26,7 @@ public class ActivityIndicator extends Dialog {
         this.setCancelable(false);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         ThreeBounce threeBounce = new ThreeBounce();
         progressBar.setIndeterminateDrawable(threeBounce);
     }

@@ -11,17 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:background="@drawable/loading_ball">
+    </ProgressBar>
 
 
     <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/spin_kit"
         style="@style/SpinKitView.ThreeBounce"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:background="@drawable/ic_launcher_background"
+        android:background="@drawable/loading_ball"
         app:SpinKit_Color="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
