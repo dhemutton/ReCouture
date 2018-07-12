@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.recouture.Profile.EditProfileFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import com.example.recouture.R;
@@ -31,17 +32,22 @@ public class EditProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_editprofile, container, false);
         mProfilePhoto = (ImageView) view.findViewById(R.id.profile_photo);
 
-        initImageLoader();
 
         setProfileImage();
+
+        //back arrow
+        ImageView back = (ImageView) view.findViewById(R.id.imageBackArrow);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: navigating back to profile");
+                getFragmentManager().beginTransaction().remove(EditProfileFragment.this).commit();
+            }
+        });
 
         return view;
     }
 
-    private void initImageLoader() {
-        UniversalImageLoader universalImageLoader = new UniversalImageLoader(getActivity());
-        ImageLoader.getInstance().init(universalImageLoader.getConfig());
-    }
 
     private void setProfileImage() {
         Log.d(TAG, "setProfileImage: setting profile image.");
