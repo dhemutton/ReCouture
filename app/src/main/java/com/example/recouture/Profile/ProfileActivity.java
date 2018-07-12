@@ -32,9 +32,9 @@ public class ProfileActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.GONE);
         setupBottomNavigationView();
 
-        TextView editProfile = (TextView) findViewById(R.id.editProfile);
+        TextView editYourProfile = (TextView) findViewById(R.id.edityourprofile);
         manager = getFragmentManager();
-        editProfile.setOnClickListener(new View.OnClickListener() {
+        editYourProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: navigating to 'edit profile'");
