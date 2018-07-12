@@ -42,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         setupBottomNavigationView();
         setupActivityWidgets();
         setProfileImage();
-        
+
         tempGridSetup();
         TextView editYourProfile = (TextView) findViewById(R.id.edityourprofile);
         manager = getFragmentManager();
