@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.recouture.R;
 import com.example.recouture.utils.BottomNavigationViewHelper;
@@ -22,6 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FragmentManager manager;
 
     private ProgressBar mProgressBar;
+    TextView editProfile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,13 +34,14 @@ public class ProfileActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.GONE);
         setupBottomNavigationView();
 
-        TextView editProfile = (TextView) findViewById(R.id.editProfile);
+        editProfile = findViewById(R.id.editProfile);
         manager = getFragmentManager();
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: navigating to 'edit profile'");
-                addFragmentView();
+                //addFragmentView();
+                Toast.makeText(ProfileActivity.this,"WTF",Toast.LENGTH_SHORT).show();
             }
         });
     }
