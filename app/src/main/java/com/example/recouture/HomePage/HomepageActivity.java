@@ -13,6 +13,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.recouture.TagHolder;
+import com.example.recouture.utils.UniversalImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +37,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.recouture.utils.BottomNavigationViewHelper;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +57,7 @@ public class HomepageActivity extends AppCompatActivity {
     private List<TagHolder> tagHolders;
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference mTagDatabaseRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags");
-
+    private  Context mContext = HomepageActivity.this;
     private TextWatcher filterTextWatcher = new TextWatcher() {
 
         @Override
@@ -91,6 +93,7 @@ public class HomepageActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: starting.");
 
         setupBottomNavigationView();
+        initImageLoader();
 
         TextView signOut = (TextView) findViewById(R.id.logout);
         manager = getFragmentManager();
@@ -162,6 +165,11 @@ public class HomepageActivity extends AppCompatActivity {
 
         }
     };
+
+    private void initImageLoader() {
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
+    }
 
     private void setupBottomNavigationView(){
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");

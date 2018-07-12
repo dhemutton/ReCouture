@@ -32,11 +32,11 @@ public class EditProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_editprofile, container, false);
         mProfilePhoto = (ImageView) view.findViewById(R.id.profile_photo);
 
-        initImageLoader();
 
         setProfileImage();
-        ImageView back = (ImageView) view.findViewById(R.id.imageBackArrow);
 
+        //back arrow
+        ImageView back = (ImageView) view.findViewById(R.id.imageBackArrow);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,10 +48,6 @@ public class EditProfileFragment extends Fragment {
         return view;
     }
 
-    private void initImageLoader() {
-        UniversalImageLoader universalImageLoader = new UniversalImageLoader(getActivity());
-        ImageLoader.getInstance().init(universalImageLoader.getConfig());
-    }
 
     private void setProfileImage() {
         Log.d(TAG, "setProfileImage: setting profile image.");
