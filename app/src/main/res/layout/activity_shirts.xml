@@ -84,6 +84,8 @@
 
         <!-- bottom navigation -->
         <include layout="@layout/layout_bottom_navigation_view" />
+        <include layout="@layout/layout_delete_nav_view"/>
+
 
 
     </RelativeLayout>

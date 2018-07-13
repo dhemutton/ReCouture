@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class ShirtActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String PostKey, currentUserID, databaseUserID, description, image;
     private DatabaseReference mDatabaseReference;
+    private BottomNavigationViewEx bottomNavigationViewEx;
 
     private FirebaseUser firebaseUser;
 
@@ -55,13 +57,16 @@ public class ShirtActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shirts);
+        final RelativeLayout deleteNavBar = findViewById(R.id.deleteNavBar);
+        deleteNavBar.setVisibility(View.INVISIBLE);
         setupBottomNavigationView();
 
         TextView selectButton = (TextView) findViewById(R.id.selectButton);
         selectButton.setOnClickListener(new View.OnClickListener() {
            @Override
             public void onClick(View v) {
-
+               bottomNavigationViewEx.setVisibility(View.INVISIBLE);
+               deleteNavBar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -127,8 +132,8 @@ public class ShirtActivity extends AppCompatActivity {
     }
 
 
-    private void setupBottomNavigationView(){
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+    private void setupBottomNavigationView() {
+        bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(ShirtActivity.this, bottomNavigationViewEx);
         Menu menu = bottomNavigationViewEx.getMenu();
