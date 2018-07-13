@@ -36,7 +36,9 @@ import java.util.List;
 public class ShirtActivity extends AppCompatActivity {
 
     private EmptyRecyclerView mRecyclerViewShirt;
-
+    private DatabaseReference ClickPostRef;
+    private FirebaseAuth mAuth;
+    private String PostKey, currentUserID, databaseUserID, description, image;
     private DatabaseReference mDatabaseReference;
 
     private FirebaseUser firebaseUser;
@@ -54,8 +56,14 @@ public class ShirtActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shirts);
         setupBottomNavigationView();
-        TextView selectButton = (TextView) findViewById(R.id.selectButton);
 
+        TextView selectButton = (TextView) findViewById(R.id.selectButton);
+        selectButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         ImageView backButton = findViewById(R.id.back);
@@ -125,7 +133,4 @@ public class ShirtActivity extends AppCompatActivity {
         BottomNavigationViewHelper.enableNavigation(ShirtActivity.this, bottomNavigationViewEx);
         Menu menu = bottomNavigationViewEx.getMenu();
     }
-
-
-
 }

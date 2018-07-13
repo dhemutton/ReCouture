@@ -50,8 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: navigating to 'edit profile'");
-                //addFragmentView();
-                Toast.makeText(ProfileActivity.this,"WTF",Toast.LENGTH_SHORT).show();
+                addFragmentView();
             }
         });
     }

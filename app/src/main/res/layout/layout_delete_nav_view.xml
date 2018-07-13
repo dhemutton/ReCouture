@@ -1,22 +1,40 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true">
 
-        <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-            android:id="@+id/deleteNavViewBar"
+        <ImageView
+            android:id="@+id/bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentTop="false"
+            app:srcCompat="@drawable/pink_border_bottom" />
+
+        <TextView
+            android:id="@+id/canceldel"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
+            android:layout_marginBottom="14dp"
+            android:text="Cancel"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/pink_border_bottom"
-            app:menu="@menu/delete_navigation_menu">
+            android:paddingTop="7dp"
+            android:layout_marginEnd="18dp"
+            app:srcCompat="@drawable/ic_delete" />
 
-
-        </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>
 
     </RelativeLayout>
 </merge>

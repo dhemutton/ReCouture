@@ -6,4 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".ShirtGallery.click_shirt_activity">
 
+    <ImageView
+        android:id="@+id/emptyimage"
+        android:layout_width="match_parent"
+        android:layout_height="259dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/ic_emptyimage" />
+
+    <Button
+        android:id="@+id/click_editPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="26dp"
+        android:layout_marginStart="50dp"
+        android:text="Edit" />
+
+    <Button
+        android:id="@+id/click_deletePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/click_editPosteditPost"
+        android:layout_marginEnd="56dp"
+        android:text="Delete" />
+
+    <TextView
+        android:id="@+id/click_postdes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="249dp"
+        android:text="Post Description" />
 </RelativeLayout>
