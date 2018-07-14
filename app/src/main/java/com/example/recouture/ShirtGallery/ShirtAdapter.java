@@ -15,12 +15,15 @@ import com.example.recouture.R;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShirtAdapter extends EmptyRecyclerView.Adapter<ShirtAdapter.ShirtViewHolder> {
 
     private Context mContext;
     private List<Shirt> shirts;
+    private boolean isDeletable = false;
+    private List<Shirt> toBeDeleted = new ArrayList<>();
 
     public ShirtAdapter(Context mContext, List<Shirt> shirts) {
         this.mContext = mContext;
@@ -40,9 +43,6 @@ public class ShirtAdapter extends EmptyRecyclerView.Adapter<ShirtAdapter.ShirtVi
         Shirt currentShirt = shirts.get(position);
         holder.descriptionText.setText(currentShirt.getmName());
         Glide.with(mContext).load(currentShirt.getmImageUrl()).into(holder.imageView);
-        if (position % 2 == 0) {
-            holder.itemView.setBackgroundColor(Color.argb(50,0,0,0));
-        }
     }
 
     @Override
@@ -50,17 +50,57 @@ public class ShirtAdapter extends EmptyRecyclerView.Adapter<ShirtAdapter.ShirtVi
         return shirts.size();
     }
 
-    class ShirtViewHolder extends RecyclerView.ViewHolder {
+    class ShirtViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView descriptionText;
         public ImageView imageView;
+        public boolean isSelected = false;
+        public ImageView checkHolder;
 
         public ShirtViewHolder(View itemView) {
             super(itemView);
 
             descriptionText = itemView.findViewById(R.id.textViewDescription);
             imageView = itemView.findViewById(R.id.imageViewShirt);
+            checkHolder = itemView.findViewById(R.id.check);
+            checkHolder.setVisibility(View.INVISIBLE);
+            itemView.setOnClickListener(this);
 
         }
+
+
+        // let main activity do the deleting, have adapter define a method to return the photos
+        // selected from the delete.
+        @Override
+        public void onClick(View view) {
+            if (isDeletable) {
+                if (!isSelected) {
+                    toBeDeleted.add(shirts.get(getAdapterPosition()));
+                    itemView.setBackgroundColor(Color.argb(50,0,0,0));
+                    checkHolder.setVisibility(View.VISIBLE);
+                } else {
+                    toBeDeleted.remove(shirts.get(getAdapterPosition()));
+                    itemView.setBackgroundColor(Color.argb(0,0,0,0));
+                    checkHolder.setVisibility(View.INVISIBLE);
+                    isSelected = false;
+                }
+
+            }
+        }
     }
+
+
+    public void setDeletable(boolean deletable) {
+        this.isDeletable = deletable;
+    }
+
+
+    public List<Shirt> returnDeletables() {
+        return toBeDeleted;
+    }
+
+    public void clearDeletables() {
+        toBeDeleted.clear();
+    }
+
 }

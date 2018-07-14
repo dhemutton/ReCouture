@@ -53,11 +53,27 @@ public class ShirtActivity extends AppCompatActivity {
 
     private ShirtAdapter shirtAdapter;
 
+    // cancel dustbin
+    private TextView cancelDelete;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shirts);
         final RelativeLayout deleteNavBar = findViewById(R.id.deleteNavBar);
+        cancelDelete = findViewById(R.id.canceldel);
+        cancelDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteNavBar.setVisibility(View.INVISIBLE);
+                bottomNavigationViewEx.setVisibility(View.VISIBLE);
+                shirtAdapter.clearDeletables();
+                shirtAdapter.setDeletable(false);
+            }
+        });
+
+
+
         deleteNavBar.setVisibility(View.INVISIBLE);
         setupBottomNavigationView();
 
@@ -67,6 +83,7 @@ public class ShirtActivity extends AppCompatActivity {
             public void onClick(View v) {
                bottomNavigationViewEx.setVisibility(View.INVISIBLE);
                deleteNavBar.setVisibility(View.VISIBLE);
+               shirtAdapter.setDeletable(true);
             }
         });
 

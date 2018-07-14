@@ -10,12 +10,32 @@
     android:focusable="true"
     android:id="@+id/linearLayout"
     >
-        <ImageView
-            android:id="@+id/imageViewShirt"
-            android:layout_width="match_parent"
-            android:layout_height="105dp"
-            android:scaleType="fitXY"
-            />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+
+                <ImageView
+                    android:id="@+id/imageViewShirt"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/check"
+                android:layout_width="60dp"
+                android:layout_height="46dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/check" />
+
+
+
+        </RelativeLayout>
+
+
 
         <TextView
             android:text="Shirt"
@@ -24,6 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:textSize="15sp"/>
+
+
 
 
 
