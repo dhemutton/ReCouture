@@ -24,11 +24,17 @@ public class ShirtAdapter extends EmptyRecyclerView.Adapter<ShirtAdapter.ShirtVi
     private List<Shirt> shirts;
     private boolean isDeletable = false;
     private List<Shirt> toBeDeleted = new ArrayList<>();
+    private boolean cancel = false;
 
     public ShirtAdapter(Context mContext, List<Shirt> shirts) {
         this.mContext = mContext;
         this.shirts = shirts;
     }
+
+    public void cancelSelection(boolean isCancel) {
+        this.cancel = isCancel;
+    }
+
 
 
     @NonNull
@@ -43,6 +49,13 @@ public class ShirtAdapter extends EmptyRecyclerView.Adapter<ShirtAdapter.ShirtVi
         Shirt currentShirt = shirts.get(position);
         holder.descriptionText.setText(currentShirt.getmName());
         Glide.with(mContext).load(currentShirt.getmImageUrl()).into(holder.imageView);
+
+        if (cancel) {
+            holder.itemView.setBackgroundColor(Color.argb(0,0,0,0));
+            if (holder.checkHolder.getVisibility() == View.VISIBLE) {
+                holder.checkHolder.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     @Override
@@ -78,6 +91,7 @@ public class ShirtAdapter extends EmptyRecyclerView.Adapter<ShirtAdapter.ShirtVi
                     toBeDeleted.add(shirts.get(getAdapterPosition()));
                     itemView.setBackgroundColor(Color.argb(50,0,0,0));
                     checkHolder.setVisibility(View.VISIBLE);
+                    isSelected = true;
                 } else {
                     toBeDeleted.remove(shirts.get(getAdapterPosition()));
                     itemView.setBackgroundColor(Color.argb(0,0,0,0));
@@ -88,6 +102,8 @@ public class ShirtAdapter extends EmptyRecyclerView.Adapter<ShirtAdapter.ShirtVi
             }
         }
     }
+
+
 
 
     public void setDeletable(boolean deletable) {

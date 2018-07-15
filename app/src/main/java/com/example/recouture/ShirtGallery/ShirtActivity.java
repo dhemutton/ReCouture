@@ -1,6 +1,7 @@
 
 package com.example.recouture.ShirtGallery;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.R;
 import com.example.recouture.utils.BottomNavigationViewHelper;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -53,8 +56,19 @@ public class ShirtActivity extends AppCompatActivity {
 
     private ShirtAdapter shirtAdapter;
 
+    // to delete tag of shirt
+    private DatabaseReference mDatabaseTagRef;
+
+
     // cancel dustbin
     private TextView cancelDelete;
+
+    // delete items
+    private ImageView delete;
+
+
+    // to delete image from storage ref
+    private String FIREBASE_IMAGE_STORAGE = "photos/users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +83,32 @@ public class ShirtActivity extends AppCompatActivity {
                 bottomNavigationViewEx.setVisibility(View.VISIBLE);
                 shirtAdapter.clearDeletables();
                 shirtAdapter.setDeletable(false);
+                shirtAdapter.cancelSelection(true);
+                shirtAdapter.notifyDataSetChanged();
+            }
+        });
+
+        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags");
+
+        delete = findViewById(R.id.delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Shirt> deletables = shirtAdapter.returnDeletables();
+                for (Shirt shirt : deletables) {
+                    final String selectedKey = shirt.getKey();
+                    StorageReference shirtStorageReference = mStorageReference.child("Shirts");
+                    StorageReference imageRef = FirebaseStorage.getInstance()
+                            .getReferenceFromUrl(shirt.getmImageUrl());
+                    imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            mDatabaseReference.child(selectedKey).removeValue();
+
+
+                        }
+                    })
+                }
             }
         });
 
@@ -122,7 +162,6 @@ public class ShirtActivity extends AppCompatActivity {
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid()).child("Shirts");
 
 
-        StorageReference shirtStorageReference = mStorageReference.child("Shirts");
 
         mDatabaseListener = mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
