@@ -79,6 +79,13 @@ public class AddActivity extends AppCompatActivity {
     private String FIREBASE_IMAGE_STORAGE = "photos/users";
 
 
+    /**
+     * On create method for add initializes the view , widgets for all the corresponding views
+     * in the layout and also additional firebase database references. Handles camera request when
+     * if each image was taken from a photo album or if it was captured from a photo. Calls the
+     * corresponding methods to handle each request.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +149,12 @@ public class AddActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * hanldes permission request for access to storage in camera API23
+     * @param requestCode the request code defined by programmer
+     * @param permissions the type of permissions requested
+     * @param grantResults the results of whether permission was granted corresponding to each permission
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == STORAGE_PERMISSION_CODE) {
@@ -153,6 +166,10 @@ public class AddActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * request access to storage permission
+     */
     private void requestStoragePermission() {
         if (ContextCompat.checkSelfPermission(AddActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
                 PackageManager.PERMISSION_DENIED) {
@@ -162,9 +179,10 @@ public class AddActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    /**
+     * Upload file method. Handles logic of uploading all required data to firebase and displaying
+     * it in recycler view.
+     */
     private void uploadFile() {
 
         final String name = editTextName.getText().toString().trim();
@@ -187,6 +205,8 @@ public class AddActivity extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
+                                    // handles the retreival of tags when user enters each tag seperated by
+                                    // commas.
                                     Shirt shirt = new Shirt(name, color, uri.toString());
                                     List<String> stringTag = Arrays.asList(tags.split(","));
                                     shirt.setTags(stringTag);
@@ -194,11 +214,15 @@ public class AddActivity extends AppCompatActivity {
                                     // for each tag in the list, upload it onto firebase database.
                                     for (String shirtTag : stringTag) {
 
+                                        // Handles the uploading of tags onto firebase for search
+                                        // to be conducted.
                                         DatabaseReference dataRef = mDatabaseTagRef.child(shirtTag);
+                                        String uniqueId = dataRef.push().getKey();
                                         TagHolder tagHolder = new TagHolder(name,uri.toString());
-                                        dataRef.setValue(tagHolder);
+                                        shirt.addTagHolder(tagHolder);
+                                        tagHolder.setmKey(uniqueId);
+                                        dataRef.child(uniqueId).setValue(tagHolder);
                                     }
-
 
                                     String uploadId = databaseRef.push().getKey();
                                     databaseRef.child(uploadId).setValue(shirt);
@@ -218,6 +242,9 @@ public class AddActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * sets up library imported bottom navigation view for this activity.
+     */
     private void setupBottomNavigationView() {
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
@@ -226,8 +253,11 @@ public class AddActivity extends AppCompatActivity {
     }
 
 
-
-
+    /**
+     * gets the file extension type for particular URI.
+     * @param uri the image URI
+     * @return the file extension for this URI, eg jpeg,png
+     */
     private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
@@ -235,6 +265,12 @@ public class AddActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Converts a bitmap image into its corresponding URI.
+     * @param context the context of the activity.
+     * @param inImage the bitmap to be converted
+     * @return the corresponding image URI.
+     */
     private Uri getImageUri(Context context, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);

@@ -12,6 +12,7 @@ public class Item {
     private String mImageUrl;
     private List<String> tags = new ArrayList<>();
     private String mKey;
+    private List<TagHolder> tagHolders = new ArrayList<>();
 
     public Item(){
 
@@ -66,5 +67,13 @@ public class Item {
     @Exclude
     public void setMkey(String key) {
         mKey = key;
+    }
+
+    public void addTagHolder(TagHolder tagHolder) {
+        tagHolders.add(tagHolder);
+    }
+
+    public List<TagHolder> getTagHolders() {
+        return tagHolders;
     }
 }

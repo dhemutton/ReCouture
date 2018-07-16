@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.R;
+import com.example.recouture.TagHolder;
 import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -88,14 +89,13 @@ public class ShirtActivity extends AppCompatActivity {
             }
         });
 
-        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags");
 
         delete = findViewById(R.id.delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 List<Shirt> deletables = shirtAdapter.returnDeletables();
-                for (Shirt shirt : deletables) {
+                for (final Shirt shirt : deletables) {
                     final String selectedKey = shirt.getKey();
                     StorageReference shirtStorageReference = mStorageReference.child("Shirts");
                     StorageReference imageRef = FirebaseStorage.getInstance()
@@ -104,10 +104,19 @@ public class ShirtActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             mDatabaseReference.child(selectedKey).removeValue();
+                            List<String> tags = shirt.getTags();
+                            for (String tag : tags) {
 
-
+                                // points to appa,testing123,testing456 etc
+                                final DatabaseReference tagRef = mDatabaseTagRef.child(tag);
+                                // tag holders can be arbitrary , it need not be in appa, tesing123 etc
+                                List<TagHolder> tagHolders = shirt.getTagHolders();
+                                for (TagHolder tagHolder : tagHolders) {
+                                    tagRef.child(tagHolder.getmKey()).removeValue();
+                                }
+                            }
                         }
-                    })
+                    });
                 }
             }
         });
@@ -161,6 +170,8 @@ public class ShirtActivity extends AppCompatActivity {
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid()).child("Shirts");
 
+        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags");
+
 
 
         mDatabaseListener = mDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -169,7 +180,7 @@ public class ShirtActivity extends AppCompatActivity {
                 mShirtList.clear();
                 for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
                     Shirt shirt = postSnapShot.getValue(Shirt.class);
-                    shirt.setMkey(shirt.getKey());
+                    shirt.setMkey(postSnapShot.getKey());
                     mShirtList.add(shirt);
                 }
                 shirtAdapter.notifyDataSetChanged();
