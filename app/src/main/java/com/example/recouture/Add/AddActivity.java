@@ -209,23 +209,32 @@ public class AddActivity extends AppCompatActivity {
                                     // commas.
                                     Shirt shirt = new Shirt(name, color, uri.toString());
                                     List<String> stringTag = Arrays.asList(tags.split(","));
-                                    shirt.setTags(stringTag);
+                                    List<TagHolder> tagHolders = new ArrayList<>();
 
-                                    // for each tag in the list, upload it onto firebase database.
                                     for (String shirtTag : stringTag) {
+
 
                                         // Handles the uploading of tags onto firebase for search
                                         // to be conducted.
                                         DatabaseReference dataRef = mDatabaseTagRef.child(shirtTag);
                                         String uniqueId = dataRef.push().getKey();
-                                        TagHolder tagHolder = new TagHolder(name,uri.toString());
-                                        shirt.addTagHolder(tagHolder);
+                                        TagHolder tagHolder = new TagHolder(name,uri.toString(),shirtTag);
+                                        tagHolders.add(tagHolder);
+
+
+                                        //shirt.putTag(shirtTag,tagHolder);
                                         tagHolder.setmKey(uniqueId);
                                         dataRef.child(uniqueId).setValue(tagHolder);
+//                                        if (shirt.checkContainsKey(shirtTag)) {
+//                                            Log.i("AddActivity",shirtTag);
+//                                            Log.i("AddActivity",shirt.retrieveTagHolder(shirtTag).toString());
+//                                        }
                                     }
-
+                                    shirt.setTags(tagHolders);
                                     String uploadId = databaseRef.push().getKey();
                                     databaseRef.child(uploadId).setValue(shirt);
+
+                                    // for each tag in the list, upload it onto firebase database.
                                 }
                             });
                             Toast.makeText(AddActivity.this, "upload successful", Toast.LENGTH_SHORT).show();

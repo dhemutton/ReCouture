@@ -9,13 +9,15 @@ public class TagHolder {
     private String name;
     private String downloadImageUri;
     private String mKey;
+    private String tagName;
 
     public TagHolder() {}
 
 
-    public TagHolder(String name, String  downloadImageUri) {
+    public TagHolder(String name, String  downloadImageUri,String tagName) {
         this.name = name;
         this.downloadImageUri = downloadImageUri;
+        this.tagName = tagName;
     }
 
     public String getDownloadImageUri() {
@@ -27,14 +29,26 @@ public class TagHolder {
     }
 
 
-    @Exclude // dont need this in our firebase database
+    //@Exclude // dont need this in our firebase database
     public String getmKey() {
         return mKey;
     }
 
-    @Exclude
+    //@Exclude
     public void setmKey(String mKey) {
         this.mKey = mKey;
     }
 
+    @Override
+    public String toString() {
+        return "name : " + name;
+    }
+
+    public String getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
+    }
 }

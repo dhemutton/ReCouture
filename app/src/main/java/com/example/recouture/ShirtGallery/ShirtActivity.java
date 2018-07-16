@@ -1,6 +1,7 @@
 
 package com.example.recouture.ShirtGallery;
 
+import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -100,21 +101,20 @@ public class ShirtActivity extends AppCompatActivity {
                     StorageReference shirtStorageReference = mStorageReference.child("Shirts");
                     StorageReference imageRef = FirebaseStorage.getInstance()
                             .getReferenceFromUrl(shirt.getmImageUrl());
+                    List<TagHolder> tags = shirt.getTags();
+                    for (TagHolder tagHolder : tags) {
+                        String tagName = tagHolder.getTagName();
+                        final DatabaseReference tagRef = mDatabaseTagRef.child(tagName);
+                        String uniqueKey = tagHolder.getmKey();
+                        if (uniqueKey != null) {
+                            Log.i("ShirtActivity", uniqueKey);
+                        }
+                        tagRef.child(uniqueKey).removeValue();
+                    }
                     imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             mDatabaseReference.child(selectedKey).removeValue();
-                            List<String> tags = shirt.getTags();
-                            for (String tag : tags) {
-
-                                // points to appa,testing123,testing456 etc
-                                final DatabaseReference tagRef = mDatabaseTagRef.child(tag);
-                                // tag holders can be arbitrary , it need not be in appa, tesing123 etc
-                                List<TagHolder> tagHolders = shirt.getTagHolders();
-                                for (TagHolder tagHolder : tagHolders) {
-                                    tagRef.child(tagHolder.getmKey()).removeValue();
-                                }
-                            }
                         }
                     });
                 }
@@ -170,7 +170,7 @@ public class ShirtActivity extends AppCompatActivity {
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid()).child("Shirts");
 
-        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags");
+        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags/");
 
 
 
@@ -182,6 +182,7 @@ public class ShirtActivity extends AppCompatActivity {
                     Shirt shirt = postSnapShot.getValue(Shirt.class);
                     shirt.setMkey(postSnapShot.getKey());
                     mShirtList.add(shirt);
+                    Log.i("ShirtActivity","listner");
                 }
                 shirtAdapter.notifyDataSetChanged();
             }

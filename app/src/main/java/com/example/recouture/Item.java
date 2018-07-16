@@ -3,6 +3,7 @@ package com.example.recouture;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Item {
@@ -10,9 +11,9 @@ public class Item {
     private String mName;
     private String mColor;
     private String mImageUrl;
-    private List<String> tags = new ArrayList<>();
+    private List<TagHolder> tags = new ArrayList<>();
     private String mKey;
-    private List<TagHolder> tagHolders = new ArrayList<>();
+    private HashMap<String,TagHolder> tagHolderHashMap = new HashMap<>();
 
     public Item(){
 
@@ -35,7 +36,7 @@ public class Item {
         this.mImageUrl = mImageUrl;
     }
 
-    public List<String> getTags() {
+    public List<TagHolder> getTags() {
         return tags;
     }
 
@@ -55,7 +56,7 @@ public class Item {
         return mName;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<TagHolder> tags) {
         this.tags = tags;
     }
 
@@ -69,11 +70,16 @@ public class Item {
         mKey = key;
     }
 
-    public void addTagHolder(TagHolder tagHolder) {
-        tagHolders.add(tagHolder);
-    }
+   public void putTag(String tag, TagHolder tagHolder) {
+        tagHolderHashMap.put(tag,tagHolder);
+   }
 
-    public List<TagHolder> getTagHolders() {
-        return tagHolders;
-    }
+   public TagHolder retrieveTagHolder(String tag) {
+        return tagHolderHashMap.get(tag);
+   }
+
+   public boolean checkContainsKey(String tag) {
+        return tagHolderHashMap.containsKey(tag);
+   }
+
 }
