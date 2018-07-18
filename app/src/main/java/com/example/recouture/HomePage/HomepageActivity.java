@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.recouture.utils.BottomNavigationViewHelper;
@@ -101,7 +102,17 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: navigating back to 'signout fragment'");
-                addFragmentView();
+                addFragmentViewSignout();
+            }
+        });
+
+        ImageView navmenu = (ImageView) findViewById(R.id.navmenuicon);
+        manager = getFragmentManager();
+        navmenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: navigating to 'menu dropdown'");
+                addFragmentViewNav();
             }
         });
 
@@ -181,11 +192,17 @@ public class HomepageActivity extends AppCompatActivity {
         menuItem.setChecked(true);
     }
 
-    private void addFragmentView() {
+    private void addFragmentViewSignout() {
         SignOutFragment fragment = new SignOutFragment();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.add(R.id.signoutfragment,fragment);
         fragmentTransaction.commit();
     }
 
+    private void addFragmentViewNav() {
+        NavMenuFragment fragment = new NavMenuFragment();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.add(R.id.navbarfragment,fragment);
+        fragmentTransaction.commit();
+    }
 }

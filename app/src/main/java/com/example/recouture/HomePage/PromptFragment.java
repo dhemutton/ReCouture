@@ -1,30 +1,21 @@
 package com.example.recouture.HomePage;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.hardware.Camera;
-import android.hardware.camera2.CameraDevice;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.recouture.Add.AddActivity;
 import com.example.recouture.R;
-import android.hardware.Camera;
-
-import org.w3c.dom.Text;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -45,7 +36,7 @@ public class PromptFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_promptforadd, container, false);
-        textViewTakePhoto = v.findViewById(R.id.textViewTakePhoto);
+        textViewTakePhoto = v.findViewById(R.id.feed);
         textViewAlbum = v.findViewById(R.id.textViewAlbum);
         textViewAddOutfit = v.findViewById(R.id.textViewAddOutfit);
         buttonCancel = v.findViewById(R.id.buttonCancel);
