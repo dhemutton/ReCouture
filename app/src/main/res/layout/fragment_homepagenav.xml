@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="316dp"
+        android:layout_height="217dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/pinkrect"
+        android:contentDescription="@null" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="42dp"
+        android:layout_height="43dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="26dp"
+        app:srcCompat="@drawable/feedicon" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="39dp"
+        android:layout_height="51dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/imageView2"
+        android:layout_marginTop="85dp"
+        app:srcCompat="@drawable/wardrobeicon" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="37dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/imageView2"
+        android:layout_marginTop="157dp"
+        app:srcCompat="@drawable/sign_outicon" />
+
+    <RelativeLayout
+        android:layout_width="174dp"
+        android:layout_height="222dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="67dp">
+
+        <TextView
+            android:id="@+id/feed"
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="81dp"
+            android:layout_marginTop="34dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="View Feed"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textViewAddOutfit"
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="81dp"
+            android:layout_marginTop="160dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Sign Out"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textViewAlbum"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="39dp"
+            android:layout_marginTop="98dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="View My Outfits"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
