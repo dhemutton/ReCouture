@@ -29,6 +29,25 @@
                     android:textColor="#000"
                     android:textSize="20sp" />
 
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    app:srcCompat="@drawable/ic_addpeople" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="30dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginTop="0dp"
+                    android:paddingTop="5dp"
+                    app:srcCompat="@drawable/notif" />
+
             </RelativeLayout>
 
 
