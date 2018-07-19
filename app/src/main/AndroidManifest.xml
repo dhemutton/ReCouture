@@ -41,7 +41,9 @@
             android:name=".Add.AddActivity"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".ShirtGallery.click_shirt_activity" />
-        <activity android:name=".Profile.EditProfileFragment"></activity>
+        <activity android:name=".Profile.EditProfileFragment" />
+        <activity android:name=".ClickItemActivity" />
+        <activity android:name=".utils.BaseActivity" />
     </application>
 
 </manifest>

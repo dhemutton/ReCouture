@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShirtGallery.click_shirt_activity">
+    tools:context=".ShirtGallery.ClickShirt">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         android:layout_alignParentTop="true">
 
         <TextView
-            android:id="@+id/click_postdes2"
+            android:id="@+id/postDesTag"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
             android:layout_alignTop="@+id/textView2"
@@ -60,12 +60,12 @@
             android:layout_width="96dp"
             android:layout_height="34dp"
             android:layout_alignTop="@+id/click_editPost"
-            android:layout_toEndOf="@+id/click_postdes"
+            android:layout_toEndOf="@+id/postDesColor"
             android:background="@drawable/light_pink_rounded"
             android:text="Delete" />
 
         <TextView
-            android:id="@+id/click_postdes"
+            android:id="@+id/postDesColor"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
             android:layout_alignTop="@+id/textView"

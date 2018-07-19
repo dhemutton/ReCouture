@@ -22,7 +22,9 @@ import android.widget.Toast;
 import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.R;
 import com.example.recouture.TagHolder;
+import com.example.recouture.utils.BaseActivity;
 import com.example.recouture.utils.BottomNavigationViewHelper;
+import com.example.recouture.utils.FirebaseHelper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +41,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShirtActivity extends AppCompatActivity {
+public class ShirtActivity extends BaseActivity {
 
     private EmptyRecyclerView mRecyclerViewShirt;
     private DatabaseReference ClickPostRef;
@@ -75,7 +77,7 @@ public class ShirtActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shirts);
+        //setContentView(setView());
         final RelativeLayout deleteNavBar = findViewById(R.id.deleteNavBar);
         cancelDelete = findViewById(R.id.canceldel);
         cancelDelete.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +126,6 @@ public class ShirtActivity extends AppCompatActivity {
 
 
         deleteNavBar.setVisibility(View.INVISIBLE);
-        setupBottomNavigationView();
 
         TextView selectButton = (TextView) findViewById(R.id.selectButton);
         selectButton.setOnClickListener(new View.OnClickListener() {
@@ -166,13 +167,18 @@ public class ShirtActivity extends AppCompatActivity {
 
         mRecyclerViewShirt.setAdapter(shirtAdapter);
 
-        mStorageReference = FirebaseStorage.getInstance().getReference(firebaseUser.getUid());
+        mStorageReference = FirebaseStorage.getInstance().getReference(FirebaseHelper.getUserUid());
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid()).child("Shirts");
 
         mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags/");
 
 
+
+        /*
+        public<T extends Item> ValueEventListener returnListener(DatabaseReference databaseRef, List<? extends Item>)
+
+         */
 
         mDatabaseListener = mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -194,16 +200,21 @@ public class ShirtActivity extends AppCompatActivity {
     }
 
     @Override
+    public int setView() {
+        return R.layout.activity_shirts;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mDatabaseReference.removeEventListener(mDatabaseListener);
     }
 
 
-    private void setupBottomNavigationView() {
-        bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(ShirtActivity.this, bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-    }
+//    private void setupBottomNavigationView() {
+//        bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+//        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+//        BottomNavigationViewHelper.enableNavigation(ShirtActivity.this, bottomNavigationViewEx);
+//        Menu menu = bottomNavigationViewEx.getMenu();
+//    }
 }

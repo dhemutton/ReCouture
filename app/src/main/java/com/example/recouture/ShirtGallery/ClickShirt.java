@@ -46,11 +46,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class click_shirt_activity extends AppCompatActivity {
+public class ClickShirt extends AppCompatActivity {
+
+
+
 
     private ImageView PostImage;
     private TextView PostDescription;
     private Button DeletePostButton, EditPostButton;
+
 
 
     @Override
@@ -59,8 +63,20 @@ public class click_shirt_activity extends AppCompatActivity {
         setContentView(R.layout.activity_click_shirt_activity);
 
         PostImage = (ImageView) findViewById(R.id.post_image);
-        PostDescription = (TextView) findViewById(R.id.click_postdes);
         DeletePostButton = (Button) findViewById(R.id.click_deletePost);
 
     }
+
+
+    private void setupBottomNavigationView(){
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(ClickShirt.this, bottomNavigationViewEx);
+        Menu menu = bottomNavigationViewEx.getMenu();
+    }
+
+
+
+
+
 }
