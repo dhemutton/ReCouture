@@ -52,7 +52,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginBottom="74dp"
             android:layout_marginStart="47dp"
-            android:background="@drawable/light_pink_rounded"
+            android:background="@drawable/addeventrect"
             android:text="Edit" />
 
         <Button
@@ -61,7 +61,7 @@
             android:layout_height="34dp"
             android:layout_alignTop="@+id/click_editPost"
             android:layout_toEndOf="@+id/click_postdes"
-            android:background="@drawable/light_pink_rounded"
+            android:background="@drawable/addeventrect"
             android:text="Delete" />
 
         <TextView
