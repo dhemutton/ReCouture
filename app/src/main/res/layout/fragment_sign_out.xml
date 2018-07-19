@@ -7,11 +7,11 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="319dp"
-        android:layout_height="116dp"
+        android:layout_width="352dp"
+        android:layout_height="131dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/pink_rounded_button" />
+        app:srcCompat="@drawable/darkpinkrect" />
 
     <RelativeLayout
         android:layout_width="314dp"

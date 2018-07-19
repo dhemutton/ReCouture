@@ -6,6 +6,8 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -47,7 +49,8 @@ import java.util.List;
 public class HomepageActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
     private static final int ACTIVITY_NUM = 0;
-
+    private DrawerLayout myDrawer;
+    private ActionBarDrawerToggle myToggle;
 
     private RecyclerView recyclerView;
     private ImageAdapter imageAdapter;
@@ -96,15 +99,6 @@ public class HomepageActivity extends AppCompatActivity {
         setupBottomNavigationView();
         initImageLoader();
 
-        TextView signOut = (TextView) findViewById(R.id.logout);
-        manager = getFragmentManager();
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: navigating back to 'signout fragment'");
-                addFragmentViewSignout();
-            }
-        });
 
         ImageView navmenu = (ImageView) findViewById(R.id.navmenuicon);
         manager = getFragmentManager();
@@ -112,7 +106,8 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: navigating to 'menu dropdown'");
-                addFragmentViewNav();
+                    addFragmentViewNav();
+
             }
         });
 
