@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.recouture.Add.AddActivity;
+import com.example.recouture.Outfit.CreateOutfit;
 import com.example.recouture.R;
 
 import static android.app.Activity.RESULT_OK;
@@ -52,6 +53,16 @@ public class PromptFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 openFileChooser();
+            }
+        });
+
+        textViewAddOutfit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: navigating to create outfit");
+                Intent createOutfit = new Intent(getActivity(), CreateOutfit.class);
+                createOutfit.putExtra("going to create","something");
+                startActivity(createOutfit);
             }
         });
 

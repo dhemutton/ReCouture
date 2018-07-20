@@ -30,6 +30,7 @@
             android:name=".HomePage.HomepageActivity"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".Profile.ProfileActivity" />
+        <activity android:name=".Outfit.CreateOutfit" />
         <activity android:name=".ShirtGallery.ShirtActivity" />
         <activity
             android:name=".Calendar.CalendarActivity"
