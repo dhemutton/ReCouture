@@ -9,11 +9,17 @@ import java.util.List;
 public class Item {
 
     private String mName;
+
     private String mColor;
+
     private String mImageUrl;
+
     private List<TagHolder> tags = new ArrayList<>();
+
     private String mKey;
-    private HashMap<String,TagHolder> tagHolderHashMap = new HashMap<>();
+
+
+
 
     public Item(){
 
@@ -70,16 +76,5 @@ public class Item {
         mKey = key;
     }
 
-   public void putTag(String tag, TagHolder tagHolder) {
-        tagHolderHashMap.put(tag,tagHolder);
-   }
-
-   public TagHolder retrieveTagHolder(String tag) {
-        return tagHolderHashMap.get(tag);
-   }
-
-   public boolean checkContainsKey(String tag) {
-        return tagHolderHashMap.containsKey(tag);
-   }
 
 }

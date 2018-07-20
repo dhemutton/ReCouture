@@ -1,31 +1,19 @@
 
 package com.example.recouture.ShirtGallery;
 
-import android.nfc.Tag;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.recouture.HomePage.HomepageActivity;
+import com.example.recouture.utils.BaseGalleryActivity;
 import com.example.recouture.R;
 import com.example.recouture.TagHolder;
-import com.example.recouture.utils.BaseActivity;
-import com.example.recouture.utils.BottomNavigationViewHelper;
-import com.example.recouture.utils.FirebaseHelper;
-import com.google.android.gms.tasks.OnFailureListener;
+import com.example.recouture.utils.FirebaseMethods;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,19 +24,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShirtActivity extends BaseActivity {
+public class ShirtActivity extends BaseGalleryActivity {
 
     private EmptyRecyclerView mRecyclerViewShirt;
     private DatabaseReference ClickPostRef;
     private FirebaseAuth mAuth;
     private String PostKey, currentUserID, databaseUserID, description, image;
     private DatabaseReference mDatabaseReference;
-    private BottomNavigationViewEx bottomNavigationViewEx;
+   // private BottomNavigationViewEx bottomNavigationViewEx;
 
     private FirebaseUser firebaseUser;
 
@@ -74,9 +61,16 @@ public class ShirtActivity extends BaseActivity {
     // to delete image from storage ref
     private String FIREBASE_IMAGE_STORAGE = "photos/users";
 
+
+    /*
+    how to extract the layout? everything is the same except the header. Set content view for
+    each activity use the same but change profile header title.
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeHeader("Shirts");
         //setContentView(setView());
         final RelativeLayout deleteNavBar = findViewById(R.id.deleteNavBar);
         cancelDelete = findViewById(R.id.canceldel);
@@ -137,7 +131,7 @@ public class ShirtActivity extends BaseActivity {
             }
         });
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        //firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         ImageView backButton = findViewById(R.id.back);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,11 +161,11 @@ public class ShirtActivity extends BaseActivity {
 
         mRecyclerViewShirt.setAdapter(shirtAdapter);
 
-        mStorageReference = FirebaseStorage.getInstance().getReference(FirebaseHelper.getUserUid());
+        mStorageReference = FirebaseStorage.getInstance().getReference(FirebaseMethods.getUserUid());
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid()).child("Shirts");
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Shirts");
 
-        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags/");
+        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid() + "/Tags/");
 
 
 
@@ -200,9 +194,11 @@ public class ShirtActivity extends BaseActivity {
     }
 
     @Override
-    public int setView() {
-        return R.layout.activity_shirts;
+    public void changeHeader(String headerTitle) {
+        TextView textView =  findViewById(R.id.ProfileHeader);
+        textView.setText(headerTitle);
     }
+
 
     @Override
     protected void onDestroy() {

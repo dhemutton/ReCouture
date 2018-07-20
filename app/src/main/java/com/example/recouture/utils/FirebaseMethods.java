@@ -1,8 +1,11 @@
 package com.example.recouture.utils;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class FirebaseHelper {
+public class FirebaseMethods {
+
+    private static FirebaseUser firebaseUser;
 
     /**
      * Helper class that implements firebase methods for use in other activities.
@@ -14,7 +17,10 @@ public class FirebaseHelper {
      * @return the user's unique Uid.
      */
     public static String getUserUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (firebaseUser == null) {
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        }
+        return firebaseUser.getUid();
     }
 
 

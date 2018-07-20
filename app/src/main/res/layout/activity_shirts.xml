@@ -27,7 +27,7 @@
                 android:layout_alignParentTop="true"
                 android:background="@color/pink"
                 android:gravity="center"
-                android:text="Shirts"
+                android:text="Item"
                 android:textSize="24sp" />
 
 

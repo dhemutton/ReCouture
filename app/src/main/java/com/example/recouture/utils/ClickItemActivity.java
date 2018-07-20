@@ -1,7 +1,9 @@
-package com.example.recouture;
+package com.example.recouture.utils;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.recouture.R;
 
 public abstract class ClickItemActivity extends AppCompatActivity {
 
