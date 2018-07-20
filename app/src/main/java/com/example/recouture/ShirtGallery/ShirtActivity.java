@@ -30,7 +30,7 @@ import java.util.List;
 
 public class ShirtActivity extends BaseGalleryActivity {
 
-    private EmptyRecyclerView mRecyclerViewShirt;
+    //private EmptyRecyclerView mRecyclerViewShirt;
     private DatabaseReference ClickPostRef;
     private FirebaseAuth mAuth;
     private String PostKey, currentUserID, databaseUserID, description, image;
@@ -139,15 +139,17 @@ public class ShirtActivity extends BaseGalleryActivity {
                 ShirtActivity.super.onBackPressed();
             }
         });
-        
-        mRecyclerViewShirt = findViewById(R.id.recyclerViewShirt);
 
-        mRecyclerViewShirt.setHasFixedSize(true);
-        mRecyclerViewShirt.setLayoutManager(new GridLayoutManager(ShirtActivity.this,3));
-        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.HORIZONTAL));
-        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL));
+        setUpRecyclerView(this);
+        
+        //mRecyclerViewShirt = findViewById(R.id.recyclerViewShirt);
+
+//        mRecyclerViewShirt.setHasFixedSize(true);
+//        mRecyclerViewShirt.setLayoutManager(new GridLayoutManager(ShirtActivity.this,3));
+//        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(this,
+//                DividerItemDecoration.HORIZONTAL));
+//        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(this,
+//                DividerItemDecoration.VERTICAL));
 
         // need to set adapter
 
