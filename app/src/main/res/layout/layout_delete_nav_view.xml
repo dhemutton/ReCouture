@@ -13,7 +13,7 @@
             android:layout_height="50dp"
             android:layout_alignParentStart="false"
             android:layout_alignParentTop="false"
-            app:srcCompat="@drawable/pink_border_bottom" />
+            android:background="@drawable/pink_border_bottom" />
 
         <TextView
             android:id="@+id/canceldel"
@@ -33,7 +33,7 @@
             android:layout_alignParentTop="true"
             android:paddingTop="7dp"
             android:layout_marginEnd="18dp"
-            app:srcCompat="@drawable/ic_delete" />
+            android:background="@drawable/ic_delete" />
 
 
     </RelativeLayout>
