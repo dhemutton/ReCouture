@@ -1,6 +1,7 @@
 package com.example.recouture.utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +29,10 @@ public abstract class GenericGalleryAdapter<T extends Item,L extends BaseRecycle
 
     private LayoutInflater layoutInflater;
 
+    protected boolean cancel = false;
+
+
+
 
 
 
@@ -44,7 +49,15 @@ public abstract class GenericGalleryAdapter<T extends Item,L extends BaseRecycle
     public void onBindViewHolder(VH holder, int position) {
         T item = items.get(position);
         holder.onBind(item,listener);
+        if (cancel) {
+            holder.itemView.setBackgroundColor(Color.argb(0,0,0,0));
+            if (holder.checkHolder.getVisibility() == View.VISIBLE) {
+                holder.checkHolder.setVisibility(View.INVISIBLE);
+            }
+        }
     }
+
+
 
 
     public int getItemCount() {

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.example.recouture.Item;
 import com.example.recouture.R;
 
-public abstract class BaseViewHolder<T extends Item,L extends BaseRecyclerListener> extends
+public abstract class BaseViewHolder<T,L extends BaseRecyclerListener> extends
         RecyclerView.ViewHolder {
 
     public TextView descriptionText;

@@ -31,6 +31,8 @@ public class ShirtAdapter2 extends GenericGalleryAdapter<Shirt,OnRecyclerClickLi
     }
 
 
+
+
     class Shirt2ViewHolder extends BaseViewHolder<Shirt, OnRecyclerClickListener<Shirt>> {
 
         public Shirt2ViewHolder(View itemView) {
@@ -48,7 +50,7 @@ public class ShirtAdapter2 extends GenericGalleryAdapter<Shirt,OnRecyclerClickLi
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.onItemClicked(view, item);
+                        listener.onItemClicked(view, item,Shirt2ViewHolder.this);
                     }
                 });
             }

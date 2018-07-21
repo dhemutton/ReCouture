@@ -98,7 +98,6 @@ public class ShirtAdapter extends EmptyRecyclerView.Adapter<ShirtAdapter.ShirtVi
                     checkHolder.setVisibility(View.INVISIBLE);
                     isSelected = false;
                 }
-
             }
         }
     }

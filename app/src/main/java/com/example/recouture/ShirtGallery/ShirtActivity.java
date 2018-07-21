@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.recouture.utils.BaseGalleryActivity;
 import com.example.recouture.R;
 import com.example.recouture.TagHolder;
+import com.example.recouture.utils.BaseViewHolder;
 import com.example.recouture.utils.FirebaseMethods;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,7 +73,6 @@ public class ShirtActivity extends BaseGalleryActivity {
         super.onCreate(savedInstanceState);
         changeHeader("Shirts");
         //setContentView(setView());
-        final RelativeLayout deleteNavBar = findViewById(R.id.deleteNavBar);
         cancelDelete = findViewById(R.id.canceldel);
         cancelDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,35 +91,37 @@ public class ShirtActivity extends BaseGalleryActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<Shirt> deletables = shirtAdapter.returnDeletables();
-                for (final Shirt shirt : deletables) {
-                    final String selectedKey = shirt.getKey();
-                    StorageReference shirtStorageReference = mStorageReference.child("Shirts");
-                    StorageReference imageRef = FirebaseStorage.getInstance()
-                            .getReferenceFromUrl(shirt.getmImageUrl());
-                    List<TagHolder> tags = shirt.getTags();
-                    for (TagHolder tagHolder : tags) {
-                        String tagName = tagHolder.getTagName();
-                        final DatabaseReference tagRef = mDatabaseTagRef.child(tagName);
-                        String uniqueKey = tagHolder.getmKey();
-                        if (uniqueKey != null) {
-                            Log.i("ShirtActivity", uniqueKey);
-                        }
-                        tagRef.child(uniqueKey).removeValue();
-                    }
-                    imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            mDatabaseReference.child(selectedKey).removeValue();
-                        }
-                    });
+                FirebaseMethods.deleteGalleryImages(toBeDeleted, mDatabaseReference, mDatabaseTagRef);
                 }
-            }
         });
+//                List<Shirt> deletables = shirtAdapter.returnDeletables();
+//                for (final Shirt shirt : deletables) {
+//                    final String selectedKey = shirt.getKey();
+//                    StorageReference shirtStorageReference = mStorageReference.child("Shirts");
+//                    StorageReference imageRef = FirebaseStorage.getInstance()
+//                            .getReferenceFromUrl(shirt.getmImageUrl());
+//                    List<TagHolder> tags = shirt.getTags();
+//                    for (TagHolder tagHolder : tags) {
+//                        String tagName = tagHolder.getTagName();
+//                        final DatabaseReference tagRef = mDatabaseTagRef.child(tagName);
+//                        String uniqueKey = tagHolder.getmKey();
+//                        if (uniqueKey != null) {
+//                            Log.i("ShirtActivity", uniqueKey);
+//                        }
+//                        tagRef.child(uniqueKey).removeValue();
+//                    }
+//                    imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            mDatabaseReference.child(selectedKey).removeValue();
+//                        }
+//                    });
+//                }
+//            }
+//        });
 
 
 
-        deleteNavBar.setVisibility(View.INVISIBLE);
 
         TextView selectButton = (TextView) findViewById(R.id.selectButton);
         selectButton.setOnClickListener(new View.OnClickListener() {
@@ -205,6 +207,11 @@ public class ShirtActivity extends BaseGalleryActivity {
     protected void onDestroy() {
         super.onDestroy();
         mDatabaseReference.removeEventListener(mDatabaseListener);
+    }
+
+    @Override
+    public void onItemClicked(View itemView, Object item, BaseViewHolder baseViewHolder) {
+
     }
 
 

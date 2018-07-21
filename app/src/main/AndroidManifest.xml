@@ -45,7 +45,7 @@
         <activity android:name=".Profile.EditProfileFragment" />
         <activity android:name=".utils.ClickItemActivity" />
         <activity android:name=".utils.BaseActivity" />
-        <activity android:name=".utils.BaseGalleryActivity"></activity>
+        <activity android:name=".utils.BaseGalleryActivity" />
     </application>
 
 </manifest>
