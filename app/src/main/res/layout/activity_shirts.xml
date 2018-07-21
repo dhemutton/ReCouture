@@ -48,7 +48,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="8dp"
                 android:paddingTop="10dp"
-                app:srcCompat="@drawable/ic_arrow_back" />
+                android:src="@drawable/ic_arrow_back" />
 
         </RelativeLayout>
 

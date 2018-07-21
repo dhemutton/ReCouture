@@ -40,26 +40,13 @@ public abstract class BaseGalleryActivity<T> extends BaseActivity implements OnR
 
     protected List<T> toBeDeleted = new ArrayList<>();
 
-    protected GenericGalleryAdapter genericGalleryAdapter;
-
     protected ImageView delete;
 
+    protected TextView selectButton;
 
-//    public void onClick(View view) {
-//        if (isDeletable) {
-//            if (!isSelected) {
-//                toBeDeleted.add(shirts.get(getAdapterPosition()));
-//                itemView.setBackgroundColor(Color.argb(50,0,0,0));
-//                checkHolder.setVisibility(View.VISIBLE);
-//                isSelected = true;
-//            } else {
-//                toBeDeleted.remove(shirts.get(getAdapterPosition()));
-//                itemView.setBackgroundColor(Color.argb(0,0,0,0));
-//                checkHolder.setVisibility(View.INVISIBLE);
-//                isSelected = false;
-//            }
-//
-//        }
+    protected ImageView backButton;
+
+
 
     public void onItemClicked(View itemView, T item,BaseViewHolder baseViewHolder) {
         if (isDeletable) {
@@ -87,15 +74,28 @@ public abstract class BaseGalleryActivity<T> extends BaseActivity implements OnR
         cancelDelete = findViewById(R.id.canceldel);
         deleteNavBar.setVisibility(View.INVISIBLE);
 
-////        cancelDelete.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-////                helperCancelDelete(genericGalleryAdapter);
-//            }
-//        });
+
+
+       selectButton = (TextView) findViewById(R.id.selectButton);
+       selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationViewEx.setVisibility(View.INVISIBLE);
+                deleteNavBar.setVisibility(View.VISIBLE);
+                isDeletable = true;
+            }
+        });
+
+        backButton = findViewById(R.id.back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseGalleryActivity.super.onBackPressed();
+            }
+        });
     }
 
-    private void helperCancelDelete(GenericGalleryAdapter galleryAdapter) {
+    protected void helperCancelDelete(GenericGalleryAdapter galleryAdapter) {
         bottomNavigationViewEx.setVisibility(View.VISIBLE);
         deleteNavBar.setVisibility(View.INVISIBLE);
         toBeDeleted.clear();
@@ -106,14 +106,6 @@ public abstract class BaseGalleryActivity<T> extends BaseActivity implements OnR
 
 
 
-//         deleteNavBar.setVisibility(View.INVISIBLE);
-//                bottomNavigationViewEx.setVisibility(View.VISIBLE);
-//                shirtAdapter.clearDeletables();
-//                shirtAdapter.setDeletable(false);
-//                shirtAdapter.cancelSelection(true);
-//                shirtAdapter.notifyDataSetChanged();
-//
-
 
     public abstract void changeHeader(String headerTitle);
 
@@ -121,9 +113,9 @@ public abstract class BaseGalleryActivity<T> extends BaseActivity implements OnR
         mRecyclerViewShirt = findViewById(R.id.recyclerViewShirt);
         mRecyclerViewShirt.setHasFixedSize(true);
         mRecyclerViewShirt.setLayoutManager(new GridLayoutManager(context,3));
-        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(this,
+        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(context,
                 DividerItemDecoration.HORIZONTAL));
-        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(this,
+        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(context,
                 DividerItemDecoration.VERTICAL));
         mRecyclerViewShirt.setEmptyView(findViewById(R.id.empty_view));
     }
@@ -132,20 +124,5 @@ public abstract class BaseGalleryActivity<T> extends BaseActivity implements OnR
     public int setView() {
         return R.layout.activity_shirts;
     }
-
-
-//    final RelativeLayout deleteNavBar = findViewById(R.id.deleteNavBar);
-//    cancelDelete = findViewById(R.id.canceldel);
-//        cancelDelete.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//            deleteNavBar.setVisibility(View.INVISIBLE);
-//            bottomNavigationViewEx.setVisibility(View.VISIBLE);
-//            shirtAdapter.clearDeletables();
-//            shirtAdapter.setDeletable(false);
-//            shirtAdapter.cancelSelection(true);
-//            shirtAdapter.notifyDataSetChanged();
-//        }
-//    });
 
 }

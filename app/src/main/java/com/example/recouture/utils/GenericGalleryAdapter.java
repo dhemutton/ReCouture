@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class GenericGalleryAdapter<T extends Item,L extends BaseRecyclerListener,VH extends BaseViewHolder<T,L>>
+public abstract class GenericGalleryAdapter<T,L extends BaseRecyclerListener,VH extends BaseViewHolder<T,L>>
         extends RecyclerView.Adapter<VH> {
 
     private List<T> items;
@@ -88,7 +88,7 @@ public abstract class GenericGalleryAdapter<T extends Item,L extends BaseRecycle
             throw new IllegalArgumentException("Cannot add null item to Recycler adapter");
         }
         items.add(item);
-        notifyItemInserted(items.size() - 1);
+        //notifyItemInserted(items.size() - 1);
     }
 
     public void addAll(List<T> items) {
