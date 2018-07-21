@@ -159,7 +159,6 @@ public class ShirtActivity extends BaseGalleryActivity {
 
         shirtAdapter = new ShirtAdapter(this,mShirtList);
 
-        mRecyclerViewShirt.setEmptyView(findViewById(R.id.empty_view));
 
         mRecyclerViewShirt.setAdapter(shirtAdapter);
 

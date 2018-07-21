@@ -14,6 +14,9 @@ import com.example.recouture.utils.BaseViewHolder;
 import com.example.recouture.utils.GenericGalleryAdapter;
 import com.example.recouture.utils.OnRecyclerClickListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShirtAdapter2 extends GenericGalleryAdapter<Shirt,OnRecyclerClickListener<Shirt>,ShirtAdapter2.Shirt2ViewHolder> {
 
 
@@ -24,6 +27,7 @@ public class ShirtAdapter2 extends GenericGalleryAdapter<Shirt,OnRecyclerClickLi
     @Override
     public Shirt2ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new Shirt2ViewHolder(inflate(R.layout.single_item_shirt, parent));
+
     }
 
 

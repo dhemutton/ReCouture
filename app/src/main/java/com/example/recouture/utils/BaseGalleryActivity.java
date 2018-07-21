@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.EmptyRecyclerView;
@@ -16,10 +19,29 @@ public abstract class BaseGalleryActivity extends BaseActivity {
 
     protected EmptyRecyclerView mRecyclerViewShirt;
 
+    protected RelativeLayout deleteNavBar;
+
+    protected TextView cancelDelete;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(setView());
+
+//        deleteNavBar = findViewById(R.id.deleteNavBar);
+//        cancelDelete = findViewById(R.id.canceldel);
+//
+//        cancelDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//               // helperDelete()
+//            }
+//        });
         super.onCreate(savedInstanceState);
+    }
+
+    private void helperDelete(GenericGalleryAdapter galleryAdapter) {
+
     }
 
 
@@ -33,6 +55,7 @@ public abstract class BaseGalleryActivity extends BaseActivity {
                 DividerItemDecoration.HORIZONTAL));
         mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
+        mRecyclerViewShirt.setEmptyView(findViewById(R.id.empty_view));
     }
 
     @Override
@@ -41,6 +64,18 @@ public abstract class BaseGalleryActivity extends BaseActivity {
     }
 
 
-
+//    final RelativeLayout deleteNavBar = findViewById(R.id.deleteNavBar);
+//    cancelDelete = findViewById(R.id.canceldel);
+//        cancelDelete.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            deleteNavBar.setVisibility(View.INVISIBLE);
+//            bottomNavigationViewEx.setVisibility(View.VISIBLE);
+//            shirtAdapter.clearDeletables();
+//            shirtAdapter.setDeletable(false);
+//            shirtAdapter.cancelSelection(true);
+//            shirtAdapter.notifyDataSetChanged();
+//        }
+//    });
 
 }

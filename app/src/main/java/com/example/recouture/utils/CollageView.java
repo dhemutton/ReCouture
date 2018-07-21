@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-public class CollageView extends ImageView {
+public class CollageView extends android.support.v7.widget.AppCompatImageView {
 
     private static final int PADDING = 8;
     private static final float STROKE_WIDTH = 8.0f;
