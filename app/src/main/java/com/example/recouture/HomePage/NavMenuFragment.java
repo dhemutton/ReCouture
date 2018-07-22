@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.recouture.Outfit.ViewOutfits;
 import com.example.recouture.R;
 
 import android.content.Intent;
@@ -61,7 +62,20 @@ public class NavMenuFragment extends Fragment {
 */
 
 
-        //SIGN OUT
+        //View Outfits
+        Button viewoutfits = (Button) view.findViewById(R.id.button3);
+        manager = getFragmentManager();
+        viewoutfits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: navigating back to 'outfit'");
+                Intent viewOutfit = new Intent(getActivity(), ViewOutfits.class);
+                viewOutfit.putExtra("going to create","something");
+                startActivity(viewOutfit);
+            }
+        });
+
+
         //SIGN OUT
         Button signOut = (Button) view.findViewById(R.id.button4);
         manager = getFragmentManager();

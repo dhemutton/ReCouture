@@ -46,7 +46,8 @@
         <activity android:name=".utils.ClickItemActivity" />
         <activity android:name=".utils.BaseActivity" />
         <activity android:name=".utils.BaseGalleryActivity" />
-        <activity android:name=".Outfit.ViewOutfits"></activity>
+        <activity android:name=".Outfit.ViewOutfits" />
+        <activity android:name=".Outfit.Click_Outfit"></activity>
     </application>
 
 </manifest>

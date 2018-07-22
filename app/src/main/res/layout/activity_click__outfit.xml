@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShirtGallery.ClickShirt">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/pink_border_bottom"
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profileToolBar">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/postDesTag"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:text="Post Description" />
+
+        <ImageView
+            android:id="@+id/emptyimage"
+            android:layout_width="match_parent"
+            android:layout_height="259dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="69dp"
+            app:srcCompat="@drawable/ic_emptyimage" />
+
+        <Button
+            android:id="@+id/click_editPost"
+            android:layout_width="98dp"
+            android:layout_height="36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="74dp"
+            android:layout_marginStart="47dp"
+            android:background="@drawable/addeventrect"
+            android:text="Edit" />
+
+        <Button
+            android:id="@+id/click_deletePost"
+            android:layout_width="96dp"
+            android:layout_height="34dp"
+            android:layout_alignTop="@+id/click_editPost"
+            android:layout_toEndOf="@+id/postDesColor"
+            android:background="@drawable/addeventrect"
+            android:text="Delete" />
+
+        <TextView
+            android:id="@+id/postDesColor"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_alignTop="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:text="Post Description" />
+
+        <TextView
+            android:id="@+id/picturename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="picture name" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView2"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="200dp"
+            android:text="Colours:" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/click_editPost"
+            android:layout_marginBottom="149dp"
+            android:text="Style Tags:" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
