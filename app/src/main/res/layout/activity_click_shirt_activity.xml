@@ -12,6 +12,17 @@
             android:background="@drawable/pink_border_bottom"
             >
 
+            <TextView
+                android:id="@+id/picturename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="12dp"
+                android:text="-picture name-"
+                android:gravity="center_horizontal"
+                android:textSize="24sp"
+                tools:layout_centerHorizontal="false" />
+
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,12 +38,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
-        <TextView
+        <EditText
             android:id="@+id/postDesTag"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
-            android:layout_alignTop="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
             android:layout_centerHorizontal="true"
+            android:background="@null"
             android:text="Post Description" />
 
         <ImageView
@@ -64,22 +76,14 @@
             android:background="@drawable/addeventrect"
             android:text="Delete" />
 
-        <TextView
+        <EditText
             android:id="@+id/postDesColor"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
-            android:layout_alignTop="@+id/textView"
+            android:layout_alignBottom="@+id/textView"
             android:layout_centerHorizontal="true"
+            android:background="@null"
             android:text="Post Description" />
-
-        <TextView
-            android:id="@+id/picturename"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="-picture name-" />
 
         <TextView
             android:id="@+id/textView"

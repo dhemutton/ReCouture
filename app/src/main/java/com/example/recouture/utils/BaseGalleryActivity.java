@@ -1,6 +1,7 @@
 package com.example.recouture.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,8 +28,10 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseGalleryActivity<T> extends BaseActivity implements OnRecyclerClickListener<T> {
+public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity implements OnRecyclerClickListener<T> {
 
+
+    private static final String TAG = "BaseGalleryActivity";
 
     protected EmptyRecyclerView mRecyclerViewShirt;
 
@@ -48,6 +51,8 @@ public abstract class BaseGalleryActivity<T> extends BaseActivity implements OnR
 
 
 
+
+
     public void onItemClicked(View itemView, T item,BaseViewHolder baseViewHolder) {
         if (isDeletable) {
             if (!baseViewHolder.isSelected) {
@@ -61,6 +66,16 @@ public abstract class BaseGalleryActivity<T> extends BaseActivity implements OnR
                 baseViewHolder.checkHolder.setVisibility(View.INVISIBLE);
                 baseViewHolder.isSelected = false;
             }
+        } else {
+            Log.i(TAG,"called itemCLick");
+            Intent intent = new Intent(getApplicationContext(),ClickItemActivity.class);
+            intent.putExtra("itemName",item.getmName());
+            intent.putExtra("item",item);
+            intent.putParcelableArrayListExtra("tagHolders",(ArrayList)item.getTags());
+            intent.putExtra("firebaseRef",item.getCategory());
+            intent.putExtra("color",item.getmColor());
+            intent.putExtra("imageUri",item.getmImageUrl());
+            getApplicationContext().startActivity(intent);
         }
     }
 
