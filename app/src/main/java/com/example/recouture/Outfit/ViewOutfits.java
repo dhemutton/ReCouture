@@ -1,18 +1,15 @@
 package com.example.recouture.Outfit;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 import com.example.recouture.R;
-import com.example.recouture.ShirtGallery.ShirtAdapter2;
-import com.example.recouture.utils.BaseGalleryActivity;
-import com.example.recouture.utils.FirebaseMethods;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
+<<<<<<< HEAD
 
 //public class ViewOutfits extends BaseGalleryActivity<Outfit> {
 //
@@ -74,3 +71,25 @@ import com.google.firebase.database.ValueEventListener;
 //        mDatabaseReference.removeEventListener(mDatabaseListener);
 //    }
 //}
+=======
+public class ViewOutfits extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_viewoufits);
+
+        GridView gridView = (GridView) findViewById(R.id.gridView);
+        gridView.setAdapter(new ImageAdapter(this));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getApplicationContext(), Click_Outfit.class);
+                i.putExtra("id", position);
+                startActivity(i);
+            }
+        });
+    }
+
+}
+>>>>>>> 8bb5964ee4426673833ac467f76004392a8ea9eb
