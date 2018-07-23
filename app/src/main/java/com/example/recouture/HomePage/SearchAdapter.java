@@ -4,6 +4,7 @@ import android.content.Context;
 import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewHolder> {
 
+    private static final String TAG = "SearchAdapter";
     Context context;
     List<TagHolder> tagHolders;
 
@@ -44,6 +46,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewH
         Glide.with(context)
                 .load(tagHolder.getDownloadImageUri())
                 .into(holder.imageView);
+        Log.i(TAG,"object " + tagHolder);
+        Log.i(TAG,"downloadUri " + tagHolder.getDownloadImageUri());
+        Log.i(TAG,"name " + tagHolder.getName());
 
     }
 

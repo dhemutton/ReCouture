@@ -159,8 +159,12 @@ public class HomepageActivity extends AppCompatActivity {
             tagHolders.clear();
             if (dataSnapshot.exists()) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    TagHolder tags = dataSnapshot1.getValue(TagHolder.class);
-                    tagHolders.add(tags);
+
+                    for (DataSnapshot childSnapshot : dataSnapshot1.getChildren()) {
+                        TagHolder tags = childSnapshot.getValue(TagHolder.class);
+                        Log.i(TAG,"tags " + tags);
+                        tagHolders.add(tags);
+                    }
                 }
                 searchAdapter.notifyDataSetChanged();
             }
