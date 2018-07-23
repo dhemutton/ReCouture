@@ -22,7 +22,7 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/planned"
                 android:layout_width="208dp"
                 android:layout_height="285dp"
                 android:layout_alignParentTop="true"
