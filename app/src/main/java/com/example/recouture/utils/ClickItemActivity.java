@@ -3,6 +3,8 @@ package com.example.recouture.utils;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.provider.ContactsContract;
+import android.service.autofill.Dataset;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,11 +14,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.recouture.Item;
 import com.example.recouture.R;
 import com.example.recouture.TagHolder;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,14 +54,12 @@ public class ClickItemActivity extends BaseActivity {
     DatabaseReference mDatabaseTagRef;
 
 
-
-
-
     /**
      * This class will implement all common UI when a user clicks an item in a gallery.
      * Common features include the layout, the edit and delete function. As well as a base activity
      * to extend the bottom nav bar UI.
-     * What do i need when i delete. -> DatabaseReference and StorageReference. 
+     * What do i need when i delete. -> DatabaseReference and StorageReference.
+     *
      * @param savedInstanceState
      */
 
@@ -69,9 +72,9 @@ public class ClickItemActivity extends BaseActivity {
         Intent intent = getIntent();
         //tagHolders = intent.getParcelableArrayListExtra("tagHolders");
         String color = intent.getExtras().getString("color");
-        String itemName = intent.getExtras().getString("itemName");
-        String imageUri = intent.getExtras().getString("imageUri");
-        String firebaseRef = intent.getExtras().getString("firebaseRef");
+        final String itemName = intent.getExtras().getString("itemName");
+        final String imageUri = intent.getExtras().getString("imageUri");
+        final String firebaseRef = intent.getExtras().getString("firebaseRef");
         final Item item = intent.getExtras().getParcelable("item");
         tagHolders = item.getTags();
 
@@ -83,11 +86,13 @@ public class ClickItemActivity extends BaseActivity {
         mDatabaseItemReference = FirebaseDatabase.getInstance().getReference().child(FirebaseMethods.getUserUid()).child(firebaseRef).child(item.getKey());
 
         //tag reference if want to access inner tags.
-        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference().child("Tags");
+        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference().child(FirebaseMethods.getUserUid()).child("Tags");
 
         StringBuilder stringBuilder = new StringBuilder();
         for (TagHolder tagHolder : tagHolders) {
-            stringBuilder.append(tagHolder.getName() + ",");
+            Log.i(TAG,"tagHolder old name " + tagHolder.getTagName());
+
+            stringBuilder.append(tagHolder.getTagName() + ",");
         }
         stringBuilder.setLength(stringBuilder.length() - 1);
         postDesTag.setText(stringBuilder.toString());
@@ -95,46 +100,81 @@ public class ClickItemActivity extends BaseActivity {
         clickEditPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i(TAG,"ClickEdit");
+                Log.i(TAG, "ClickEdit");
                 String textStyle = postDesTag.getText().toString().trim();
                 String newColor = postDesColor.getText().toString().trim();
 
                 mDatabaseItemReference.child("mColor").setValue(newColor);
 
-                final List<TagInfo> tagInfos = new ArrayList<>();
 
-                mDatabaseItemReference.child("tags").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-                            TagHolder tagHolder = childSnapShot.getValue(TagHolder.class);
-                            TagInfo tagInfo = new TagInfo(tagHolder.getTagName(),tagHolder.getmKey());
-                            tagInfos.add(tagInfo);
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                //remove tags from Tags databaseRef
+                for (final TagHolder tagHolder : tagHolders) {
+                    Log.i(TAG,"tagHolder old name " + tagHolder.getTagName());
+                    mDatabaseTagRef
+                            .child(tagHolder.getTagName())
+                            .addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    // loop through each unique key associated with the tag name
+                                    Log.i(TAG,"ref " + dataSnapshot.getRef());
+                                    for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
 
-                    }
-                });
-                for (TagInfo tagInfo : tagInfos) {
-                    mDatabaseTagRef.child(tagInfo.tagName).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-                                TagHolder tagHolder = childSnapShot.getValue(TagHolder.class);
-                            }
-                        }
+                                        TagHolder tempTagHolder = childSnapShot.getValue(TagHolder.class);
+                                        if (tempTagHolder.getmKey().equals(tagHolder.getmKey())) {
+                                            childSnapShot.getRef().removeValue();
+                                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                }
 
-                        }
-                    })
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                 }
 
+                // set new tags to item tags and Tags holder tag
+                String[] strings = textStyle.split(",");
+                List<TagHolder> newTagHolders = new ArrayList<>();
+                for (String newTagName : strings) {
+                    TagHolder newTagHolder = new TagHolder(itemName,imageUri,
+                            newTagName);
+                    newTagHolders.add(newTagHolder);
+                    DatabaseReference tempDatabaseTagRef =
+                            mDatabaseTagRef
+                                    .child(newTagName);
+                    String uniqueId = tempDatabaseTagRef.push().getKey();
+                    tempDatabaseTagRef.child(uniqueId).setValue(newTagHolder);
+                }
+                //item.setTags(newTagHolders);
+                mDatabaseItemReference.child("tags").setValue(newTagHolders).addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(ClickItemActivity.this,"why ....." , Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Log.i(TAG,"Ref is at " + mDatabaseItemReference.child("tags"));
+                //Toast.makeText(ClickItemActivity.this,"done with editing",Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        clickDeletePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Item> deleteItemList = new ArrayList<>();
+                deleteItemList.add(item);
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child(firebaseRef);
+                FirebaseMethods.deleteGalleryImages(deleteItemList,databaseReference,mDatabaseTagRef);
+                finish();
             }
         });
     }
@@ -153,23 +193,4 @@ public class ClickItemActivity extends BaseActivity {
     public int setView() {
         return R.layout.activity_click_shirt_activity;
     }
-
-
-
-}
-
-class TagInfo {
-
-    public String tagName;
-
-    public String mKey;
-
-    public String newTagName;
-
-    public TagInfo(String tagName, String mKey) {
-        this.tagName = tagName;
-        this.mKey = mKey;
-    }
-
-
 }
