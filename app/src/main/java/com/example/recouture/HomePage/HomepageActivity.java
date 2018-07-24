@@ -42,6 +42,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.recouture.utils.BottomNavigationViewHelper;
@@ -60,7 +61,11 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
 
     private final int REQUEST_CODE = 1;
 
+    private BottomNavigationViewEx bottomNavigationViewEx;
+
     private List<Item> itemOutfits;
+
+    private TextView doneOutfits;
 
 
     private boolean chooseOutfit;
@@ -109,6 +114,20 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
         setContentView(R.layout.activity_home_2);
         Log.d(TAG, "onCreate: starting.");
 
+        RelativeLayout relativeLayout = findViewById(R.id.outfitDone);
+        relativeLayout.setVisibility(View.INVISIBLE);
+
+        doneOutfits = findViewById(R.id.doneOutfit);
+
+        doneOutfits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
         setupBottomNavigationView();
         initImageLoader();
 
@@ -116,6 +135,9 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
 
         if (getIntent().hasExtra("chooseOutfits")) {
             chooseOutfit = getIntent().getExtras().getBoolean("chooseOutfits"); // should return true
+            assert chooseOutfit;
+            relativeLayout.setVisibility(View.VISIBLE);
+            bottomNavigationViewEx.setVisibility(View.INVISIBLE);
         }
 
 
@@ -204,7 +226,7 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
 
     private void setupBottomNavigationView(){
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(HomepageActivity.this, bottomNavigationViewEx);
         Menu menu = bottomNavigationViewEx.getMenu();
@@ -350,5 +372,13 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
             itemOutfits.addAll(arrayList);
             Log.i(TAG,"items " + itemOutfits);
         }
+    }
+
+    @Override
+    public void finish() {
+        Intent data = new Intent();
+        data.putParcelableArrayListExtra("outfits", (ArrayList)itemOutfits);
+        setResult(RESULT_OK, data);
+        super.finish();
     }
 }

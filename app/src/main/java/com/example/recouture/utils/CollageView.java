@@ -18,6 +18,8 @@ public class CollageView extends android.support.v7.widget.AppCompatImageView {
         this(context, null);
     }
 
+
+
     public CollageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
         setPadding(PADDING, PADDING, PADDING, PADDING);
@@ -41,4 +43,5 @@ public class CollageView extends android.support.v7.widget.AppCompatImageView {
         super.onDraw(canvas);
         canvas.drawRect(PADDING, PADDING, getWidth() - PADDING, getHeight() - PADDING, mBorderPaint);
     }
+
 }

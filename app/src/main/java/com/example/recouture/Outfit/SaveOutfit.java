@@ -129,9 +129,9 @@ public class SaveOutfit extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    Outfit outfit = new Outfit(name, uri.toString());
+                                    //Outfit outfit = new Outfit(name, uri.toString());
                                     String uploadId = databaseRef.push().getKey();
-                                    databaseRef.child(uploadId).setValue(outfit);
+                                    //databaseRef.child(uploadId).setValue(outfit);
 
                                 }
                             });

@@ -22,8 +22,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.recouture.Calendar.ViewPlanned;
 import com.example.recouture.HomePage.HomepageActivity;
+import com.example.recouture.Item;
+import com.example.recouture.utils.CollageView;
 import com.example.recouture.utils.MultiTouchListener;
 
 import com.example.recouture.R;
@@ -34,6 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.List;
 
 
 public class CreateOutfit extends AppCompatActivity {
@@ -59,7 +63,28 @@ public class CreateOutfit extends AppCompatActivity {
     private RelativeLayout toMakeInvi;
     private String mSelectedImage;
 
+    private final int OUTFIT_REQUEST_CODE = 2;
 
+    private List<Item> itemList;
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == OUTFIT_REQUEST_CODE && resultCode == RESULT_OK) {
+            List<Item> outfits = data.getExtras().getParcelableArrayList("outfits");
+            //itemList = outfits;
+            Log.i(TAG,"outfits " + outfits);
+            for (Item item : outfits) {
+                CollageView collageView = new CollageView(this);
+                Glide.with(this).load(item.getmImageUrl()).into(collageView);
+                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(300,300);
+                layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                collageView.setLayoutParams(layoutParams);
+                rootContent.addView(collageView);
+                collageView.setOnTouchListener(new MultiTouchListener());
+            }
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,7 +110,7 @@ public class CreateOutfit extends AppCompatActivity {
                 Intent intent = new Intent(CreateOutfit.this, HomepageActivity.class);
                 Log.d(TAG, "going to homepage to select clothes");
                 intent.putExtra("chooseOutfits",true);
-                startActivity(intent);
+                startActivityForResult(intent,OUTFIT_REQUEST_CODE);
             }
         });
 
@@ -99,10 +124,13 @@ public class CreateOutfit extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.collageView1).setOnTouchListener(new MultiTouchListener());
-        findViewById(R.id.collageView2).setOnTouchListener(new MultiTouchListener());
-        findViewById(R.id.collageView3).setOnTouchListener(new MultiTouchListener());
-        findViewById(R.id.collageView4).setOnTouchListener(new MultiTouchListener());
+//        findViewById(R.id.collageView1).setOnTouchListener(new MultiTouchListener());
+//        findViewById(R.id.collageView2).setOnTouchListener(new MultiTouchListener());
+//        findViewById(R.id.collageView3).setOnTouchListener(new MultiTouchListener());
+//        findViewById(R.id.collageView4).setOnTouchListener(new MultiTouchListener());
+
+
+
     }
 
 

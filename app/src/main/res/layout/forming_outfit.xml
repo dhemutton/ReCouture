@@ -29,38 +29,6 @@
             android:layout_alignParentTop="true" />
 
 
-        <com.example.recouture.utils.CollageView
-            android:id="@+id/collageView1"
-            android:layout_width="272dp"
-            android:layout_height="245dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/daffodils" />
-
-        <com.example.recouture.utils.CollageView
-            android:id="@+id/collageView2"
-            android:layout_width="275dp"
-            android:layout_height="172dp"
-            android:layout_alignBottom="@+id/collageView3"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/green" />
-
-        <com.example.recouture.utils.CollageView
-            android:id="@+id/collageView3"
-            android:layout_width="230dp"
-            android:layout_height="214dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/hawaii" />
-
-        <com.example.recouture.utils.CollageView
-            android:id="@+id/collageView4"
-            android:layout_width="222dp"
-            android:layout_height="233dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="118dp"
-            android:src="@drawable/sunset" />
 
         <!--  ImageView to show taken Screenshot  -->
 
