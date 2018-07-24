@@ -7,8 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -54,7 +53,8 @@
         <activity android:name=".Outfit.Click_Outfit" />
         <activity android:name=".Calendar.ViewPlanned" />
         <activity android:name=".Outfit.PlanOutfit" />
-        <activity android:name=".Outfit.ConfirmPlan"></activity>
+        <activity android:name=".Outfit.ConfirmPlan" />
+        <activity android:name=".Outfit.SaveOutfit"></activity>
     </application>
 
 </manifest>

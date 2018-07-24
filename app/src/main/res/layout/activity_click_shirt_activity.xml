@@ -72,12 +72,12 @@
             android:layout_width="96dp"
             android:layout_height="34dp"
             android:layout_alignTop="@+id/click_editPost"
-            android:layout_toEndOf="@+id/postDesColor"
+            android:layout_toEndOf="@+id/editname"
             android:background="@drawable/addeventrect"
             android:text="Delete" />
 
         <EditText
-            android:id="@+id/postDesColor"
+            android:id="@+id/editname"
             android:layout_width="wrap_content"
             android:layout_height="29dp"
             android:layout_alignBottom="@+id/textView"

@@ -1,13 +1,16 @@
 package com.example.recouture.Outfit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +30,7 @@ import com.example.recouture.R;
 import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
@@ -38,9 +42,10 @@ public class CreateOutfit extends AppCompatActivity {
     private static final int ACTIVITY_NUM = 2;
     private ImageView addMore;
     private TextView done;
-    private ImageView imageView;
     private RelativeLayout rootContent;
     private RelativeLayout toMakeInvi;
+    private String mSelectedImage;
+
 
 
     @Override
@@ -50,7 +55,6 @@ public class CreateOutfit extends AppCompatActivity {
         Log.d(TAG, "onCreate: started");
         addMore = (ImageView) findViewById(R.id.addmore);
         done = (TextView) findViewById(R.id.donetext);
-        imageView = (ImageView) findViewById(R.id.image_view);
         rootContent = (RelativeLayout) findViewById(R.id.root_content);
         toMakeInvi = (RelativeLayout) findViewById(R.id.relLayout1);
 
@@ -91,16 +95,30 @@ public class CreateOutfit extends AppCompatActivity {
     private void takeScreenshot() {
         Log.d(TAG, "attempting screenshot");
         toMakeInvi.setVisibility(View.INVISIBLE);
-        imageView.setVisibility(View.INVISIBLE);
         Bitmap b = null;
         b = ScreenshotUtils.getScreenShot(rootContent);
-        showScreenShotImage(b);//show bitmap over imageview
 
+
+        Intent intent = new Intent(CreateOutfit.this, SaveOutfit.class);
+        String file = createImageFromBitmap(b);
+        intent.putExtra("myImage", file);
+        startActivity(intent);
     }
 
-    private void showScreenShotImage(Bitmap b) {
-        imageView.setImageBitmap(b);
-        imageView.setVisibility(View.VISIBLE);
+    public String createImageFromBitmap(Bitmap bitmap) {
+        String fileName = "myImage";//no .png or .jpg needed
+        try {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            FileOutputStream fo = openFileOutput(fileName, Context.MODE_PRIVATE);
+            fo.write(bytes.toByteArray());
+            // remember close file output
+            fo.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fileName = null;
+        }
+        return fileName;
     }
-    
+
 }
