@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.recouture.Item;
 import com.example.recouture.R;
@@ -25,15 +26,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity implements OnRecyclerClickListener<T> {
 
 
+    /*
+    Override finish() method. then get extras, if extras is not null we have a choose outfit boolean.
+
+     */
+
+
+
+    private boolean chooseOutfits = false;
+
+
     private static final String TAG = "BaseGalleryActivity";
 
-    protected EmptyRecyclerView mRecyclerViewShirt;
+    protected EmptyRecyclerView mRecyclerView;
 
     protected RelativeLayout deleteNavBar;
 
@@ -41,7 +53,7 @@ public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity i
 
     protected boolean isDeletable = false;
 
-    protected List<T> toBeDeleted = new ArrayList<>();
+    protected List<T> toBeDeletedOrChosen = new ArrayList<>();
 
     protected ImageView delete;
 
@@ -50,18 +62,25 @@ public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity i
     protected ImageView backButton;
 
 
+    @Override
+    public void finish() {
+        if (chooseOutfits) {
+            Intent data = new Intent();
+            data.putParcelableArrayListExtra("outfits", (ArrayList)toBeDeletedOrChosen);
+            setResult(RESULT_OK, data);
+        }
+        super.finish();
+    }
 
-
-
-    public void onItemClicked(View itemView, T item,BaseViewHolder baseViewHolder) {
-        if (isDeletable) {
+    public void onItemClicked(View itemView, T item, BaseViewHolder baseViewHolder) {
+        if (isDeletable || chooseOutfits) {
             if (!baseViewHolder.isSelected) {
-                toBeDeleted.add(item);
+                toBeDeletedOrChosen.add(item);
                 itemView.setBackgroundColor(Color.argb(50, 0, 0, 0));
                 baseViewHolder.checkHolder.setVisibility(View.VISIBLE);
                 baseViewHolder.isSelected = true;
             } else {
-                toBeDeleted.remove(item);
+                toBeDeletedOrChosen.remove(item);
                 itemView.setBackgroundColor(Color.argb(0, 0, 0, 0));
                 baseViewHolder.checkHolder.setVisibility(View.INVISIBLE);
                 baseViewHolder.isSelected = false;
@@ -79,6 +98,8 @@ public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity i
         }
     }
 
+    // add a button for confirming list of items chosen.
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,15 +110,22 @@ public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity i
         cancelDelete = findViewById(R.id.canceldel);
         deleteNavBar.setVisibility(View.INVISIBLE);
 
+        if (getIntent().hasExtra("chooseOutfits")) {
+            chooseOutfits = getIntent().getExtras().getBoolean("chooseOutfits");
+        }
 
 
        selectButton = (TextView) findViewById(R.id.selectButton);
        selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomNavigationViewEx.setVisibility(View.INVISIBLE);
-                deleteNavBar.setVisibility(View.VISIBLE);
-                isDeletable = true;
+                if (!chooseOutfits) {
+                    bottomNavigationViewEx.setVisibility(View.INVISIBLE);
+                    deleteNavBar.setVisibility(View.VISIBLE);
+                    isDeletable = true;
+                } else {
+                    Toast.makeText(BaseGalleryActivity.this,"choose outfit now ",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -113,7 +141,7 @@ public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity i
     protected void helperCancelDelete(GenericGalleryAdapter galleryAdapter) {
         bottomNavigationViewEx.setVisibility(View.VISIBLE);
         deleteNavBar.setVisibility(View.INVISIBLE);
-        toBeDeleted.clear();
+        toBeDeletedOrChosen.clear();
         isDeletable = false;
         galleryAdapter.cancel = true;
         galleryAdapter.notifyDataSetChanged();
@@ -125,19 +153,22 @@ public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity i
     public abstract void changeHeader(String headerTitle);
 
     public void setUpRecyclerView(Context context) {
-        mRecyclerViewShirt = findViewById(R.id.recyclerViewShirt);
-        mRecyclerViewShirt.setHasFixedSize(true);
-        mRecyclerViewShirt.setLayoutManager(new GridLayoutManager(context,3));
-        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(context,
+        mRecyclerView = findViewById(R.id.recyclerViewShirt);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(context,3));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(context,
                 DividerItemDecoration.HORIZONTAL));
-        mRecyclerViewShirt.addItemDecoration(new DividerItemDecoration(context,
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(context,
                 DividerItemDecoration.VERTICAL));
-        mRecyclerViewShirt.setEmptyView(findViewById(R.id.empty_view));
+        mRecyclerView.setEmptyView(findViewById(R.id.empty_view));
     }
 
     @Override
     public int setView() {
         return R.layout.activity_shirts;
     }
+
+    public abstract void changeEmptyViewText(EmptyRecyclerView emptyRecyclerView);
+
 
 }

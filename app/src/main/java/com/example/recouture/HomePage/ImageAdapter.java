@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,26 @@ import org.w3c.dom.Text;
 import static android.support.v4.content.ContextCompat.startActivity;
 
 
+interface HomepageOnClick {
+
+
+
+    public void onItemClick(ImageAdapter.ImageViewHolder itemView);
+
+}
+
+
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
+    private static final String TAG = "ImageAdapter";
 
     private Context context;
+
+    private HomepageOnClick listener;
+
+
+
+
 
     public ImageAdapter(Context context) {
         this.context = context;
@@ -38,6 +55,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     private String[] names = new String[]{
             "Shirts","Sleeveless","Outerwear","Sweater","Pants","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear"
     };
+
+
 
 
 
@@ -62,6 +81,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         return names.length;
     }
 
+    public void setListener(HomepageOnClick listener) {
+        Log.i(TAG,"Set listener");
+        this.listener = listener;
+    }
+
+
     class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView categoryName;
@@ -79,16 +104,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
         @Override
         public void onClick(View view) {
-            String category = categoryName.getText().toString();
-            switch (category) {
-                case "Shirts":
-                    Toast.makeText(context,"you clicked on " + category,Toast.LENGTH_SHORT).show();
-                    context.startActivity(new Intent(context, ShirtActivity.class));
-
+            if (listener != null) {
+                Log.i(TAG,"why...");
+                listener.onItemClick(this);
             }
         }
 
+        /*
+        if boolean chooseOutfits is true, then we will go to startActivityForResult.
+         */
+
     }
-
-
 }

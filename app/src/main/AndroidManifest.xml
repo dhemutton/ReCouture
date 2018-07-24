@@ -45,7 +45,6 @@
         <activity
             android:name=".Add.AddActivity"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".ShirtGallery.click_shirt_activity" />
         <activity android:name=".Profile.EditProfileFragment" />
         <activity android:name=".utils.ClickItemActivity" />
         <activity android:name=".utils.BaseActivity" />
@@ -54,7 +53,11 @@
         <activity android:name=".Outfit.Click_Outfit" />
         <activity android:name=".Calendar.ViewPlanned" />
         <activity android:name=".Outfit.PlanOutfit" />
-        <activity android:name=".Outfit.ConfirmPlan"></activity>
+        <activity android:name=".Outfit.ConfirmPlan">
+        </activity>
+        <activity android:name=".SleevelessGallery.SleevelessActivity">
+        </activity>
+
     </application>
 
 </manifest>

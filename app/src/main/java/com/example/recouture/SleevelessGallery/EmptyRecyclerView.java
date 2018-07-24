@@ -1,4 +1,4 @@
-package com.example.recouture.ShirtGallery;
+package com.example.recouture.SleevelessGallery;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -25,6 +25,7 @@ public class EmptyRecyclerView extends RecyclerView {
                     getAdapter() == null || getAdapter().getItemCount() == 0 ? GONE : VISIBLE);
         }
     }
+
     final AdapterDataObserver observer = new AdapterDataObserver() {
         @Override
         public void onChanged() {
@@ -53,13 +54,8 @@ public class EmptyRecyclerView extends RecyclerView {
             adapter.registerAdapterDataObserver(observer);
         }
     }
-
     public void setEmptyView(View view) {
         this.mEmptyView = view;
         initEmptyView();
-    }
-
-    public View getmEmptyView() {
-        return mEmptyView;
     }
 }

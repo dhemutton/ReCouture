@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +15,10 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.recouture.Item;
+import com.example.recouture.ShirtGallery.ShirtActivity;
+import com.example.recouture.SleevelessGallery.Sleeveless;
+import com.example.recouture.SleevelessGallery.SleevelessActivity;
 import com.example.recouture.TagHolder;
 import com.example.recouture.utils.UniversalImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,15 +47,23 @@ import android.widget.TextView;
 import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomepageActivity extends AppCompatActivity {
+public class HomepageActivity extends AppCompatActivity implements HomepageOnClick {
     private static final String TAG = "HomeActivity";
     private static final int ACTIVITY_NUM = 0;
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToggle;
+
+    private final int REQUEST_CODE = 1;
+
+    private List<Item> itemOutfits;
+
+
+    private boolean chooseOutfit;
 
     private RecyclerView recyclerView;
     private ImageAdapter imageAdapter;
@@ -99,6 +112,12 @@ public class HomepageActivity extends AppCompatActivity {
         setupBottomNavigationView();
         initImageLoader();
 
+        itemOutfits = new ArrayList<>();
+
+        if (getIntent().hasExtra("chooseOutfits")) {
+            chooseOutfit = getIntent().getExtras().getBoolean("chooseOutfits"); // should return true
+        }
+
 
         ImageView navmenu = (ImageView) findViewById(R.id.navmenuicon);
         manager = getFragmentManager();
@@ -136,6 +155,8 @@ public class HomepageActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(HomepageActivity.this,3));
         recyclerView.setAdapter(imageAdapter);
+
+        imageAdapter.setListener(this);
 
     }
 
@@ -203,5 +224,131 @@ public class HomepageActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.add(R.id.navbarfragment,fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onItemClick(ImageAdapter.ImageViewHolder itemView) {
+        Log.i(TAG, "item clicked");
+        String categoryName = itemView.categoryName.getText().toString();
+        Intent intent = new Intent();
+        switch (categoryName) {
+            case "Shirts":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+            case "Sleeveless":
+                if (chooseOutfit) {
+                    intent.setClass(this, SleevelessActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, SleevelessActivity.class));
+                }
+                break;
+            case "Outerwear":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+            case "Sweater":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+            case "Pants":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+            case "Shorts":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+            case "Skirts":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+            case "Dresses":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+            case "Shoes":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+            case "Bags":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+            case "Accessories":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+            case "Swimwear":
+                if (chooseOutfit) {
+                    intent.setClass(this, ShirtActivity.class);
+                    intent.putExtra("chooseOutfits", true);
+                    startActivityForResult(intent, 1);
+                } else {
+                    startActivity(intent.setClass(this, ShirtActivity.class));
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            ArrayList<Item> arrayList = data.getParcelableArrayListExtra("outfits");
+            itemOutfits.addAll(arrayList);
+            Log.i(TAG,"items " + itemOutfits);
+        }
     }
 }

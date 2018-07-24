@@ -41,8 +41,11 @@ public class CreateOutfit extends AppCompatActivity {
     is true for onClick items in the homepage adapter, we call startActivityForResult, override finish()
     in baseGalleryActivity to pass the list of items selected back to the calling activity in homepage.
     There will be a done on the homepage to indicate to pass the arrayList of items to the create Outfits. ->
-    using intent and parceable we pass the data to this activity. 
+    using intent and parceable we pass the data to this activity.
+    can try put start activity for result here to homeactivity
      */
+
+
 
     private static final String TAG = "CreateOutfit";
     private static final int ACTIVITY_NUM = 2;
@@ -77,6 +80,7 @@ public class CreateOutfit extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CreateOutfit.this, HomepageActivity.class);
                 Log.d(TAG, "going to homepage to select clothes");
+                intent.putExtra("chooseOutfits",true);
                 startActivity(intent);
             }
         });
