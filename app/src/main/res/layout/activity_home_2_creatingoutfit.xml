@@ -112,7 +112,7 @@ android:layout_height="match_parent"
 
 
         <!-- bottom navigation -->
-        <include layout="@layout/layout_bottom_navigation_view" />
+        <include layout="@layout/layout_selectforoutfits_nav_view" />
 
 
 

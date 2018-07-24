@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import com.example.recouture.Item;
 
 
-public abstract class Outfit implements Parcelable {
+public class Outfit {
     private String mName;
     private String mImageUrl;
 
@@ -18,5 +18,14 @@ public abstract class Outfit implements Parcelable {
         this.mImageUrl = mImageUrl;
 
     }
+
+    public String getmName() {
+        return mName;
+    }
+
+    public String getmImageUrl() {
+        return mImageUrl;
+    }
+
 
 }
