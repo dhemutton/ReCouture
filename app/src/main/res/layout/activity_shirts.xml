@@ -85,6 +85,8 @@
         <!-- bottom navigation -->
         <include layout="@layout/layout_delete_nav_view"/>
         <include layout="@layout/layout_bottom_navigation_view" />
+        <include layout="@layout/layout_selectforoutfits_nav_view" />
+
 
 
 
