@@ -23,7 +23,7 @@ public class CreateOutfit extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_create_outfit);
+        setContentView(R.layout.forming_outfit);
         Log.d(TAG, "onCreate: started");
 
         findViewById(R.id.collageBgView).setOnTouchListener(new View.OnTouchListener() {

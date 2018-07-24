@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relLayout1">
+        <include layout="@layout/snippet_forming_toolbar"/>
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/collageBgView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+         />
+
+
+    <com.example.recouture.utils.CollageView
+            android:id="@+id/collageView1"
+            android:layout_width="272dp"
+            android:layout_height="245dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/daffodils" />
+
+        <com.example.recouture.utils.CollageView
+            android:id="@+id/collageView2"
+            android:layout_width="275dp"
+            android:layout_height="172dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/green" />
+
+        <com.example.recouture.utils.CollageView
+            android:id="@+id/collageView3"
+            android:layout_width="230dp"
+            android:layout_height="214dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="86dp"
+            android:src="@drawable/hawaii" />
+
+        <com.example.recouture.utils.CollageView
+            android:id="@+id/collageView4"
+            android:layout_width="222dp"
+            android:layout_height="233dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="118dp"
+            android:src="@drawable/sunset" />
+
+</RelativeLayout>
