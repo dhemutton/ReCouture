@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recouture.Add.AddActivity;
+import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.Shirt;
 import com.example.recouture.StartUpPage.ActivityIndicator;
@@ -129,13 +130,15 @@ public class SaveOutfit extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    //Outfit outfit = new Outfit(name, uri.toString());
+                                    Outfit outfit = new Outfit(name, uri.toString());
                                     String uploadId = databaseRef.push().getKey();
-                                    //databaseRef.child(uploadId).setValue(outfit);
+                                    databaseRef.child(uploadId).setValue(outfit);
 
                                 }
                             });
                             Toast.makeText(SaveOutfit.this, "upload successful", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(SaveOutfit.this, HomepageActivity.class);
+                            startActivity(i);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override

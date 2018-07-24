@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.Shirt;
 import com.example.recouture.StartUpPage.ActivityIndicator;
@@ -238,6 +239,8 @@ public class AddActivity extends AppCompatActivity {
                                 }
                             });
                             Toast.makeText(AddActivity.this, "upload successful", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(AddActivity.this, HomepageActivity.class);
+                            startActivity(i);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override

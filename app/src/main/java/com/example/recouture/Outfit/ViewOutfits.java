@@ -74,7 +74,7 @@ public class ViewOutfits extends AppCompatActivity {
                 for (int i = 0; i < outfits.size(); i++) {
                     imgUrls.add(outfits.get(i).getmImageUrl());
                 }
-                GridImageAdapter adapter = new GridImageAdapter(ViewOutfits.this, R.id.gridview, "", imgUrls);
+                GridImageAdapter adapter = new GridImageAdapter(ViewOutfits.this, R.layout.layout_grid_imageview, "", imgUrls);
                 gridView.setAdapter(adapter);
             }
 
