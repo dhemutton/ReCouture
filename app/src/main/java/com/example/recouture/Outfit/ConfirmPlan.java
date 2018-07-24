@@ -1,5 +1,7 @@
 package com.example.recouture.Outfit;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -76,7 +78,8 @@ public class ConfirmPlan extends AppCompatActivity {
     private void setImage(){
         Intent intent = getIntent();
         ImageView image = (ImageView) findViewById(R.id.imageShare);
-        UniversalImageLoader.setImage(intent.getStringExtra(getString(R.string.selected_image)), image, null, mAppend);
+        Bitmap bitmap = (Bitmap) intent.getParcelableExtra("planning");
+        image.setImageBitmap(bitmap);
     }
 
      /*
