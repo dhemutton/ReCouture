@@ -31,6 +31,9 @@ public class ViewOutfits extends AppCompatActivity {
     private ValueEventListener mDatabaseListener;
     private static final int NUM_GRID_COLUMNS = 4;
     private GridView gridView;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mFirebaseDatabase;
+
 
 
     @Override
@@ -38,6 +41,8 @@ public class ViewOutfits extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewoufits);
         gridView = (GridView)findViewById(R.id.gridview) ;
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
 
         setupGridView();
 //        gridView = (GridView) findViewById(R.id.gridView);
@@ -57,7 +62,7 @@ public class ViewOutfits extends AppCompatActivity {
 
         final ArrayList<Outfit> outfits = new ArrayList<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child("Outfits");
+        Query query = reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Outfits");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -83,6 +88,7 @@ public class ViewOutfits extends AppCompatActivity {
                 Log.d(TAG, "onCancelled: query cancelled");
             }
         });
+
 
     }
 }
