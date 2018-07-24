@@ -77,6 +77,8 @@ public class SaveOutfit extends AppCompatActivity {
         try {
             b = BitmapFactory.decodeStream(SaveOutfit.this
                     .openFileInput("myImage"));
+            imageUri = getImageUri(this, b);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
