@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShirtGallery.ClickShirt">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/pink_border_bottom">
+    <include layout="@layout/snippet_savingoutfit_toolbar"/>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/empty"
+            android:layout_width="291dp"
+            android:layout_height="305dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="99dp"
+            app:srcCompat="@drawable/ic_emptyimage" />
+
+
+        <EditText
+            android:id="@+id/editname"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/textView"
+            android:layout_marginEnd="113dp"
+            android:background="@null"
+            android:hint="key in name" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="95dp"
+            android:layout_marginStart="95dp"
+            android:text="Name:"
+            android:textSize="22sp" />
+
+
+    </RelativeLayout>
+
+    </RelativeLayout>
+

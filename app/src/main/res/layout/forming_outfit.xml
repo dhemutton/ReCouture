@@ -16,8 +16,9 @@
         android:id="@+id/root_content"
         android:layout_width="wrap_content"
         android:layout_height="517dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/relLayout1">
+        android:background="#FFF">
 
 
         <ImageView
@@ -62,16 +63,6 @@
             android:src="@drawable/sunset" />
 
         <!--  ImageView to show taken Screenshot  -->
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="219dp"
-            android:layout_height="318dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="34dp"
-            android:layout_marginStart="26dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher" />
 
     </RelativeLayout>
 

@@ -1,11 +1,13 @@
 package com.example.recouture.utils;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.recouture.Item;
+import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.Shirt;
 import com.example.recouture.TagHolder;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -14,17 +16,42 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
+import static com.nostra13.universalimageloader.core.ImageLoader.TAG;
+
 public class FirebaseMethods {
 
     private static final String TAG = "FirebaseMethods";
 
     private static FirebaseUser firebaseUser;
+    private Context mContext;
+
+    //firebase
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference myRef;
+    private StorageReference mStorageReference;
+    private String userID;
+
+    public FirebaseMethods(Context context) {
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
+        mStorageReference = FirebaseStorage.getInstance().getReference();
+        mContext = context;
+
+        if(mAuth.getCurrentUser() != null){
+            userID = mAuth.getCurrentUser().getUid();
+        }
+    }
+
 
     /**
      * Helper class that implements firebase methods for use in other activities.
@@ -99,5 +126,6 @@ public class FirebaseMethods {
         });
         return mValueEventListener;
     }
+
 
 }

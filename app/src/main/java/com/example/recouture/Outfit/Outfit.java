@@ -1,19 +1,22 @@
 package com.example.recouture.Outfit;
 
+import android.os.Parcelable;
+
 import com.example.recouture.Item;
 
 
-//public class Outfit extends Item {
-//
-//
-//
-//    public Outfit() {}
-//
-//
-//    public Outfit(String mName, String mColor, String mImageUrl) {
-//        super(mName,mColor,mImageUrl);
-//    }
-//
-//
-//
-//}
+public abstract class Outfit implements Parcelable {
+    private String mName;
+    private String mImageUrl;
+
+
+    public Outfit() {}
+
+
+    public Outfit(String mName, String mImageUrl) {
+        this.mName = mName;
+        this.mImageUrl = mImageUrl;
+
+    }
+
+}
