@@ -1,7 +1,10 @@
 package com.example.recouture.Outfit;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -10,9 +13,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.recouture.Calendar.CalendarActivity;
+import com.example.recouture.Calendar.Event;
+import com.example.recouture.HomePage.HomepageActivity;
+import com.example.recouture.StartUpPage.ActivityIndicator;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +35,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.example.recouture.R;
 import com.example.recouture.utils.FirebaseMethods;
 import com.example.recouture.utils.UniversalImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by User on 7/24/2017.
@@ -34,11 +51,23 @@ public class ConfirmPlan extends AppCompatActivity {
     private static final String TAG = "NextActivity";
 
     //firebase
+    private FirebaseUser firebaseUser;
+    private StorageReference mStorageRef;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference myRef;
+    private DatabaseReference mDatabaseRef;
     private FirebaseMethods mFirebaseMethods;
+    private StorageTask mUploadTask;
+    private String FIREBASE_IMAGE_STORAGE = "photos/users";
+
+
+
+    private TextView theDate;
+    Uri imageUri;
+    private ActivityIndicator activityIndicator;
+    private String date;
+
 
     //vars
     private String mAppend = "file:/";
@@ -47,8 +76,19 @@ public class ConfirmPlan extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_plan);
+        theDate = (TextView) findViewById(R.id.date);
+        activityIndicator = new ActivityIndicator(this);
 
-        setupFirebaseAuth();
+        date = getIntent().getStringExtra("date");
+        theDate.setText(date);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
+        mStorageRef = FirebaseStorage.getInstance().getReference()
+                .child(FIREBASE_IMAGE_STORAGE + "/" + firebaseUser.getUid() + "/Events");
+
+        setImage();
+
 
         ImageView backArrow = (ImageView) findViewById(R.id.ivBackArrow);
         backArrow.setOnClickListener(new View.OnClickListener() {
@@ -60,85 +100,97 @@ public class ConfirmPlan extends AppCompatActivity {
         });
 
 
-        TextView share = (TextView) findViewById(R.id.tvShare);
-        share.setOnClickListener(new View.OnClickListener() {
+        TextView add = (TextView) findViewById(R.id.tvShare);
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: navigating to the final share screen.");
+                Log.d(TAG, "onClick: add outfit to the date.");
                 //upload the image to firebase
+                Toast.makeText(ConfirmPlan.this, "Attempting to upload new photo", Toast.LENGTH_SHORT).show();
+                uploadFile();
             }
         });
 
-        setImage();
     }
 
     /**
      * gets the image url from the incoming intent and displays the chosen image
      */
-    private void setImage(){
+    private void setImage() {
         Intent intent = getIntent();
         ImageView image = (ImageView) findViewById(R.id.imageShare);
         Bitmap bitmap = (Bitmap) intent.getParcelableExtra("planning");
         image.setImageBitmap(bitmap);
+        imageUri = getImageUri(ConfirmPlan.this, bitmap);
     }
-
-     /*
-    ------------------------------------ Firebase ---------------------------------------------
-     */
 
     /**
-     * Setup the firebase auth object
+     * Converts a bitmap image into its corresponding URI.
+     *
+     * @param context the context of the activity.
+     * @param inImage the bitmap to be converted
+     * @return the corresponding image URI.
      */
-    private void setupFirebaseAuth(){
-        Log.d(TAG, "setupFirebaseAuth: setting up firebase auth.");
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference();
+    private Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+    /**
+     * gets the file extension type for particular URI.
+     * @param uri the image URI
+     * @return the file extension for this URI, eg jpeg,png
+     */
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
 
 
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
+    /**
+     * Upload file method. Handles logic of uploading all required data to firebase and displaying
+     * it in recycler view.
+     */
+    private void uploadFile() {
+
+        final String dateConfirm = date;
+        final String location = "Events";
+        final DatabaseReference databaseRef = mDatabaseRef.child("/" + location);
+
+        if (imageUri != null) {
+            activityIndicator.show();
+            final StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() +
+                    "." + getFileExtension(imageUri));
+
+            mUploadTask = fileReference.putFile(imageUri).
+                    addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Event event = new Event(dateConfirm, uri.toString());
+                                    String uploadId = databaseRef.push().getKey();
+                                    databaseRef.child(uploadId).setValue(event);
+
+                                }
+                            });
+                            Toast.makeText(ConfirmPlan.this, "upload successful", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(ConfirmPlan.this, CalendarActivity.class);
+                            startActivity(i);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(ConfirmPlan.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-                // ...
-            }
-        };
-
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+            });
+            activityIndicator.dismiss();
+        } else {
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
 }

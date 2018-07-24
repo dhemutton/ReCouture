@@ -36,6 +36,7 @@ public class PlanOutfit extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private String mSelectedImage;
     private ArrayList<String> imgUrls;
+    private String date;
 
 
     @Override
@@ -45,6 +46,7 @@ public class PlanOutfit extends AppCompatActivity {
         gridView = (GridView)findViewById(R.id.gridview) ;
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
+        date = getIntent().getStringExtra("date");
 
         setupGridView();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -56,6 +58,7 @@ public class PlanOutfit extends AppCompatActivity {
                 Bitmap bitmap = view.getDrawingCache();
                 Intent intent = new Intent(PlanOutfit.this, ConfirmPlan.class);
                 intent.putExtra("planning", bitmap);
+                intent.putExtra("date", date);
                 startActivity(intent);
             }
         });
