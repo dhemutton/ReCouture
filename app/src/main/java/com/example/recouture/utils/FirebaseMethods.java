@@ -1,7 +1,9 @@
 package com.example.recouture.utils;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.recouture.Item;
 import com.example.recouture.ShirtGallery.Shirt;
@@ -19,6 +21,8 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 
 public class FirebaseMethods {
+
+    private static final String TAG = "FirebaseMethods";
 
     private static FirebaseUser firebaseUser;
 
@@ -39,7 +43,8 @@ public class FirebaseMethods {
     }
 
     public static<T extends Item> void deleteGalleryImages(List<T> deletables, final DatabaseReference mDatabaseReference,
-                                                           DatabaseReference mDatabaseTagRef) {
+                                                           DatabaseReference mDatabaseTagRef,
+                                                           final Context context) {
         for (final T item : deletables) {
             final String selectedKey = item.getKey();
             StorageReference imageRef = FirebaseStorage.getInstance().
@@ -49,12 +54,22 @@ public class FirebaseMethods {
                 String tagName = tagHolder.getTagName();
                 final DatabaseReference tagRef = mDatabaseTagRef.child(tagName);
                 String uniqueKey = tagHolder.getmKey();
-                tagRef.child(uniqueKey).removeValue();
+                tagRef.child(uniqueKey).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.i(TAG,"delete tag success");
+                    }
+                });
             }
             imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    mDatabaseReference.child(selectedKey).removeValue();
+                    mDatabaseReference.child(selectedKey).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(context,"successfully deleted",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
         }

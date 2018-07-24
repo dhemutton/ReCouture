@@ -173,7 +173,7 @@ public class ClickItemActivity extends BaseActivity {
                 List<Item> deleteItemList = new ArrayList<>();
                 deleteItemList.add(item);
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child(firebaseRef);
-                FirebaseMethods.deleteGalleryImages(deleteItemList,databaseReference,mDatabaseTagRef);
+                FirebaseMethods.deleteGalleryImages(deleteItemList,databaseReference,mDatabaseTagRef,ClickItemActivity.this);
                 finish();
             }
         });
