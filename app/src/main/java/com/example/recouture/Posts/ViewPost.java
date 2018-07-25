@@ -5,8 +5,11 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.recouture.Profile.ProfileActivity;
 import com.example.recouture.R;
 import com.example.recouture.utils.BottomNavigationViewHelper;
+import com.example.recouture.utils.Heart;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.text.ParseException;
@@ -32,6 +36,9 @@ public class ViewPost extends AppCompatActivity {
     private String url;
     private String datecreated;
     private TextView mTimestamp;
+    private ImageView mHeartRed,mHeartWhite;
+    private GestureDetector mGestureDetector;
+    private Heart mHeart;
 
 
 
@@ -47,6 +54,13 @@ public class ViewPost extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.post_image);
         TextView picName = (TextView) findViewById(R.id.image_caption);
+        mHeartRed = (ImageView) findViewById(R.id.image_heart_red);
+        mHeartWhite = (ImageView) findViewById(R.id.image_heart);
+
+        mHeartRed.setVisibility(View.GONE);
+        mHeartWhite.setVisibility(View.VISIBLE);
+        mHeart = new Heart(mHeartWhite, mHeartRed);
+        mGestureDetector = new GestureDetector(ViewPost.this, new GestureListener());
 
         name = i.getStringExtra("name");
         url = i.getStringExtra("viewing");
@@ -56,6 +70,7 @@ public class ViewPost extends AppCompatActivity {
         mTimestamp = (TextView) findViewById(R.id.image_time_posted);
 
         setupWidgets();
+        testToggle();
         Log.d(TAG, "name :" + url);
 
         picName.setText(name);
@@ -106,6 +121,37 @@ public class ViewPost extends AppCompatActivity {
             mTimestamp.setText(timestampDiff + " DAYS AGO");
         }else{
             mTimestamp.setText("TODAY");
+        }
+    }
+
+    private void testToggle(){
+        mHeartRed.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d(TAG, "onTouch: red heart touch detected.");
+
+                return mGestureDetector.onTouchEvent(event);
+            }
+        });
+        mHeartWhite.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d(TAG, "onTouch: white heart touch detected.");
+                return mGestureDetector.onTouchEvent(event);
+            }
+        });
+    }
+
+    public class GestureListener extends GestureDetector.SimpleOnGestureListener{
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            mHeart.toggleLike();
+            return true;
         }
     }
 
