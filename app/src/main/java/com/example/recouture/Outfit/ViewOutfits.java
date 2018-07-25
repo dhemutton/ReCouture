@@ -1,6 +1,7 @@
 package com.example.recouture.Outfit;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class ViewOutfits extends AppCompatActivity {
     private GridView gridView;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
+    private ArrayList<Outfit> outfits;
 
 
 
@@ -44,13 +46,29 @@ public class ViewOutfits extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
+        outfits = new ArrayList<>();
+
         setupGridView();
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Log.d(TAG, "onClick: navigating to the click outfits.");
+                view.buildDrawingCache();
+                Bitmap bitmap = view.getDrawingCache();
+                Outfit outfit = outfits.get(position);
+                Intent intent = new Intent(ViewOutfits.this, Click_Outfit.class);
+                intent.putExtra("viewing", bitmap);
+                intent.putExtra("name", outfit.getmName());
+                startActivity(intent);
+            }
+        });
     }
 
     private void setupGridView() {
         Log.d(TAG, "setupGridView: Setting up image grid.");
 
-        final ArrayList<Outfit> outfits = new ArrayList<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Outfits");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
