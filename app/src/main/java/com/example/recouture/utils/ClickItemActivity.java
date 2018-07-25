@@ -181,7 +181,7 @@ public class ClickItemActivity extends BaseActivity {
         postDesTag = findViewById(R.id.postDesTag);
         clickDeletePost = findViewById(R.id.click_deletePost);
         clickEditPost = findViewById(R.id.postbut);
-        pictureName = findViewById(R.id.picturename);
+        pictureName = findViewById(R.id.name);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.example.recouture.Outfit;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -18,17 +17,13 @@ import com.bumptech.glide.Glide;
 import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.R;
 import com.example.recouture.StartUpPage.ActivityIndicator;
-import com.example.recouture.utils.FirebaseMethods;
 import com.example.recouture.utils.Post;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -71,7 +66,7 @@ public class Click_Outfit extends AppCompatActivity {
         Intent i = getIntent();
 
         ImageView imageView = (ImageView) findViewById(R.id.emptyimage);
-        TextView picName = (TextView) findViewById(R.id.picturename);
+        TextView picName = (TextView) findViewById(R.id.name);
 
         String url = i.getStringExtra("viewing");
         Glide.with(Click_Outfit.this).load(url).into(imageView);
@@ -81,7 +76,6 @@ public class Click_Outfit extends AppCompatActivity {
         myUri = Uri.parse(url);
         Glide.with(this).load(url).into(imageView);
 
-        name = getIntent().getStringExtra("name");
         Log.d(TAG, "name :" + name);
 
         picName.setText(name);

@@ -55,11 +55,7 @@ public class ViewOutfits extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Log.d(TAG, "onClick: navigating to the click outfits.");
-<<<<<<< HEAD
-//                view.buildDrawingCache();
-//                Bitmap bitmap = view.getDrawingCache();
-=======
->>>>>>> e3e1250... ps help
+
                 Outfit outfit = outfits.get(position);
                 Intent intent = new Intent(ViewOutfits.this, Click_Outfit.class);
                 intent.putExtra("viewing", outfit.getmImageUrl());
@@ -90,9 +86,8 @@ public class ViewOutfits extends AppCompatActivity {
                 for (int i = 0; i < outfits.size(); i++) {
                     imgUrls.add(outfits.get(i).getmImageUrl());
                 }
-               // GridImageAdapter adapter = new GridImageAdapter(ViewOutfits.this, R.layout.layout_grid_imageview, "", imgUrls);
-                OutfitAdapter oa = new OutfitAdapter (ViewOutfits.this, outfits);
-                gridView.setAdapter(oa);
+                GridImageAdapter adapter = new GridImageAdapter(ViewOutfits.this, R.layout.layout_grid_imageview, "", imgUrls);
+                gridView.setAdapter(adapter);
             }
 
             @Override
