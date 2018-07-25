@@ -1,5 +1,6 @@
 package com.example.recouture.Outfit;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,15 +70,12 @@ public class Click_Outfit extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.emptyimage);
         TextView picName = (TextView) findViewById(R.id.name);
 
-        String url = i.getStringExtra("viewing");
-        Glide.with(Click_Outfit.this).load(url).into(imageView);
-
         name = i.getStringExtra("name");
         url = i.getStringExtra("viewing");
         myUri = Uri.parse(url);
         Glide.with(this).load(url).into(imageView);
 
-        Log.d(TAG, "name :" + name);
+        Log.d(TAG, "name :" + url);
 
         picName.setText(name);
 
@@ -93,63 +92,45 @@ public class Click_Outfit extends AppCompatActivity {
             public void onClick(View v) {
                 //upload the image to firebase
                 Toast.makeText(Click_Outfit.this, "Attempting to upload new photo", Toast.LENGTH_SHORT).show();
-                uploadFile();
+                postOutfit();
             }
         });
     }
-
-    /**
-     * Upload file method. Handles logic of uploading all required data to firebase and displaying
-     * it in recycler view.
-     */
-    private void uploadFile() {
-
-        final String location = "Posts";
-        final DatabaseReference databaseRef = myRef.child("/" + location);
-
-        if (url != null) {
-            activityIndicator.show();
-            final StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() +
-                    "." + url);
-
-            mUploadTask = fileReference.putFile(myUri).
-                    addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
-                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Post post = new Post();
-                                    post.setDate_created(getTimestamp());
-                                    post.setImage_path(url);
-//                                    post.setUser_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                    String uploadId = databaseRef.push().getKey();
-//                                    post.setPhoto_id(uploadId);
-                                    databaseRef.child(uploadId).setValue(post);
-
-                                }
-                            });
-                            Toast.makeText(Click_Outfit.this, "upload successful", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(Click_Outfit.this, HomepageActivity.class);
-                            startActivity(i);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Click_Outfit.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            activityIndicator.dismiss();
-        } else {
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
-        }
-    }
-
 
     private String getTimestamp() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ss'Z'", Locale.CANADA);
         sdf.setTimeZone(TimeZone.getTimeZone("Asia/Singapore"));
         return sdf.format(new Date());
+    }
+
+
+    private void postOutfit() {
+
+        final String location = "Posts";
+        final DatabaseReference databaseRef = myRef.child("/" + location);
+
+        Post post = new Post(getTimestamp(), url,name);
+
+//                                    post.setUser_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        String uploadId = databaseRef.push().getKey();
+//                                    post.setPhoto_id(uploadId);
+        databaseRef.child(uploadId).setValue(post);
+        Toast.makeText(Click_Outfit.this, "upload successful", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(Click_Outfit.this, HomepageActivity.class);
+        startActivity(i);
+    }
+
+
+
+    /**
+     * gets the file extension type for particular URI.
+     * @param uri the image URI
+     * @return the file extension for this URI, eg jpeg,png
+     */
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
 }

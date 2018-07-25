@@ -14,18 +14,16 @@ import java.util.List;
         private String date_created;
         private String image_path;
         private String photo_id;
-        private String user_id;
 
 
         public Post() {
 
         }
 
-        public Post(String date_created, String image_path, String photo_id, String user_id) {
+        public Post(String date_created, String image_path, String photo_id) {
             this.date_created = date_created;
             this.image_path = image_path;
             this.photo_id = photo_id;
-            this.user_id = user_id;
         }
 
 
@@ -53,13 +51,7 @@ import java.util.List;
             this.photo_id = photo_id;
         }
 
-        public String getUser_id() {
-            return user_id;
-        }
 
-        public void setUser_id(String user_id) {
-            this.user_id = user_id;
-        }
 
 
         @Override
@@ -68,7 +60,6 @@ import java.util.List;
                     ", date_created='" + date_created + '\'' +
                     ", image_path='" + image_path + '\'' +
                     ", photo_id='" + photo_id + '\'' +
-                    ", user_id='" + user_id + '\'' +
                     '}';
         }
     }
