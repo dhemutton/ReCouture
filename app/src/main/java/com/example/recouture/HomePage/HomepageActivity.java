@@ -16,9 +16,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.recouture.Item;
+import com.example.recouture.PantsGallery.PantsActivity;
 import com.example.recouture.ShirtGallery.ShirtActivity;
 import com.example.recouture.SleevelessGallery.Sleeveless;
 import com.example.recouture.SleevelessGallery.SleevelessActivity;
+import com.example.recouture.SweaterGallery.SweaterActivity;
 import com.example.recouture.TagHolder;
 import com.example.recouture.utils.UniversalImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
@@ -283,20 +285,20 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
                 break;
             case "Sweater":
                 if (chooseOutfit) {
-                    intent.setClass(this, ShirtActivity.class);
+                    intent.setClass(this, SweaterActivity.class);
                     intent.putExtra("chooseOutfits", true);
                     startActivityForResult(intent, 1);
                 } else {
-                    startActivity(intent.setClass(this, ShirtActivity.class));
+                    startActivity(intent.setClass(this, SweaterActivity.class));
                 }
                 break;
             case "Pants":
                 if (chooseOutfit) {
-                    intent.setClass(this, ShirtActivity.class);
+                    intent.setClass(this, PantsActivity.class);
                     intent.putExtra("chooseOutfits", true);
                     startActivityForResult(intent, 1);
                 } else {
-                    startActivity(intent.setClass(this, ShirtActivity.class));
+                    startActivity(intent.setClass(this, PantsActivity.class));
                 }
                 break;
             case "Shorts":

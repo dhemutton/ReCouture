@@ -3,7 +3,6 @@ package com.example.recouture.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,17 +15,9 @@ import android.widget.Toast;
 
 import com.example.recouture.Item;
 import com.example.recouture.R;
-import com.example.recouture.ShirtGallery.EmptyRecyclerView;
-import com.example.recouture.ShirtGallery.Shirt;
-import com.example.recouture.ShirtGallery.ShirtActivity;
-import com.example.recouture.TagHolder;
-import com.example.recouture.utils.BaseActivity;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +30,14 @@ public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity i
      */
 
 
+
+    protected DatabaseReference mDatabaseReference;
+    // private BottomNavigationViewEx bottomNavigationViewEx;
+
+    protected ValueEventListener mDatabaseListener;
+
+    // to delete tag of Pants
+    protected DatabaseReference mDatabaseTagRef;
 
     private boolean chooseOutfits = false;
 
@@ -170,5 +169,11 @@ public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity i
 
     public abstract void changeEmptyViewText(EmptyRecyclerView emptyRecyclerView);
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDatabaseReference.removeEventListener(mDatabaseListener);
+    }
 
 }

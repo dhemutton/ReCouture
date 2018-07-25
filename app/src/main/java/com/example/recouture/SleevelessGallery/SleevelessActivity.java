@@ -7,9 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.recouture.R;
-import com.example.recouture.ShirtGallery.EmptyRecyclerView;
-import com.example.recouture.SleevelessGallery.Sleeveless;
 import com.example.recouture.utils.BaseGalleryActivity;
+import com.example.recouture.utils.EmptyRecyclerView;
 import com.example.recouture.utils.FirebaseMethods;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,7 +24,7 @@ public class SleevelessActivity extends BaseGalleryActivity<Sleeveless> {
     private ValueEventListener mDatabaseListener;
 
 
-    // to delete tag of Sleeveless
+    // to delete tag of Pants
     private DatabaseReference mDatabaseTagRef;
 
 
@@ -98,7 +97,7 @@ public class SleevelessActivity extends BaseGalleryActivity<Sleeveless> {
     @Override
     public void changeEmptyViewText(EmptyRecyclerView emptyRecyclerView) {
         TextView textView = (TextView)emptyRecyclerView.getmEmptyView();
-        textView.setText("Add more Sleeveless");
+        textView.setText("Add more Pants");
     }
 
 

@@ -61,7 +61,7 @@
 
             <include layout="@layout/layout_center_viewpager" />
 
-            <com.example.recouture.ShirtGallery.EmptyRecyclerView
+            <com.example.recouture.utils.EmptyRecyclerView
                 android:id="@+id/recyclerViewShirt"
                 android:layout_width="match_parent"
                 android:layout_height="468dp"

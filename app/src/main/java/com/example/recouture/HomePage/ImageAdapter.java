@@ -53,7 +53,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     };
 
     private String[] names = new String[]{
-            "Shirts","Sleeveless","Outerwear","Sweater","Pants","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear"
+            "Shirts","Pants","Outerwear","Pants","Pants","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear"
     };
 
 

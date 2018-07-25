@@ -1,38 +1,23 @@
 
-package com.example.recouture.ShirtGallery;
+package com.example.recouture.PantsGallery;
 
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.recouture.utils.BaseGalleryActivity;
 import com.example.recouture.R;
-import com.example.recouture.TagHolder;
-import com.example.recouture.utils.BaseViewHolder;
+import com.example.recouture.utils.BaseGalleryActivity;
 import com.example.recouture.utils.EmptyRecyclerView;
 import com.example.recouture.utils.FirebaseMethods;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
-import java.util.List;
+public class PantsActivity extends BaseGalleryActivity<Pants> {
 
-public class ShirtActivity extends BaseGalleryActivity<Shirt> {
+    //private EmptyRecyclerView mRecyclerViewSleeveless;
 
-    //private EmptyRecyclerView mRecyclerViewShirt;
 
 
     // cancel dustbin
@@ -41,7 +26,7 @@ public class ShirtActivity extends BaseGalleryActivity<Shirt> {
     // delete items
     private ImageView delete;
 
-    private ShirtAdapter2 shirtAdapter2;
+    private PantsAdapter PantsAdapter;
 
 
     // to delete image from storage ref
@@ -55,12 +40,13 @@ public class ShirtActivity extends BaseGalleryActivity<Shirt> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        changeHeader("Shirts");
+        changeHeader("Pants");
+        //changeEmptyViewText(mRecyclerView);
 
         cancelDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                helperCancelDelete(shirtAdapter2);
+                helperCancelDelete(PantsAdapter);
             }
         });
 
@@ -69,25 +55,28 @@ public class ShirtActivity extends BaseGalleryActivity<Shirt> {
             @Override
             public void onClick(View view) {
                 FirebaseMethods.deleteGalleryImages(toBeDeletedOrChosen, mDatabaseReference, mDatabaseTagRef,
-                        ShirtActivity.this);
+                        PantsActivity.this);
             }
         });
 
         setUpRecyclerView(this);
+        changeEmptyViewText(mRecyclerView);
 
 
 
-        shirtAdapter2 = new ShirtAdapter2(this);
-        mRecyclerView.setAdapter(shirtAdapter2);
-        shirtAdapter2.setListener(this);
+
+        PantsAdapter = new PantsAdapter(this);
+        mRecyclerView.setAdapter(PantsAdapter);
+        PantsAdapter.setListener(this);
 
 
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Shirts");
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Pants");
 
         mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid() + "/Tags/");
 
-        mDatabaseListener = FirebaseMethods.returnGalleryListener(mDatabaseReference, Shirt.class, shirtAdapter2);
+
+        mDatabaseListener = FirebaseMethods.returnGalleryListener(mDatabaseReference, Pants.class, PantsAdapter);
     }
 
 
@@ -100,7 +89,7 @@ public class ShirtActivity extends BaseGalleryActivity<Shirt> {
     @Override
     public void changeEmptyViewText(EmptyRecyclerView emptyRecyclerView) {
         TextView textView = (TextView)emptyRecyclerView.getmEmptyView();
-        textView.setText("Add more Shirts");
+        textView.setText("Add more Pants");
     }
 
 

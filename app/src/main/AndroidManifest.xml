@@ -58,6 +58,10 @@
         </activity>
         <activity android:name=".Outfit.ConfirmPlan" />
         <activity android:name=".Outfit.SaveOutfit"></activity>
+        <activity android:name=".SweaterGallery.SweaterActivity">
+        </activity>
+        <activity android:name=".PantsGallery.PantsActivity">
+        </activity>
     </application>
 
 </manifest>

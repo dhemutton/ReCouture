@@ -20,9 +20,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,14 +59,14 @@ import java.util.List;
 
 import dalvik.system.PathClassLoader;
 
-public class AddActivity extends AppCompatActivity {
+public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "AddActivity";
     private static final int ACTIVITY_NUM = 2;
     private int STORAGE_PERMISSION_CODE = 3;
 
     ImageView imageView;
     EditText editTextName;
-    EditText editTextCategory;
+    Spinner spinnerTextCategory;
     EditText editTextColor;
     EditText editTextTags;
     Button upload;
@@ -73,6 +76,8 @@ public class AddActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private StorageTask mUploadTask;
     private ActivityIndicator activityIndicator;
+
+    private String category;
 
     // firebase database for TAGS
     private DatabaseReference mDatabaseTagRef;
@@ -96,7 +101,12 @@ public class AddActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.addPic);
 
-        editTextCategory = findViewById(R.id.editTextCategory);
+
+        spinnerTextCategory = findViewById(R.id.editTextCategory);
+
+        setUpSpinner();
+
+
         editTextColor = findViewById(R.id.editTextColor);
         editTextName = findViewById(R.id.editTextName);
         editTextTags = findViewById(R.id.editTextTags);
@@ -188,8 +198,8 @@ public class AddActivity extends AppCompatActivity {
 
         final String name = editTextName.getText().toString().trim();
         final String color = editTextColor.getText().toString().trim();
-        final String category = editTextCategory.getText().toString().trim();
         final String tags = editTextTags.getText().toString().trim();
+        assert category != null;
         final DatabaseReference databaseRef = mDatabaseRef.child("/" + category);
         //final DatabaseReference tagDataBaseRef = mDatabaseTagRef;
 
@@ -290,4 +300,24 @@ public class AddActivity extends AppCompatActivity {
         return Uri.parse(path);
     }
 
+    private void setUpSpinner() {
+        List<String> names = Arrays.asList(
+                "Shirts","Pants","Outerwear","Pants","Pants","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,names);
+        spinnerTextCategory.setAdapter(arrayAdapter);
+        arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinnerTextCategory.setOnItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        category = adapterView.getItemAtPosition(i).toString();
+        Log.i(TAG,"category chosen : " + category);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

@@ -37,7 +37,7 @@
         android:hint="Name"
         android:textAlignment="viewStart" />
 
-    <EditText
+    <Spinner
         android:id="@+id/editTextCategory"
         android:layout_width="278dp"
         android:layout_height="45dp"
