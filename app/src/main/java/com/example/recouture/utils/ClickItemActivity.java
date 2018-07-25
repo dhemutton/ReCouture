@@ -180,7 +180,7 @@ public class ClickItemActivity extends BaseActivity {
         postDesColor = findViewById(R.id.editname);
         postDesTag = findViewById(R.id.postDesTag);
         clickDeletePost = findViewById(R.id.click_deletePost);
-        clickEditPost = findViewById(R.id.click_editPost);
+        clickEditPost = findViewById(R.id.postbut);
         pictureName = findViewById(R.id.picturename);
     }
 

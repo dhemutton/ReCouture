@@ -39,6 +39,8 @@ public class FirebaseMethods {
     private DatabaseReference myRef;
     private StorageReference mStorageReference;
     private String userID;
+    private String FIREBASE_IMAGE_STORAGE = "photos/users";
+
 
     public FirebaseMethods(Context context) {
         mAuth = FirebaseAuth.getInstance();
@@ -127,5 +129,15 @@ public class FirebaseMethods {
         return mValueEventListener;
     }
 
+
+    public int getImageCount(DataSnapshot dataSnapshot){
+        int count = 0;
+        for(DataSnapshot ds: dataSnapshot
+                .child("Posts")
+                .getChildren()){
+            count++;
+        }
+        return count;
+    }
 
 }
