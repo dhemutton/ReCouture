@@ -31,7 +31,7 @@
             app:srcCompat="@drawable/ic_emptyimage" />
 
         <Button
-            android:id="@+id/click_editPost"
+            android:id="@+id/postbut"
             android:layout_width="98dp"
             android:layout_height="36dp"
             android:layout_alignParentBottom="true"
@@ -45,7 +45,7 @@
             android:id="@+id/click_deletePost"
             android:layout_width="96dp"
             android:layout_height="34dp"
-            android:layout_alignTop="@+id/click_editPost"
+            android:layout_alignTop="@+id/postbut"
             android:layout_toEndOf="@+id/picturename"
             android:background="@drawable/addeventrect"
             android:text="Delete" />

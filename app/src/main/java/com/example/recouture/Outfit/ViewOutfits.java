@@ -55,8 +55,11 @@ public class ViewOutfits extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Log.d(TAG, "onClick: navigating to the click outfits.");
+<<<<<<< HEAD
 //                view.buildDrawingCache();
 //                Bitmap bitmap = view.getDrawingCache();
+=======
+>>>>>>> e3e1250... ps help
                 Outfit outfit = outfits.get(position);
                 Intent intent = new Intent(ViewOutfits.this, Click_Outfit.class);
                 intent.putExtra("viewing", outfit.getmImageUrl());
