@@ -59,7 +59,7 @@ public class ViewOutfits extends AppCompatActivity {
                 Bitmap bitmap = view.getDrawingCache();
                 Outfit outfit = outfits.get(position);
                 Intent intent = new Intent(ViewOutfits.this, Click_Outfit.class);
-                intent.putExtra("viewing", bitmap);
+                intent.putExtra("viewing", outfit.getmImageUrl());
                 intent.putExtra("name", outfit.getmName());
                 startActivity(intent);
             }
@@ -87,8 +87,9 @@ public class ViewOutfits extends AppCompatActivity {
                 for (int i = 0; i < outfits.size(); i++) {
                     imgUrls.add(outfits.get(i).getmImageUrl());
                 }
-                GridImageAdapter adapter = new GridImageAdapter(ViewOutfits.this, R.layout.layout_grid_imageview, "", imgUrls);
-                gridView.setAdapter(adapter);
+               // GridImageAdapter adapter = new GridImageAdapter(ViewOutfits.this, R.layout.layout_grid_imageview, "", imgUrls);
+                OutfitAdapter oa = new OutfitAdapter (ViewOutfits.this, outfits);
+                gridView.setAdapter(oa);
             }
 
             @Override

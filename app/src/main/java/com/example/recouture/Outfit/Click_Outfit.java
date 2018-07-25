@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.recouture.R;
 
 public class Click_Outfit extends AppCompatActivity {
@@ -23,10 +24,10 @@ public class Click_Outfit extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.emptyimage);
         TextView picName = (TextView) findViewById(R.id.picturename);
 
-        Bitmap bitmap = (Bitmap) i.getParcelableExtra("viewing");
-        imageView.setImageBitmap(bitmap);
+        String url = i.getStringExtra("viewing");
+        Glide.with(Click_Outfit.this).load(url).into(imageView);
 
-        name = getIntent().getStringExtra("name");
-        picName.setText(name);
+//        name = getIntent().getStringExtra("name");
+//        picName.setText(name);
     }
 }
