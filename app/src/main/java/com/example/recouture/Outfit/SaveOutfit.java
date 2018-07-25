@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -20,11 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recouture.Add.AddActivity;
+import com.example.recouture.Calendar.CalendarActivity;
 import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.Shirt;
 import com.example.recouture.StartUpPage.ActivityIndicator;
 import com.example.recouture.TagHolder;
+import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.example.recouture.utils.FirebaseMethods;
 import com.example.recouture.utils.UniversalImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -40,6 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -55,6 +60,7 @@ public class SaveOutfit extends AppCompatActivity {
     EditText editTextName;
     private ImageView img;
     Uri imageUri;
+    private static final int ACTIVITY_NUM = 1;
 
 
     private StorageReference mStorageRef;
@@ -71,6 +77,8 @@ public class SaveOutfit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_outfit);
+        setupBottomNavigationView();
+
         img = (ImageView) findViewById(R.id.empty);
         activityIndicator = new ActivityIndicator(this);
 
@@ -174,6 +182,16 @@ public class SaveOutfit extends AppCompatActivity {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    private void setupBottomNavigationView(){
+        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(SaveOutfit.this, bottomNavigationViewEx);
+        Menu menu = bottomNavigationViewEx.getMenu();
+        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
     }
 
 }

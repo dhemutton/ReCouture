@@ -5,13 +5,17 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.recouture.Calendar.CalendarActivity;
 import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.EmptyRecyclerView;
 import com.example.recouture.ShirtGallery.ShirtAdapter2;
+import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.example.recouture.utils.FirebaseMethods;
 import com.example.recouture.utils.GridImageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 
@@ -31,6 +36,8 @@ public class PlanOutfit extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private ValueEventListener mDatabaseListener;
     private static final int NUM_GRID_COLUMNS = 4;
+    private static final int ACTIVITY_NUM = 1;
+
     private GridView gridView;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
@@ -43,6 +50,8 @@ public class PlanOutfit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewoufits);
+        setupBottomNavigationView();
+
         gridView = (GridView)findViewById(R.id.gridview) ;
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -95,8 +104,16 @@ public class PlanOutfit extends AppCompatActivity {
                 Log.d(TAG, "onCancelled: query cancelled");
             }
         });
+    }
 
-
+    private void setupBottomNavigationView(){
+        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(PlanOutfit.this, bottomNavigationViewEx);
+        Menu menu = bottomNavigationViewEx.getMenu();
+        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
     }
 }
 
