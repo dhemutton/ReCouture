@@ -2,6 +2,7 @@ package com.example.recouture.Profile;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,12 +10,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.GridView;
 import java.util.ArrayList;
+
+import com.example.recouture.Outfit.Click_Outfit;
+import com.example.recouture.Outfit.Outfit;
+import com.example.recouture.Outfit.ViewOutfits;
+import com.example.recouture.Posts.ViewPost;
 import com.example.recouture.utils.GridImageAdapter;
+import com.example.recouture.utils.Post;
 import com.example.recouture.utils.UniversalImageLoader;
 import android.content.Context;
 import android.widget.ImageView;
@@ -22,17 +30,28 @@ import android.widget.ImageView;
 
 import com.example.recouture.R;
 import com.example.recouture.utils.BottomNavigationViewHelper;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
     private static final int ACTIVITY_NUM = 4;
-    private static final int NUM_GRID_COLUMNS = 3;
+    private static final int NUM_GRID_COLUMNS = 4;
     private FragmentManager manager;
     private Context mContext = ProfileActivity.this;
     private ImageView profilePhoto;
     private ProgressBar mProgressBar;
     TextView editProfile;
+    private ArrayList<Post> posts;
+    private GridView gridView;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,9 +60,11 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: started");
         setupBottomNavigationView();
         setupActivityWidgets();
-        setProfileImage();
+        posts = new ArrayList<>();
 
-        tempGridSetup();
+        setProfileImage();
+        gridView = (GridView) findViewById(R.id.gridViewprofile) ;
+        setupGridView();
         TextView editYourProfile = (TextView) findViewById(R.id.edityourprofile);
         manager = getFragmentManager();
         editYourProfile.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +72,21 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: navigating to 'edit profile'");
                 addFragmentView();
+            }
+        });
+
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Log.d(TAG, "onClick: navigating to the click outfits.");
+                Post post = posts.get(position);
+                Intent intent = new Intent(ProfileActivity.this, ViewPost.class);
+                intent.putExtra("viewing", post.getImage_path());
+                intent.putExtra("name", post.getPhoto_id());
+                intent.putExtra("date", post.getDate_created());
+                startActivity(intent);
             }
         });
     }
@@ -66,34 +102,39 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private void tempGridSetup(){
-        ArrayList<String> imgURLs = new ArrayList<>();
-        imgURLs.add("https://pbs.twimg.com/profile_images/616076655547682816/6gMRtQyY.jpg");
-        imgURLs.add("https://i.redd.it/9bf67ygj710z.jpg");
-         imgURLs.add("https://c1.staticflickr.com/5/4276/34102458063_7be616b993_o.jpg");
-                imgURLs.add("http://i.imgur.com/EwZRpvQ.jpg");
-               imgURLs.add("http://i.imgur.com/JTb2pXP.jpg");
-                imgURLs.add("https://i.redd.it/59kjlxxf720z.jpg");
-                imgURLs.add("https://i.redd.it/pwduhknig00z.jpg");
-                imgURLs.add("https://i.redd.it/clusqsm4oxzy.jpg");
-                imgURLs.add("https://i.redd.it/svqvn7xs420z.jpg");
-                imgURLs.add("http://i.imgur.com/j4AfH6P.jpg");
-                imgURLs.add("https://i.redd.it/89cjkojkl10z.jpg");
-                imgURLs.add("https://i.redd.it/aw7pv8jq4zzy.jpg");
-        setupImageGrid(imgURLs);
+    private void setupGridView() {
+        Log.d(TAG, "setupGridView: Setting up image grid.");
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        Query query = reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Posts");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    posts.add(singleSnapshot.getValue(Post.class));
+                }
+
+                //setup image grid
+                int gridWidth = getResources().getDisplayMetrics().widthPixels;
+                int imageWidth = gridWidth / NUM_GRID_COLUMNS;
+                gridView.setColumnWidth(imageWidth);
+
+                ArrayList<String> imgUrls = new ArrayList<String>();
+                for (int i = 0; i < posts.size(); i++) {
+                    imgUrls.add(posts.get(i).getImage_path());
+                }
+                GridImageAdapter adapter = new GridImageAdapter(ProfileActivity.this, R.layout.layout_grid_imageview, "", imgUrls);
+                gridView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "onCancelled: query cancelled");
+            }
+        });
+
+
     }
-
-    private void setupImageGrid(ArrayList<String> imgURLs){
-        GridView gridView = (GridView) findViewById(R.id.gridView);
-        int gridWidth = getResources().getDisplayMetrics().widthPixels;
-        int imageWidth = gridWidth/NUM_GRID_COLUMNS;
-        gridView.setColumnWidth(imageWidth);
-
-        GridImageAdapter adapter = new GridImageAdapter(mContext, R.layout.layout_grid_imageview, "", imgURLs);
-        gridView.setAdapter(adapter);
-    }
-
-
 
     private void setProfileImage(){
         Log.d(TAG, "setProfileImage: setting profile photo.");

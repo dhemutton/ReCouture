@@ -75,8 +75,6 @@ public class Click_Outfit extends AppCompatActivity {
         myUri = Uri.parse(url);
         Glide.with(this).load(url).into(imageView);
 
-        Log.d(TAG, "name :" + url);
-
         picName.setText(name);
 
 
@@ -98,7 +96,7 @@ public class Click_Outfit extends AppCompatActivity {
     }
 
     private String getTimestamp() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ss'Z'", Locale.CANADA);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy' 'HH:mm:ss''", Locale.CANADA);
         sdf.setTimeZone(TimeZone.getTimeZone("Asia/Singapore"));
         return sdf.format(new Date());
     }
@@ -120,17 +118,5 @@ public class Click_Outfit extends AppCompatActivity {
         startActivity(i);
     }
 
-
-
-    /**
-     * gets the file extension type for particular URI.
-     * @param uri the image URI
-     * @return the file extension for this URI, eg jpeg,png
-     */
-    private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
 
 }
