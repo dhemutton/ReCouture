@@ -27,7 +27,7 @@ public class Click_Outfit extends AppCompatActivity {
         String url = i.getStringExtra("viewing");
         Glide.with(Click_Outfit.this).load(url).into(imageView);
 
-//        name = getIntent().getStringExtra("name");
-//        picName.setText(name);
+        name = i.getStringExtra("name");
+        picName.setText(name);
     }
 }
