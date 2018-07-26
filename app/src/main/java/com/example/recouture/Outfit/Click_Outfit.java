@@ -114,11 +114,16 @@ public class Click_Outfit extends AppCompatActivity {
         final String location = "Posts";
         final DatabaseReference databaseRef = myRef.child("/" + location);
 
-        Post post = new Post(getTimestamp(), url,name);
+        Post post = new Post();
+        post.setDate_created(getTimestamp());
+        post.setImage_path(url);
+        post.setPhoto_name(name);
+        post.setUser_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-//                                    post.setUser_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
         String uploadId = databaseRef.push().getKey();
-//                                    post.setPhoto_id(uploadId);
+
+        post.setPhoto_id(uploadId);
+
         databaseRef.child(uploadId).setValue(post);
         Toast.makeText(Click_Outfit.this, "upload successful", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(Click_Outfit.this, ProfileActivity.class);

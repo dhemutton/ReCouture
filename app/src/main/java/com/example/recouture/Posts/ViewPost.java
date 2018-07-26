@@ -39,6 +39,7 @@ public class ViewPost extends AppCompatActivity {
     private ImageView mHeartRed,mHeartWhite;
     private GestureDetector mGestureDetector;
     private Heart mHeart;
+    private Boolean mLikedByCurrentUser;
 
 
 
