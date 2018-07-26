@@ -52,11 +52,12 @@
         <activity android:name=".Outfit.Click_Outfit" />
         <activity android:name=".Calendar.ViewPlanned" />
         <activity android:name=".Outfit.PlanOutfit" />
-        <activity android:name=".Outfit.ConfirmPlan"></activity>
-        <activity android:name=".SleevelessGallery.SleevelessActivity"></activity>
+        <activity android:name=".Outfit.ConfirmPlan" />
+        <activity android:name=".SleevelessGallery.SleevelessActivity" />
         <activity android:name=".Outfit.ConfirmPlan" />
         <activity android:name=".Outfit.SaveOutfit" />
-        <activity android:name=".Posts.ViewPost"></activity>
+        <activity android:name=".Posts.ViewPost" />
+        <activity android:name=".Friends.AddFriend"></activity>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import android.widget.GridView;
 import java.util.ArrayList;
 
+import com.example.recouture.Friends.AddFriend;
 import com.example.recouture.Outfit.Click_Outfit;
 import com.example.recouture.Outfit.Outfit;
 import com.example.recouture.Outfit.ViewOutfits;
@@ -50,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView editProfile;
     private ArrayList<Post> posts;
     private GridView gridView;
+    private ImageView addbutton;
 
 
 
@@ -63,6 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
         posts = new ArrayList<>();
 
         setProfileImage();
+        addbutton = (ImageView) findViewById(R.id.addfriend);
         gridView = (GridView) findViewById(R.id.gridViewprofile) ;
         setupGridView();
         TextView editYourProfile = (TextView) findViewById(R.id.edityourprofile);
@@ -75,6 +78,14 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        addbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: navigating to add friend");
+                Intent i = new Intent(ProfileActivity.this, AddFriend.class);
+                startActivity(i);
+            }
+        });
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
