@@ -10,27 +10,45 @@ import android.os.Parcelable;
 public class User implements Parcelable{
 
     private String user_id;
-    private long phone_number;
     private String email;
-    private String username;
+    private String displayname;
+    private String password;
+    private String description;
+    private String website;
+    private String image_path;
 
-    public User(String user_id, long phone_number, String email, String username) {
+
+    public User(String user_id, String email, String displayname, String password, String description, String website, String image_path) {
         this.user_id = user_id;
-        this.phone_number = phone_number;
         this.email = email;
-        this.username = username;
+        this.displayname = displayname;
+        this.password = password;
+        this.description = description;
+        this.website = website;
+        this.image_path = image_path;
     }
 
     public User() {
 
     }
 
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
 
     protected User(Parcel in) {
         user_id = in.readString();
-        phone_number = in.readLong();
         email = in.readString();
-        username = in.readString();
+        displayname = in.readString();
+        password = in.readString();
+        description = in.readString();
+        website = in.readString();
+        image_path = in.readString();
+
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -53,13 +71,6 @@ public class User implements Parcelable{
         this.user_id = user_id;
     }
 
-    public long getPhone_number() {
-        return phone_number;
-    }
-
-    public void setPhone_number(long phone_number) {
-        this.phone_number = phone_number;
-    }
 
     public String getEmail() {
         return email;
@@ -69,22 +80,53 @@ public class User implements Parcelable{
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getDisplayname() {
+        return displayname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
     }
 
+    public static Creator<User> getCREATOR() {
+        return CREATOR;
+    }
+
+    public String getPassword() {
+
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
     @Override
     public String toString() {
         return "User{" +
                 "user_id='" + user_id + '\'' +
-                ", phone_number='" + phone_number + '\'' +
                 ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
+                ", displayname='" + displayname + '\'' +
+                ", password='" + password + '\'' +
+                ", description='" + description + '\'' +
+                ", website='" + website + '\'' +
+                ", image_path='" + image_path + '\'' +
                 '}';
     }
 
@@ -96,8 +138,11 @@ public class User implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(user_id);
-        dest.writeLong(phone_number);
         dest.writeString(email);
-        dest.writeString(username);
+        dest.writeString(displayname);
+        dest.writeString(password);
+        dest.writeString(description);
+        dest.writeString(website);
+        dest.writeString(image_path);
     }
 }

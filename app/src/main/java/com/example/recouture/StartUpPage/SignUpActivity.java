@@ -36,6 +36,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private FirebaseAuth firebaseAuth;
 
+    private String email;
+    private String password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +69,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     private void registerUser() {
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        email = editTextEmail.getText().toString().trim();
+        password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
 
         if (!password.equals(confirmPassword)) {
@@ -101,7 +104,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             //we will start the profile activity here
                             Toast.makeText(SignUpActivity.this,"Account Registered",
                                     Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),SetUpProfile.class));
+                            Intent i = new Intent(getApplicationContext(),SetUpProfile.class);
+                            i.putExtra("email", email);
+                            i.putExtra("password", password);
+                            startActivity(i);
                         } else {
                             Toast.makeText(SignUpActivity.this,"Could not register... please try again",
                                     Toast.LENGTH_SHORT).show();

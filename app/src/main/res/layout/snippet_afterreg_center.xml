@@ -10,15 +10,14 @@
         android:padding="20dp">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/profile_photo"
             android:layout_width="169dp"
             android:layout_height="187dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            app:civ_border_color="#000"
-            app:civ_border_width="2dp" />
+            />
 
         <TextView
             android:id="@+id/changeProfilePhoto"
@@ -26,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/profile_photo"
             android:layout_centerHorizontal="true"
-            android:text="Change Photo"
+            android:text="Upload Photo"
             android:textColor="#ADC6F0"
             android:textSize="16sp" />
 
