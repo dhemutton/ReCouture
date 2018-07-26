@@ -9,8 +9,22 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/pink_border_bottom"
-        >
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/pink_border_bottom">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="156dp"
+            android:layout_marginTop="14dp"
+            android:text="Name"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
 
     </android.support.design.widget.AppBarLayout>
 
@@ -45,23 +59,15 @@
             android:id="@+id/click_deletePost"
             android:layout_width="96dp"
             android:layout_height="34dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/postbut"
-            android:layout_toEndOf="@+id/picturename"
+            android:layout_marginEnd="72dp"
             android:background="@drawable/addeventrect"
             android:text="Delete" />
 
-        <TextView
-            android:id="@+id/picturename"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
-            android:text="picture name"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
     </RelativeLayout>
+    <include layout="@layout/layout_bottom_navigation_view" />
 
 
 </RelativeLayout>

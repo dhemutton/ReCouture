@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.recouture.Outfit.Outfit;
 import com.example.recouture.Outfit.ViewOutfits;
 import com.example.recouture.R;
+import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.example.recouture.utils.GridImageAdapter;
 import com.example.recouture.utils.UniversalImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -36,6 +40,7 @@ public class ViewPlanned extends AppCompatActivity {
     private String imgUrl;
     private String mAppend = "file:/";
     private static final String TAG = "ViewPlanned";
+    private static final int ACTIVITY_NUM = 1;
 
     private String wantedDate;
     private String suppliedUri;
@@ -46,6 +51,7 @@ public class ViewPlanned extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_planned);
+        setupBottomNavigationView();
         theDate = (TextView) findViewById(R.id.date);
         Intent incomingIntent = getIntent();
 
@@ -88,6 +94,16 @@ public class ViewPlanned extends AppCompatActivity {
                 Log.d(TAG, "onCancelled: query cancelled");
             }
         });
+    }
+
+    private void setupBottomNavigationView(){
+        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(ViewPlanned.this, bottomNavigationViewEx);
+        Menu menu = bottomNavigationViewEx.getMenu();
+        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
     }
 
 }
