@@ -57,7 +57,8 @@
         <activity android:name=".Outfit.ConfirmPlan" />
         <activity android:name=".Outfit.SaveOutfit" />
         <activity android:name=".Posts.ViewPost" />
-        <activity android:name=".Friends.AddFriend"></activity>
+        <activity android:name=".Friends.AddFriend" />
+        <activity android:name=".StartUpPage.SetUpProfile"></activity>
     </application>
 
 </manifest>

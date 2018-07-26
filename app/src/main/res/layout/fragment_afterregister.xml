@@ -12,14 +12,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/relLayout1">
 
-            <include layout="@layout/snippet_top_editprofiletoolbar"/>
+            <include layout="@layout/snippet_top_afterregtoolbar"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/relLayout2"
             android:layout_width="match_parent"
-            android:layout_height="517dp"
+            android:layout_height="match_parent"
             android:layout_below="@+id/relLayout1">
 
 
