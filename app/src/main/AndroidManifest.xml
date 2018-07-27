@@ -52,8 +52,8 @@
         <activity android:name=".Outfit.Click_Outfit" />
         <activity android:name=".Calendar.ViewPlanned" />
         <activity android:name=".Outfit.PlanOutfit" />
-        <activity android:name=".Outfit.ConfirmPlan"></activity>
-        <activity android:name=".SleevelessGallery.SleevelessActivity"></activity>
+        <activity android:name=".Outfit.ConfirmPlan" />
+        <activity android:name=".SleevelessGallery.SleevelessActivity" />
         <activity android:name=".Outfit.ConfirmPlan" />
         <activity android:name=".Outfit.SaveOutfit"></activity>
         <activity android:name=".SweaterGallery.SweaterActivity">
@@ -78,7 +78,9 @@
         </activity>
         <activity android:name=".ShoesGallery.ShoesActivity">
         </activity>
-        
+        <activity android:name=".Posts.ViewPost" />
+        <activity android:name=".Friends.AddFriend" />
+        <activity android:name=".StartUpPage.SetUpProfile"></activity>
     </application>
 
 </manifest>

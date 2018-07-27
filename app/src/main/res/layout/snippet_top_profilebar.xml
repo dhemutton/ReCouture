@@ -30,12 +30,12 @@
                     android:textSize="20sp" />
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/addfriend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    app:srcCompat="@drawable/ic_addpeople" />
+                    android:background="@drawable/ic_addpeople" />
 
                 <ImageView
                     android:id="@+id/imageView8"
