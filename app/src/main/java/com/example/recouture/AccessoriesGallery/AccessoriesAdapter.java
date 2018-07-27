@@ -1,4 +1,4 @@
-package com.example.recouture.PantsGallery;
+package com.example.recouture.AccessoriesGallery;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -12,32 +12,32 @@ import com.example.recouture.utils.BaseViewHolder;
 import com.example.recouture.utils.GenericGalleryAdapter;
 import com.example.recouture.utils.OnRecyclerClickListener;
 
-public class PantsAdapter extends GenericGalleryAdapter<Pants,OnRecyclerClickListener<Pants>, PantsAdapter.PantsViewHolder> {
+public class AccessoriesAdapter extends GenericGalleryAdapter<Accessories,OnRecyclerClickListener<Accessories>, AccessoriesAdapter.AccesoriesViewHolder> {
 
 
-    public PantsAdapter(Context context) {
+    public AccessoriesAdapter(Context context) {
         super(context);
     }
 
     private static final String TAG = "ShoesAdapter";
 
     @Override
-    public PantsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PantsViewHolder(inflate(R.layout.single_item_shirt, parent));
+    public AccesoriesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new AccesoriesViewHolder(inflate(R.layout.single_item_shirt, parent));
     }
 
 
 
 
-    class PantsViewHolder extends BaseViewHolder<Pants, OnRecyclerClickListener<Pants>> {
+    class AccesoriesViewHolder extends BaseViewHolder<Accessories, OnRecyclerClickListener<Accessories>> {
 
-        public PantsViewHolder(View itemView) {
+        public AccesoriesViewHolder(View itemView) {
             super(itemView);
 
         }
 
         @Override
-        public void onBind(final Pants item, @Nullable final OnRecyclerClickListener<Pants> listener) {
+        public void onBind(final Accessories item, @Nullable final OnRecyclerClickListener<Accessories> listener) {
             descriptionText.setText(item.getmName());
             Glide.with(itemView.getContext()).load(item.getmImageUrl()).into(imageView);
             Log.i(TAG,"uri " + item.getmImageUrl());
@@ -48,7 +48,7 @@ public class PantsAdapter extends GenericGalleryAdapter<Pants,OnRecyclerClickLis
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.onItemClicked(view, item,PantsViewHolder.this);
+                        listener.onItemClicked(view, item,AccesoriesViewHolder.this);
                     }
                 });
             }

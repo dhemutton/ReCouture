@@ -1,5 +1,5 @@
 
-package com.example.recouture.SweaterGallery;
+package com.example.recouture.ShoesGallery;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,14 +10,11 @@ import com.example.recouture.R;
 import com.example.recouture.utils.BaseGalleryActivity;
 import com.example.recouture.utils.EmptyRecyclerView;
 import com.example.recouture.utils.FirebaseMethods;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class SweaterActivity extends BaseGalleryActivity<Sweater> {
+public class ShoesActivity extends BaseGalleryActivity<Shoes> {
 
     //private EmptyRecyclerView mRecyclerViewSleeveless;
-
 
 
 
@@ -27,7 +24,7 @@ public class SweaterActivity extends BaseGalleryActivity<Sweater> {
     // delete items
     private ImageView delete;
 
-    private SweaterAdapter SweaterAdapter;
+    private ShoesAdapter shoesAdapter;
 
 
     // to delete image from storage ref
@@ -47,7 +44,7 @@ public class SweaterActivity extends BaseGalleryActivity<Sweater> {
         cancelDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                helperCancelDelete(SweaterAdapter);
+                helperCancelDelete(shoesAdapter);
             }
         });
 
@@ -56,7 +53,7 @@ public class SweaterActivity extends BaseGalleryActivity<Sweater> {
             @Override
             public void onClick(View view) {
                 FirebaseMethods.deleteGalleryImages(toBeDeletedOrChosen, mDatabaseReference, mDatabaseTagRef,
-                        SweaterActivity.this);
+                        ShoesActivity.this);
             }
         });
 
@@ -66,18 +63,18 @@ public class SweaterActivity extends BaseGalleryActivity<Sweater> {
 
 
 
-        SweaterAdapter = new SweaterAdapter(this);
-        mRecyclerView.setAdapter(SweaterAdapter);
-        SweaterAdapter.setListener(this);
+        shoesAdapter = new ShoesAdapter(this);
+        mRecyclerView.setAdapter(shoesAdapter);
+        shoesAdapter.setListener(this);
 
 
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Sweaters");
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Shoes");
 
         mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid() + "/Tags/");
 
 
-        mDatabaseListener = FirebaseMethods.returnGalleryListener(mDatabaseReference, Sweater.class, SweaterAdapter);
+        mDatabaseListener = FirebaseMethods.returnGalleryListener(mDatabaseReference, Shoes.class, shoesAdapter);
     }
 
 
@@ -90,7 +87,7 @@ public class SweaterActivity extends BaseGalleryActivity<Sweater> {
     @Override
     public void changeEmptyViewText(EmptyRecyclerView emptyRecyclerView) {
         TextView textView = (TextView)emptyRecyclerView.getmEmptyView();
-        textView.setText("Add more Sweater");
+        textView.setText("Add more Shoes");
     }
 
 

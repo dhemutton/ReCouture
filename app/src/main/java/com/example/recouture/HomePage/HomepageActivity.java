@@ -15,12 +15,23 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.recouture.AccessoriesGallery.Accessories;
+import com.example.recouture.AccessoriesGallery.AccessoriesActivity;
+import com.example.recouture.BagsGallery.BagActivity;
+import com.example.recouture.DressGallery.DressActivity;
 import com.example.recouture.Item;
+import com.example.recouture.OuterwearGallery.OuterwearActivity;
 import com.example.recouture.PantsGallery.PantsActivity;
 import com.example.recouture.ShirtGallery.ShirtActivity;
+import com.example.recouture.ShoesGallery.ShoesActivity;
+import com.example.recouture.ShortsGallery.Shorts;
+import com.example.recouture.ShortsGallery.ShortsActivity;
+import com.example.recouture.SkirtsGallery.SkirtActivity;
 import com.example.recouture.SleevelessGallery.Sleeveless;
 import com.example.recouture.SleevelessGallery.SleevelessActivity;
 import com.example.recouture.SweaterGallery.SweaterActivity;
+import com.example.recouture.SwimwearGallery.Swimwear;
+import com.example.recouture.SwimwearGallery.SwimwearActivity;
 import com.example.recouture.TagHolder;
 import com.example.recouture.utils.UniversalImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
@@ -276,11 +287,11 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
                 break;
             case "Outerwear":
                 if (chooseOutfit) {
-                    intent.setClass(this, ShirtActivity.class);
+                    intent.setClass(this, OuterwearActivity.class);
                     intent.putExtra("chooseOutfits", true);
                     startActivityForResult(intent, 1);
                 } else {
-                    startActivity(intent.setClass(this, ShirtActivity.class));
+                    startActivity(intent.setClass(this, OuterwearActivity.class));
                 }
                 break;
             case "Sweater":
@@ -303,65 +314,65 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
                 break;
             case "Shorts":
                 if (chooseOutfit) {
-                    intent.setClass(this, ShirtActivity.class);
+                    intent.setClass(this, ShortsActivity.class);
                     intent.putExtra("chooseOutfits", true);
                     startActivityForResult(intent, 1);
                 } else {
-                    startActivity(intent.setClass(this, ShirtActivity.class));
+                    startActivity(intent.setClass(this, ShortsActivity.class));
                 }
                 break;
             case "Skirts":
                 if (chooseOutfit) {
-                    intent.setClass(this, ShirtActivity.class);
+                    intent.setClass(this, SkirtActivity.class);
                     intent.putExtra("chooseOutfits", true);
                     startActivityForResult(intent, 1);
                 } else {
-                    startActivity(intent.setClass(this, ShirtActivity.class));
+                    startActivity(intent.setClass(this, SkirtActivity.class));
                 }
                 break;
             case "Dresses":
                 if (chooseOutfit) {
-                    intent.setClass(this, ShirtActivity.class);
+                    intent.setClass(this, DressActivity.class);
                     intent.putExtra("chooseOutfits", true);
                     startActivityForResult(intent, 1);
                 } else {
-                    startActivity(intent.setClass(this, ShirtActivity.class));
+                    startActivity(intent.setClass(this, DressActivity.class));
                 }
                 break;
             case "Shoes":
                 if (chooseOutfit) {
-                    intent.setClass(this, ShirtActivity.class);
+                    intent.setClass(this, ShoesActivity.class);
                     intent.putExtra("chooseOutfits", true);
                     startActivityForResult(intent, 1);
                 } else {
-                    startActivity(intent.setClass(this, ShirtActivity.class));
+                    startActivity(intent.setClass(this, ShoesActivity.class));
                 }
                 break;
             case "Bags":
                 if (chooseOutfit) {
-                    intent.setClass(this, ShirtActivity.class);
+                    intent.setClass(this, BagActivity.class);
                     intent.putExtra("chooseOutfits", true);
                     startActivityForResult(intent, 1);
                 } else {
-                    startActivity(intent.setClass(this, ShirtActivity.class));
+                    startActivity(intent.setClass(this, BagActivity.class));
                 }
                 break;
             case "Accessories":
                 if (chooseOutfit) {
-                    intent.setClass(this, ShirtActivity.class);
+                    intent.setClass(this, AccessoriesActivity.class);
                     intent.putExtra("chooseOutfits", true);
                     startActivityForResult(intent, 1);
                 } else {
-                    startActivity(intent.setClass(this, ShirtActivity.class));
+                    startActivity(intent.setClass(this, AccessoriesActivity.class));
                 }
                 break;
             case "Swimwear":
                 if (chooseOutfit) {
-                    intent.setClass(this, ShirtActivity.class);
+                    intent.setClass(this, SwimwearActivity.class);
                     intent.putExtra("chooseOutfits", true);
                     startActivityForResult(intent, 1);
                 } else {
-                    startActivity(intent.setClass(this, ShirtActivity.class));
+                    startActivity(intent.setClass(this, SwimwearActivity.class));
                 }
                 break;
         }

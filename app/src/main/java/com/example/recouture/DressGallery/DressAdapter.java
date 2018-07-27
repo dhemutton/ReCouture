@@ -1,4 +1,4 @@
-package com.example.recouture.PantsGallery;
+package com.example.recouture.DressGallery;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -12,32 +12,32 @@ import com.example.recouture.utils.BaseViewHolder;
 import com.example.recouture.utils.GenericGalleryAdapter;
 import com.example.recouture.utils.OnRecyclerClickListener;
 
-public class PantsAdapter extends GenericGalleryAdapter<Pants,OnRecyclerClickListener<Pants>, PantsAdapter.PantsViewHolder> {
+public class DressAdapter extends GenericGalleryAdapter<Dress,OnRecyclerClickListener<Dress>, DressAdapter.DressViewHolder> {
 
 
-    public PantsAdapter(Context context) {
+    public DressAdapter(Context context) {
         super(context);
     }
 
     private static final String TAG = "ShoesAdapter";
 
     @Override
-    public PantsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PantsViewHolder(inflate(R.layout.single_item_shirt, parent));
+    public DressViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new DressViewHolder(inflate(R.layout.single_item_shirt, parent));
     }
 
 
 
 
-    class PantsViewHolder extends BaseViewHolder<Pants, OnRecyclerClickListener<Pants>> {
+    class DressViewHolder extends BaseViewHolder<Dress, OnRecyclerClickListener<Dress>> {
 
-        public PantsViewHolder(View itemView) {
+        public DressViewHolder(View itemView) {
             super(itemView);
 
         }
 
         @Override
-        public void onBind(final Pants item, @Nullable final OnRecyclerClickListener<Pants> listener) {
+        public void onBind(final Dress item, @Nullable final OnRecyclerClickListener<Dress> listener) {
             descriptionText.setText(item.getmName());
             Glide.with(itemView.getContext()).load(item.getmImageUrl()).into(imageView);
             Log.i(TAG,"uri " + item.getmImageUrl());
@@ -48,7 +48,7 @@ public class PantsAdapter extends GenericGalleryAdapter<Pants,OnRecyclerClickLis
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.onItemClicked(view, item,PantsViewHolder.this);
+                        listener.onItemClicked(view, item,DressViewHolder.this);
                     }
                 });
             }

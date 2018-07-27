@@ -1,4 +1,4 @@
-package com.example.recouture.PantsGallery;
+package com.example.recouture.OuterwearGallery;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -12,32 +12,32 @@ import com.example.recouture.utils.BaseViewHolder;
 import com.example.recouture.utils.GenericGalleryAdapter;
 import com.example.recouture.utils.OnRecyclerClickListener;
 
-public class PantsAdapter extends GenericGalleryAdapter<Pants,OnRecyclerClickListener<Pants>, PantsAdapter.PantsViewHolder> {
+public class OuterwearAdapter extends GenericGalleryAdapter<Outerwear,OnRecyclerClickListener<Outerwear>, OuterwearAdapter.OuterwearViewHolder> {
 
 
-    public PantsAdapter(Context context) {
+    public OuterwearAdapter(Context context) {
         super(context);
     }
 
     private static final String TAG = "ShoesAdapter";
 
     @Override
-    public PantsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PantsViewHolder(inflate(R.layout.single_item_shirt, parent));
+    public OuterwearViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new OuterwearViewHolder(inflate(R.layout.single_item_shirt, parent));
     }
 
 
 
 
-    class PantsViewHolder extends BaseViewHolder<Pants, OnRecyclerClickListener<Pants>> {
+    class OuterwearViewHolder extends BaseViewHolder<Outerwear, OnRecyclerClickListener<Outerwear>> {
 
-        public PantsViewHolder(View itemView) {
+        public OuterwearViewHolder(View itemView) {
             super(itemView);
 
         }
 
         @Override
-        public void onBind(final Pants item, @Nullable final OnRecyclerClickListener<Pants> listener) {
+        public void onBind(final Outerwear item, @Nullable final OnRecyclerClickListener<Outerwear> listener) {
             descriptionText.setText(item.getmName());
             Glide.with(itemView.getContext()).load(item.getmImageUrl()).into(imageView);
             Log.i(TAG,"uri " + item.getmImageUrl());
@@ -48,7 +48,7 @@ public class PantsAdapter extends GenericGalleryAdapter<Pants,OnRecyclerClickLis
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        listener.onItemClicked(view, item,PantsViewHolder.this);
+                        listener.onItemClicked(view, item,OuterwearViewHolder.this);
                     }
                 });
             }

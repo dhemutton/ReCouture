@@ -18,15 +18,6 @@ public class SleevelessActivity extends BaseGalleryActivity<Sleeveless> {
 
     //private EmptyRecyclerView mRecyclerViewSleeveless;
 
-    private DatabaseReference mDatabaseReference;
-   // private BottomNavigationViewEx bottomNavigationViewEx;
-
-    private ValueEventListener mDatabaseListener;
-
-
-    // to delete tag of Pants
-    private DatabaseReference mDatabaseTagRef;
-
 
     // cancel dustbin
 
@@ -97,13 +88,9 @@ public class SleevelessActivity extends BaseGalleryActivity<Sleeveless> {
     @Override
     public void changeEmptyViewText(EmptyRecyclerView emptyRecyclerView) {
         TextView textView = (TextView)emptyRecyclerView.getmEmptyView();
-        textView.setText("Add more Pants");
+        textView.setText("Add more Sleeveless");
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mDatabaseReference.removeEventListener(mDatabaseListener);
-    }
+
 }

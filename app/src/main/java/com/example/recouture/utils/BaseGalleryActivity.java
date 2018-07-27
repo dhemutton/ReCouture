@@ -36,7 +36,7 @@ public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity i
 
     protected ValueEventListener mDatabaseListener;
 
-    // to delete tag of Pants
+    // to delete tag of Shoes
     protected DatabaseReference mDatabaseTagRef;
 
     private boolean chooseOutfits = false;

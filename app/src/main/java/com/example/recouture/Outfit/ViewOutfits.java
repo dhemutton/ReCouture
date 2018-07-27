@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.recouture.R;
+import com.example.recouture.utils.GridImageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

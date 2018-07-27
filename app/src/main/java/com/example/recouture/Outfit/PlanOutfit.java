@@ -13,13 +13,9 @@ import android.widget.GridView;
 
 import com.example.recouture.Calendar.CalendarActivity;
 import com.example.recouture.R;
-<<<<<<< HEAD
-=======
-import com.example.recouture.ShirtGallery.EmptyRecyclerView;
 import com.example.recouture.ShirtGallery.ShirtAdapter2;
 import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.example.recouture.utils.FirebaseMethods;
->>>>>>> b23c28ae23c0b91cadc48cd9098fc40e90551661
 import com.example.recouture.utils.GridImageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

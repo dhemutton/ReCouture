@@ -55,16 +55,30 @@
         <activity android:name=".Outfit.ConfirmPlan"></activity>
         <activity android:name=".SleevelessGallery.SleevelessActivity"></activity>
         <activity android:name=".Outfit.ConfirmPlan" />
-<<<<<<< HEAD
         <activity android:name=".Outfit.SaveOutfit"></activity>
         <activity android:name=".SweaterGallery.SweaterActivity">
         </activity>
         <activity android:name=".PantsGallery.PantsActivity">
         </activity>
-=======
         <activity android:name=".Outfit.SaveOutfit" />
         <activity android:name=".Posts.ViewPost"></activity>
->>>>>>> b23c28ae23c0b91cadc48cd9098fc40e90551661
+        <activity android:name=".OuterwearGallery.OuterwearActivity">
+        </activity>
+        <activity android:name=".ShortsGallery.ShortsActivity">
+        </activity>
+        <activity android:name=".DressGallery.DressActivity">
+        </activity>
+        <activity android:name=".SkirtsGallery.SkirtActivity">
+        </activity>
+        <activity android:name=".BagsGallery.BagActivity">
+        </activity>
+        <activity android:name=".AccessoriesGallery.AccessoriesActivity">
+        </activity>
+        <activity android:name=".SwimwearGallery.SwimwearActivity">
+        </activity>
+        <activity android:name=".ShoesGallery.ShoesActivity">
+        </activity>
+        
     </application>
 
 </manifest>

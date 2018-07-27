@@ -302,7 +302,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     private void setUpSpinner() {
         List<String> names = Arrays.asList(
-                "Shirts","Pants","Outerwear","Pants","Pants","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear");
+                "Shirts","Shoes","Shoes","Shoes","Shoes","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,names);
         spinnerTextCategory.setAdapter(arrayAdapter);
         arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
