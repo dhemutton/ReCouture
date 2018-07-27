@@ -29,6 +29,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewH
         this.tagHolders = tagHolders;
     }
 
+    public void clear() {
+        Log.i(TAG,"cleared");
+        tagHolders.clear();
+        notifyDataSetChanged();
+    }
+
+
+    public void addTagHolder(TagHolder tagHolder) {
+        this.tagHolders.add(tagHolder);
+    }
+
+
+
+
 
 
 

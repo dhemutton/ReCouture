@@ -93,6 +93,7 @@ public abstract class BaseGalleryActivity<T extends Item> extends BaseActivity i
             intent.putExtra("firebaseRef",item.getCategory());
             intent.putExtra("color",item.getmColor());
             intent.putExtra("imageUri",item.getmImageUrl());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             getApplicationContext().startActivity(intent);
         }
     }

@@ -62,7 +62,7 @@ public class TagHolder implements Parcelable{
 
     @Override
     public String toString() {
-        return "name : " + name;
+        return "name : " + tagName;
     }
 
     public String getTagName() {

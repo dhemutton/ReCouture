@@ -61,6 +61,7 @@ public class ClickItemActivity extends BaseActivity {
     // just update the firebase values dont need to update individual tag references.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG,"OnCreate");
         setContentView(setView());
         super.onCreate(savedInstanceState);
         setWidgets();

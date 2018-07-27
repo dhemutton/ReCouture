@@ -93,6 +93,8 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference mTagDatabaseRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags");
     private  Context mContext = HomepageActivity.this;
+
+    private Query query;
     private TextWatcher filterTextWatcher = new TextWatcher() {
 
         @Override
@@ -100,6 +102,7 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
             // DO THE CALCULATIONS HERE AND SHOW THE RESULT AS PER YOUR CALCULATIONS
             Query query = mTagDatabaseRef.orderByKey().startAt(s.toString()).endAt(s.toString()
                     + "\uf8ff");
+            Log.i(TAG,s.toString());
             query.addValueEventListener(searchEventListener);
             if (!TextUtils.isEmpty(s)) {
                 recyclerView.setVisibility(View.INVISIBLE);
@@ -210,18 +213,21 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
     }
 
     ValueEventListener searchEventListener = new ValueEventListener() {
+
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            tagHolders.clear();
+            Log.i(TAG,"datachanged");
+            searchAdapter.clear();
             if (dataSnapshot.exists()) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     for (DataSnapshot childSnapshot : dataSnapshot1.getChildren()) {
                         TagHolder tags = childSnapshot.getValue(TagHolder.class);
                         Log.i(TAG,"tags " + tags);
-                        tagHolders.add(tags);
+                        searchAdapter.addTagHolder(tags);
                     }
                 }
+                Log.i(TAG,"Size " + tagHolders.size());
                 searchAdapter.notifyDataSetChanged();
             }
         }
@@ -394,4 +400,10 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
         setResult(RESULT_OK, data);
         super.finish();
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mTagDatabaseRef.removeEventListener(searchEventListener);
+    }
+
 }
