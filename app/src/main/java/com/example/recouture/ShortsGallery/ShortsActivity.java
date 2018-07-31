@@ -38,7 +38,7 @@ public class ShortsActivity extends BaseGalleryActivity<Shorts> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        changeHeader("Shoes");
+        changeHeader("Shorts");
         //changeEmptyViewText(mRecyclerView);
 
         cancelDelete.setOnClickListener(new View.OnClickListener() {

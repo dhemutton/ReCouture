@@ -49,6 +49,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ImageViewH
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.i(TAG,"onCreateViewHolder");
         View v = LayoutInflater.from(context).inflate(R.layout.search_item,parent,false);
         return new ImageViewHolder(v);
     }

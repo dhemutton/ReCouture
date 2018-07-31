@@ -69,7 +69,7 @@ public class OuterwearActivity extends BaseGalleryActivity<Outerwear> {
 
 
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Outerwears");
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Outerwear");
 
         mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid() + "/Tags/");
 

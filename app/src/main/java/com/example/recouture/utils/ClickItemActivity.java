@@ -48,6 +48,8 @@ public class ClickItemActivity extends BaseActivity {
 
     DatabaseReference mDatabaseTagRef;
 
+    ImageView back;
+
 
     /**
      * This class will implement all common UI when a user clicks an item in a gallery.
@@ -77,6 +79,13 @@ public class ClickItemActivity extends BaseActivity {
         Glide.with(this).load(imageUri).into(imageView);
         pictureName.setText(itemName);
         postDesColor.setText(color);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClickItemActivity.super.onBackPressed();
+            }
+        });
 
 
         mDatabaseItemReference = FirebaseDatabase.getInstance().getReference().child(FirebaseMethods.getUserUid()).child(firebaseRef).child(item.getKey());
@@ -142,6 +151,7 @@ public class ClickItemActivity extends BaseActivity {
                             mDatabaseTagRef
                                     .child(newTagName);
                     String uniqueId = tempDatabaseTagRef.push().getKey();
+                    newTagHolder.setmKey(uniqueId);
                     tempDatabaseTagRef.child(uniqueId).setValue(newTagHolder);
                 }
                 //item.setTags(newTagHolders);
@@ -155,7 +165,7 @@ public class ClickItemActivity extends BaseActivity {
                 ).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(ClickItemActivity.this,"why ....." , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ClickItemActivity.this,"edit successful" , Toast.LENGTH_SHORT).show();
                     }
                 });
                 Log.i(TAG,"Ref is at " + mDatabaseItemReference.child("tags"));
@@ -182,7 +192,8 @@ public class ClickItemActivity extends BaseActivity {
         postDesTag = findViewById(R.id.postDesTag);
         clickDeletePost = findViewById(R.id.click_deletePost);
         clickEditPost = findViewById(R.id.postbut);
-        pictureName = findViewById(R.id.name);
+        pictureName = findViewById(R.id.pictureName);
+        back = findViewById(R.id.backClickShirt);
     }
 
     @Override

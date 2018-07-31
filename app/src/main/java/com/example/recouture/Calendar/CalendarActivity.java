@@ -11,38 +11,43 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.recouture.Outfit.PlanOutfit;
 import com.example.recouture.R;
+import com.example.recouture.utils.BaseActivity;
 import com.example.recouture.utils.BottomNavigationViewHelper;
+import com.example.recouture.utils.FirebaseMethods;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
-public class CalendarActivity extends AppCompatActivity {
+public class CalendarActivity extends BaseActivity {
     private static final String TAG = "CalendarActivity";
     private static final int ACTIVITY_NUM = 1;
-    private CalendarView mCalendarView;
+    private MaterialCalendarView mCalendarView;
     private TextView viewplanned;
     private TextView newplan;
 
+    private DatabaseReference eventDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Events");
+
     private String date;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setContentView(setView());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_calendar);
         Log.d(TAG, "onCreate: started");
-        setupBottomNavigationView();
 
-        mCalendarView = (CalendarView) findViewById(R.id.calendarView);
+        mCalendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
         viewplanned = (TextView) findViewById(R.id.viewoutfittext);
         newplan = (TextView) findViewById(R.id.plan);
 
-        mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                date = (dayOfMonth) + "/" + (month+1) + "/" + year;
-                Log.d(TAG, "onSelectedDayChange: dd/mm/yyyy : " + date);
-            }
-        });
+        setMenuChecked();
+
+
 
 
         viewplanned.setOnClickListener(new View.OnClickListener() {
@@ -58,9 +63,17 @@ public class CalendarActivity extends AppCompatActivity {
         newplan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(CalendarActivity.this, PlanOutfit.class);
-                    intent.putExtra("date", date);
-                    startActivity(intent);
+//                    Intent intent = new Intent(CalendarActivity.this, PlanOutfit.class);
+//                    intent.putExtra("date", date);
+//                    startActivity(intent);
+                    CalendarDay day = mCalendarView.getSelectedDate();
+                    if (day == null) {
+                        Toast.makeText(CalendarActivity.this, "please select a date", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(CalendarActivity.this,PlanOutfit.class);
+                        intent.putExtra("calendarDay",day);
+                        startActivity(intent);
+                    }
                 }
 
         });
@@ -69,13 +82,15 @@ public class CalendarActivity extends AppCompatActivity {
 
     }
 
-    private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(CalendarActivity.this, bottomNavigationViewEx);
+    @Override
+    public int setView() {
+        return R.layout.layout_calendar;
+    }
+
+    private void setMenuChecked(){
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
     }
+
 }

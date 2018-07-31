@@ -116,11 +116,11 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            searchAdapter.clear();
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-
         }
     };
 
@@ -217,14 +217,17 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             Log.i(TAG,"datachanged");
-            searchAdapter.clear();
             if (dataSnapshot.exists()) {
+                Log.i(TAG,"datasnapshot + " + dataSnapshot.toString());
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     for (DataSnapshot childSnapshot : dataSnapshot1.getChildren()) {
-                        TagHolder tags = childSnapshot.getValue(TagHolder.class);
-                        Log.i(TAG,"tags " + tags);
-                        searchAdapter.addTagHolder(tags);
+                        Log.i(TAG,"childsnapshot " + childSnapshot.toString());
+                        if (childSnapshot.exists()) {
+                            TagHolder tags = childSnapshot.getValue(TagHolder.class);
+                            Log.i(TAG, "tags " + tags);
+                            searchAdapter.addTagHolder(tags);
+                        }
                     }
                 }
                 Log.i(TAG,"Size " + tagHolders.size());

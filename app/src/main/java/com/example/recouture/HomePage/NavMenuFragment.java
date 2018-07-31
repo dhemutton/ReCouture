@@ -72,6 +72,9 @@ public class NavMenuFragment extends Fragment {
                 Intent viewOutfit = new Intent(getActivity(), ViewOutfits.class);
                 viewOutfit.putExtra("going to create","something");
                 startActivity(viewOutfit);
+                manager.beginTransaction().remove(NavMenuFragment.this).commit();
+                //getFragmentManager().beginTransaction().remove(SignOutFragment.this).commit();
+
             }
         });
 

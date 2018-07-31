@@ -31,7 +31,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(context, bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
     }
 
 

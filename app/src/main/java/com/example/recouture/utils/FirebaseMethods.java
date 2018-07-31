@@ -2,6 +2,7 @@ package com.example.recouture.utils;
 
 import android.content.Context;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import com.example.recouture.Item;
 import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.Shirt;
 import com.example.recouture.TagHolder;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,6 +76,7 @@ public class FirebaseMethods {
     public static<T extends Item> void deleteGalleryImages(List<T> deletables, final DatabaseReference mDatabaseReference,
                                                            DatabaseReference mDatabaseTagRef,
                                                            final Context context) {
+        Log.i(TAG,"firebase delete");
         for (final T item : deletables) {
             final String selectedKey = item.getKey();
             StorageReference imageRef = FirebaseStorage.getInstance().
@@ -88,6 +91,11 @@ public class FirebaseMethods {
                     public void onSuccess(Void aVoid) {
                         Log.i(TAG,"delete tag success");
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i(TAG,"its not working");
+                    }
                 });
             }
             imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -99,6 +107,12 @@ public class FirebaseMethods {
                             Toast.makeText(context,"successfully deleted",Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.i(TAG,"its not working image");
+                    e.printStackTrace();
                 }
             });
         }

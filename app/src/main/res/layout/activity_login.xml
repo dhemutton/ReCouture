@@ -8,6 +8,21 @@
     tools:context=".StartUpPage.LoginActivity">
 
     <EditText
+        android:id="@+id/username"
+        android:layout_width="283dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/password"
+        android:background="@drawable/username"
+        android:ems="10"
+        android:hint="@string/username"
+        android:inputType="textPersonName"
+        android:paddingEnd="30dp"
+        android:paddingStart="90dp"
+        android:textColorHint="#FFF" />
+
+    <EditText
         android:id="@+id/password"
         android:layout_width="283dp"
         android:layout_height="55dp"
@@ -21,7 +36,9 @@
         android:paddingBottom="10dp"
         android:paddingEnd="30dp"
         android:paddingStart="90dp"
-        android:textColorHint="#FFF" />
+        android:textColorHint="#FFF"
+        android:layout_above="@+id/signIn"
+        />
 
     <Button
         android:id="@+id/signIn"
@@ -31,22 +48,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="125dp"
         android:background="@drawable/signinbutton" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="283dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="71dp"
-        android:layout_marginEnd="53dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="236dp"
-        android:background="@drawable/username"
-        android:ems="10"
-        android:hint="@string/username"
-        android:inputType="textPersonName"
-        android:paddingEnd="30dp"
-        android:paddingStart="90dp"
-        android:textColorHint="#FFF" />
 
     <TextView
         android:id="@+id/signUp"

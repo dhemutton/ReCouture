@@ -58,27 +58,38 @@ android:layout_height="match_parent"
         </RelativeLayout>
 
         <!-- Middle section (body) -->
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/relLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/relativeLayout"
             android:layout_below="@+id/relLayout1">
 
             <include layout="@layout/layout_center_viewpager" />
 
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewHomePage"
                 android:layout_width="match_parent"
-                android:layout_height="438dp"
+                android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="NotSibling" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/searchRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="438dp"
+                android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerViewHomePage"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="NotSibling" />
 
 
             <FrameLayout
@@ -86,7 +97,8 @@ android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:layout_height="161dp"
                 android:layout_alignBottom="@+id/recyclerViewHomePage"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                tools:ignore="NotSibling">
 
             </FrameLayout>
 
@@ -103,18 +115,19 @@ android:layout_height="match_parent"
                 android:layout_height="342dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="52dp">
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="@+id/signoutfragment">
 
             </FrameLayout>
 
 
-        </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
 
 
         <!-- bottom navigation -->
         <include layout="@layout/layout_bottom_navigation_view" />
-        <include layout="@layout/layout_selectforoutfits_nav_view" />
 
+        <include layout="@layout/layout_selectforoutfits_nav_view" />
 
 
     </RelativeLayout>

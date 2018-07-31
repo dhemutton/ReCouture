@@ -62,6 +62,9 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: started");
         setupBottomNavigationView();
         setupActivityWidgets();
+
+        setUpProfile();
+
         posts = new ArrayList<>();
 
         setProfileImage();
@@ -100,6 +103,10 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void setUpProfile() {
+
     }
 
     private void setupBottomNavigationView(){

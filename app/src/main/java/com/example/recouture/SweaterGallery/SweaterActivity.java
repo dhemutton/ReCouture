@@ -41,7 +41,7 @@ public class SweaterActivity extends BaseGalleryActivity<Sweater> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        changeHeader("Shoes");
+        changeHeader("Sweater");
         //changeEmptyViewText(mRecyclerView);
 
         cancelDelete.setOnClickListener(new View.OnClickListener() {

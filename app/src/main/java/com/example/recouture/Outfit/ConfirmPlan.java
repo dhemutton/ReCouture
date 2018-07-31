@@ -3,6 +3,7 @@ package com.example.recouture.Outfit;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ import com.example.recouture.Calendar.CalendarActivity;
 import com.example.recouture.Calendar.Event;
 import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.StartUpPage.ActivityIndicator;
+import com.example.recouture.utils.EventDecorator;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,8 +42,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import com.example.recouture.R.layout.*;
 
 /**
  * Created by User on 7/24/2017.
@@ -49,6 +57,8 @@ import java.io.ByteArrayOutputStream;
 public class ConfirmPlan extends AppCompatActivity {
 
     private static final String TAG = "NextActivity";
+
+    private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
 
     //firebase
     private FirebaseUser firebaseUser;
@@ -66,7 +76,9 @@ public class ConfirmPlan extends AppCompatActivity {
     private TextView theDate;
     Uri imageUri;
     private ActivityIndicator activityIndicator;
-    private String date;
+    private CalendarDay date;
+
+    private MaterialCalendarView materialCalendarView;
 
 
     //vars
@@ -79,8 +91,10 @@ public class ConfirmPlan extends AppCompatActivity {
         theDate = (TextView) findViewById(R.id.date);
         activityIndicator = new ActivityIndicator(this);
 
-        date = getIntent().getStringExtra("date");
-        theDate.setText(date);
+        date = getIntent().getParcelableExtra("calendarDay");
+        theDate.setText(FORMATTER.format(date.getDate()));
+
+        findMaterialCalendar();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
@@ -107,10 +121,18 @@ public class ConfirmPlan extends AppCompatActivity {
                 Log.d(TAG, "onClick: add outfit to the date.");
                 //upload the image to firebase
                 Toast.makeText(ConfirmPlan.this, "Attempting to upload new photo", Toast.LENGTH_SHORT).show();
+                Log.i(TAG,materialCalendarView.toString());
+                materialCalendarView.addDecorator(new EventDecorator(date, Color.RED));
                 uploadFile();
             }
         });
+    }
 
+
+
+    public void findMaterialCalendar() {
+        View v = LayoutInflater.from(this).inflate(R.layout.layout_calendar,null,false);
+        materialCalendarView = v.findViewById(R.id.calendarView);
     }
 
     /**
@@ -156,7 +178,7 @@ public class ConfirmPlan extends AppCompatActivity {
      */
     private void uploadFile() {
 
-        final String dateConfirm = date;
+        final String dateConfirm = FORMATTER.format(date.getDate());
         final String location = "Events";
         final DatabaseReference databaseRef = mDatabaseRef.child("/" + location);
 

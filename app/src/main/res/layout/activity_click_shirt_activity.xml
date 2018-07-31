@@ -6,30 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".ShirtGallery.ClickShirt">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/pink_border_bottom"
-            >
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="12dp"
-                android:text="-picture name-"
-                android:gravity="center_horizontal"
-                android:textSize="24sp"
-                tools:layout_centerHorizontal="false" />
 
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/profileToolBar">
-            </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:id="@+id/relLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
-        </android.support.design.widget.AppBarLayout>
+        <TextView
+            android:id="@+id/pictureName"
+            android:layout_width="383dp"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/pink"
+            android:gravity="center"
+            android:text="picture-name"
+            android:textSize="24sp" />
+
+
+
+        <ImageView
+            android:id="@+id/backClickShirt"
+            android:layout_width="33dp"
+            android:layout_height="31dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/ic_arrow_back" />
+
+    </RelativeLayout>
 
 
     <RelativeLayout

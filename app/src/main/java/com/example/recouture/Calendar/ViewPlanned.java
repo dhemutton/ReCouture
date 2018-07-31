@@ -78,6 +78,7 @@ public class ViewPlanned extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    Log.i(TAG,singleSnapshot.toString());
                     events.add(singleSnapshot.getValue(Event.class));
                 }
 

@@ -38,7 +38,7 @@ public class BagActivity extends BaseGalleryActivity<Bag> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        changeHeader("Shoes");
+        changeHeader("Bags");
         //changeEmptyViewText(mRecyclerView);
 
         cancelDelete.setOnClickListener(new View.OnClickListener() {

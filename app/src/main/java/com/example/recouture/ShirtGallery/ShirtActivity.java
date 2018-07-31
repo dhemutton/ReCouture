@@ -43,6 +43,8 @@ public class ShirtActivity extends BaseGalleryActivity<Shirt> {
 
     private ShirtAdapter2 shirtAdapter2;
 
+    private static final String TAG = "ShirtActivity";
+
 
     // to delete image from storage ref
 
@@ -54,6 +56,7 @@ public class ShirtActivity extends BaseGalleryActivity<Shirt> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG,"onCreate");
         super.onCreate(savedInstanceState);
         changeHeader("Shirts");
 
@@ -68,8 +71,10 @@ public class ShirtActivity extends BaseGalleryActivity<Shirt> {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i(TAG,"delete shirt");
                 FirebaseMethods.deleteGalleryImages(toBeDeletedOrChosen, mDatabaseReference, mDatabaseTagRef,
                         ShirtActivity.this);
+                Log.i(TAG,"simi sai");
             }
         });
 

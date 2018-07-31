@@ -70,7 +70,7 @@ public class SleevelessActivity extends BaseGalleryActivity<Sleeveless> {
 
 
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Sleevelesss");
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Sleeveless");
 
         mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid() + "/Tags/");
 

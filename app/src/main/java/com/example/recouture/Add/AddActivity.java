@@ -198,7 +198,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
         final String name = editTextName.getText().toString().trim();
         final String color = editTextColor.getText().toString().trim();
-        final String tags = editTextTags.getText().toString().trim();
+        final String tags = editTextTags.getText().toString().replace(" ","").trim();
+        Log.i(TAG,tags);
         assert category != null;
         final DatabaseReference databaseRef = mDatabaseRef.child("/" + category);
         //final DatabaseReference tagDataBaseRef = mDatabaseTagRef;
@@ -302,7 +303,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     private void setUpSpinner() {
         List<String> names = Arrays.asList(
-                "Shirts","Shoes","Shoes","Shoes","Shoes","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear");
+                "Shirts","Sleeveless","Sweater","Outerwear","Pants","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,names);
         spinnerTextCategory.setAdapter(arrayAdapter);
         arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);

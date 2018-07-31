@@ -50,12 +50,10 @@ public class TagHolder implements Parcelable{
     }
 
 
-    //@Exclude // dont need this in our firebase database
     public String getmKey() {
         return mKey;
     }
 
-    //@Exclude
     public void setmKey(String mKey) {
         this.mKey = mKey;
     }

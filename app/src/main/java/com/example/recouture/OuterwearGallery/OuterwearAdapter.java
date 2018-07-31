@@ -19,7 +19,7 @@ public class OuterwearAdapter extends GenericGalleryAdapter<Outerwear,OnRecycler
         super(context);
     }
 
-    private static final String TAG = "ShoesAdapter";
+    private static final String TAG = "OuterwearAdapter";
 
     @Override
     public OuterwearViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
