@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,10 +19,13 @@ import com.bumptech.glide.Glide;
 import com.example.recouture.Outfit.Outfit;
 import com.example.recouture.Outfit.ViewOutfits;
 import com.example.recouture.R;
+import com.example.recouture.utils.BaseActivity;
 import com.example.recouture.utils.BottomNavigationViewHelper;
+import com.example.recouture.utils.FirebaseMethods;
 import com.example.recouture.utils.GridImageAdapter;
 import com.example.recouture.utils.UniversalImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +38,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ViewPlanned extends AppCompatActivity {
+public class ViewPlanned extends BaseActivity {
 
     private TextView theDate;
     private Intent intent;
@@ -45,25 +50,36 @@ public class ViewPlanned extends AppCompatActivity {
     private String wantedDate;
     private String suppliedUri;
 
+    private String firebaseDate;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setContentView(setView());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_planned);
-        setupBottomNavigationView();
+
         theDate = (TextView) findViewById(R.id.date);
         Intent incomingIntent = getIntent();
 
-        wantedDate = incomingIntent.getStringExtra("date");
+        firebaseDate = incomingIntent.getStringExtra("date");
+
+        wantedDate = incomingIntent.getStringExtra("textViewDate");
         theDate.setText(wantedDate);
+        Log.i(TAG,"date " + firebaseDate);
         checkEvent();
+    }
+
+    @Override
+    public int setView() {
+        return R.layout.activity_view_planned;
     }
 
     private void setImage() {
         ImageView image = (ImageView) findViewById(R.id.imageShare);
-
+        Log.i(TAG,suppliedUri.toString());
         if (suppliedUri != null) {
+
             Glide.with(this).load(suppliedUri).into(image);
         }
     }
@@ -73,38 +89,48 @@ public class ViewPlanned extends AppCompatActivity {
 
         final ArrayList<Event> events = new ArrayList<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        Query query = reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Events");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        reference.child(FirebaseMethods.getUserUid()).child("Events").
+                child(firebaseDate).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    Log.i(TAG,singleSnapshot.toString());
-                    events.add(singleSnapshot.getValue(Event.class));
-                }
-
-                for (int i = 0; i < events.size(); i++) {
-                    if (events.get(i).getmDate().equals(wantedDate)) {
-                        suppliedUri = events.get(i).getmImageUrl();
-                        setImage();
-                    }
+                if (dataSnapshot.exists()) {
+                    Event event = dataSnapshot.getValue(Event.class);
+                    boolean isNull = event == null;
+                    Log.i(TAG, "is null" + isNull);
+                    Log.i(TAG, "uri " + event.getmImageUrl());
+                    Log.i(TAG, "date " + event.getmDate());
+                    suppliedUri = event.getmImageUrl();
+                    setImage();
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "onCancelled: query cancelled");
+
             }
         });
-    }
-
-    private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(ViewPlanned.this, bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
+//        Query query = reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Events");
+//        query.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+//                    Log.i(TAG,singleSnapshot.toString());
+//                    events.add(singleSnapshot.getValue(Event.class));
+//                }
+//
+//                for (int i = 0; i < events.size(); i++) {
+//                    if (events.get(i).getmDate().equals(wantedDate)) {
+//                        suppliedUri = events.get(i).getmImageUrl();
+//                        setImage();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.d(TAG, "onCancelled: query cancelled");
+//            }
+//        });
     }
 
 }

@@ -50,6 +50,10 @@ import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import com.example.recouture.R.layout.*;
+import com.example.recouture.Calendar.CalendarUtils;
+
+import static com.example.recouture.Calendar.CalendarUtils.FIREBASE_DATE_FORMATTER;
+import static com.example.recouture.Calendar.CalendarUtils.FORMATTER;
 
 
 /**
@@ -65,9 +69,7 @@ public class ConfirmPlan extends AppCompatActivity {
 
     private static final String TAG = "NextActivity";
 
-    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
 
-    private static final SimpleDateFormat FIREBASE_DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
     //firebase
     private FirebaseUser firebaseUser;
@@ -139,11 +141,30 @@ public class ConfirmPlan extends AppCompatActivity {
                 //upload the image to firebase
                 Toast.makeText(ConfirmPlan.this, "Attempting to upload new photo", Toast.LENGTH_SHORT).show();
                 Log.i(TAG,materialCalendarView.toString());
-                materialCalendarView.addDecorator(new EventDecorator(date, Color.RED));
                 uploadFile();
             }
         });
     }
+
+    //Calendar calendar = Calendar.getInstance(); // return calendar with current date.
+//            calendar.add(Calendar.MONTH, -2); // make calendar go back 2 months
+//            ArrayList<CalendarDay> dates = new ArrayList<>(); // create array list of calendar dates
+//            for (int i = 0; i < 30; i++) { // loop 30 times
+//                CalendarDay day = CalendarDay.from(calendar); // get the day of the calendar 2 months back
+//                dates.add(day); // add the day to the array list
+//                calendar.add(Calendar.DATE, 5); // make calendar jump 5 days
+//            }
+//            return dates; // get array list of dates over 150 days
+    /*
+    we have the date. Calendar = calendarDay.getCalendar() -> Calendar.add(-4,DAYS);
+    have a ArrayList<CalendarDay> dates. loop 8 times, in loop,
+    we call CalendarDay day = CalendarDay.from(calendar);
+    add each day to dates. Then add one to the calendar.
+    We get an arraylist of CalendarDay dates. Convert to a string of dates.
+    Add single value event listener for events in firebase and with the same dates in the array list.
+    Check the items in that outfit and see whether they match the items in the current outfit.
+
+     */
 
 
 

@@ -33,6 +33,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.example.recouture.Calendar.CalendarUtils.FIREBASE_DATE_FORMATTER;
+import static com.example.recouture.Calendar.CalendarUtils.FORMATTER;
+import static com.example.recouture.Calendar.CalendarUtils.convertCalendarDayToDate;
+
 public class CalendarActivity extends BaseActivity {
     private static final String TAG = "CalendarActivity";
     private static final int ACTIVITY_NUM = 1;
@@ -41,7 +45,6 @@ public class CalendarActivity extends BaseActivity {
     private TextView newplan;
 
 
-    private static final SimpleDateFormat FIREBASE_DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
     private DatabaseReference eventDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Events");
 
@@ -70,6 +73,8 @@ public class CalendarActivity extends BaseActivity {
 
     private String date;
 
+    private String textViewDate;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(setView());
@@ -88,12 +93,14 @@ public class CalendarActivity extends BaseActivity {
         viewplanned.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                date = convertCalendarDayToDate(mCalendarView.getSelectedDate(),FIREBASE_DATE_FORMATTER);
                 Intent intent = new Intent(CalendarActivity.this, ViewPlanned.class);
+                textViewDate = convertCalendarDayToDate(mCalendarView.getSelectedDate(),FORMATTER);
                 intent.putExtra("date", date);
+                intent.putExtra("textViewDate",textViewDate);
                 startActivity(intent);
             }
         });
-
 
         newplan.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,6 +119,8 @@ public class CalendarActivity extends BaseActivity {
                 }
         });
     }
+
+
 
     @Override
     public int setView() {
