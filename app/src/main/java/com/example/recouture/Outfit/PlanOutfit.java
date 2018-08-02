@@ -3,6 +3,7 @@ package com.example.recouture.Outfit;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -12,9 +13,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.recouture.Calendar.CalendarActivity;
+import com.example.recouture.Item;
 import com.example.recouture.R;
+import com.example.recouture.ShirtGallery.Shirt;
 import com.example.recouture.ShirtGallery.ShirtAdapter2;
+import com.example.recouture.utils.BaseActivity;
 import com.example.recouture.utils.BottomNavigationViewHelper;
+import com.example.recouture.utils.CommonUi;
 import com.example.recouture.utils.FirebaseMethods;
 import com.example.recouture.utils.GridImageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,15 +33,15 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class PlanOutfit extends AppCompatActivity {
+public class PlanOutfit extends BaseActivity {
 
-    private static final String TAG = "View Outfits";
+    private static final String TAG = "ViewOutfits";
 
     private DatabaseReference mDatabaseReference;
     private ValueEventListener mDatabaseListener;
     private static final int NUM_GRID_COLUMNS = 4;
-    private static final int ACTIVITY_NUM = 1;
 
     private GridView gridView;
     private FirebaseAuth mAuth;
@@ -44,13 +49,14 @@ public class PlanOutfit extends AppCompatActivity {
     private String mSelectedImage;
     private ArrayList<String> imgUrls;
     private CalendarDay date;
+    final ArrayList<Outfit> outfits = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setContentView(setView());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_viewoufits);
-        setupBottomNavigationView();
+
 
         gridView = (GridView)findViewById(R.id.gridview) ;
         mAuth = FirebaseAuth.getInstance();
@@ -58,47 +64,64 @@ public class PlanOutfit extends AppCompatActivity {
         date = getIntent().getParcelableExtra("calendarDay");
 
         setupGridView();
+
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                /* i need to send the outfit here with the list of items to confirm plan so that
+                when i upload the calendar event to firebase i have the outfit in my database. Every time i add
+                outfit i call
+                 */
+
+                Log.i(TAG, "object is at pos : " + position + outfits.get(position).toString());
+                Outfit outfit = outfits.get(position);
+                //testing parcelable for outfitcal
+                List<Item> itemList = new ArrayList<>();
+                itemList.add(new Shirt());
+                outfit.setItemList(itemList);
                 Log.d(TAG, "onClick: navigating to the view planned outfits.");
                 view.buildDrawingCache();
                 Bitmap bitmap = view.getDrawingCache();
                 Intent intent = new Intent(PlanOutfit.this, ConfirmPlan.class);
                 intent.putExtra("planning", bitmap);
                 intent.putExtra("calendarDay", date);
+                intent.putExtra("outfit", outfit);
                 startActivity(intent);
             }
         });
     }
 
+    @Override
+    public int setView() {
+        return R.layout.activity_viewoufits;
+    }
+
+    // setUpGridView(Context context, ArrayList<T>
+
     private void setupGridView() {
         Log.d(TAG, "setupGridView: Setting up image grid.");
 
-        final ArrayList<Outfit> outfits = new ArrayList<>();
+        // listener called everytime this activity starts up
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Outfits");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                /*
+                reading data from the outfits snapshot.
+                 */
+
+                Log.i(TAG,"listener called");
+
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    Log.i(TAG,singleSnapshot.toString());
                     outfits.add(singleSnapshot.getValue(Outfit.class));
                 }
-
-                //setup image grid
-                int gridWidth = getResources().getDisplayMetrics().widthPixels;
-                int imageWidth = gridWidth / NUM_GRID_COLUMNS;
-                gridView.setColumnWidth(imageWidth);
-
-                imgUrls = new ArrayList<String>();
-                for (int i = 0; i < outfits.size(); i++) {
-                    imgUrls.add(outfits.get(i).getmImageUrl());
-                }
-                GridImageAdapter adapter = new GridImageAdapter(PlanOutfit.this, R.layout.layout_grid_imageview, "", imgUrls);
-                gridView.setAdapter(adapter);
+                ArrayList<String> imageUri = CommonUi.getOutfitUri(outfits);
+                CommonUi.setGridView(PlanOutfit.this,gridView,imageUri);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(TAG, "onCancelled: query cancelled");
@@ -106,14 +129,6 @@ public class PlanOutfit extends AppCompatActivity {
         });
     }
 
-    private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(PlanOutfit.this, bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
-    }
+
 }
 

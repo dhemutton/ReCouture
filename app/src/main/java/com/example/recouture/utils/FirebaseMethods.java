@@ -1,10 +1,15 @@
 package com.example.recouture.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.example.recouture.Item;
@@ -23,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import static com.nostra13.universalimageloader.core.ImageLoader.TAG;
@@ -152,6 +158,32 @@ public class FirebaseMethods {
             count++;
         }
         return count;
+    }
+
+
+    /**
+     * Converts a bitmap image into its corresponding URI.
+     *
+     * @param context the context of the activity.
+     * @param inImage the bitmap to be converted
+     * @return the corresponding image URI.
+     */
+    public static Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    /**
+     * gets the file extension type for particular URI.
+     * @param uri the image URI
+     * @return the file extension for this URI, eg jpeg,png
+     */
+    public static String getFileExtension(Uri uri,Context context) {
+        ContentResolver contentResolver = context.getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
 }

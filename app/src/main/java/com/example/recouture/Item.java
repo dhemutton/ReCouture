@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Item implements Parcelable{
+public class Item implements Parcelable {
+
+
+    
 
     private String mName;
 
@@ -103,7 +106,9 @@ public abstract class Item implements Parcelable{
     }
 
 
-    public abstract String getCategory();
+    public String getCategory() {
+
+    };
 
 
 

@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.recouture.R;
+import com.example.recouture.utils.CommonUi;
 import com.example.recouture.utils.GridImageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -72,18 +73,8 @@ public class ViewOutfits extends AppCompatActivity {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     outfits.add(singleSnapshot.getValue(Outfit.class));
                 }
-
-                //setup image grid
-                int gridWidth = getResources().getDisplayMetrics().widthPixels;
-                int imageWidth = gridWidth / NUM_GRID_COLUMNS;
-                gridView.setColumnWidth(imageWidth);
-
-                ArrayList<String> imgUrls = new ArrayList<String>();
-                for (int i = 0; i < outfits.size(); i++) {
-                    imgUrls.add(outfits.get(i).getmImageUrl());
-                }
-                GridImageAdapter adapter = new GridImageAdapter(ViewOutfits.this, R.layout.layout_grid_imageview, "", imgUrls);
-                gridView.setAdapter(adapter);
+                ArrayList<String> imageUri = CommonUi.getOutfitUri(outfits);
+                CommonUi.setGridView(ViewOutfits.this,gridView,imageUri);
             }
 
             @Override
@@ -91,7 +82,6 @@ public class ViewOutfits extends AppCompatActivity {
                 Log.d(TAG, "onCancelled: query cancelled");
             }
         });
-
     }
 }
 

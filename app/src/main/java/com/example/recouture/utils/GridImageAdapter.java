@@ -37,7 +37,7 @@ public class GridImageAdapter extends ArrayAdapter<String>{
         mContext = context;
         this.layoutResource = layoutResource;
         mAppend = append;
-        this.imgURLs = imgURLs;
+        this.imgURLs = imgURLs; // image uris to display, can change this to outfit class.
     }
 
     private static class ViewHolder{
@@ -48,6 +48,8 @@ public class GridImageAdapter extends ArrayAdapter<String>{
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+
 
         /*
         Viewholder build pattern (Similar to recyclerview)
@@ -69,6 +71,7 @@ public class GridImageAdapter extends ArrayAdapter<String>{
 
         ImageLoader imageLoader = ImageLoader.getInstance();
 
+        // display image using from image uri
         imageLoader.displayImage(mAppend + imgURL, holder.image, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {

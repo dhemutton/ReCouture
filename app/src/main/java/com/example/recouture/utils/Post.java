@@ -15,7 +15,7 @@ import java.util.List;
         private String image_path;
     private String photo_id;
     private String photo_name;
-        private List<Like> likes;
+    private List<Like> likes;
     private String user_id;
 
 

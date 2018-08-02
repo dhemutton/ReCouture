@@ -32,11 +32,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.recouture.HomePage.HomepageActivity;
+import com.example.recouture.Item;
 import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.Shirt;
 import com.example.recouture.StartUpPage.ActivityIndicator;
 import com.example.recouture.TagHolder;
 import com.example.recouture.utils.BottomNavigationViewHelper;
+import com.example.recouture.utils.FirebaseMethods;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -137,7 +139,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                     Bitmap image = (Bitmap) extras.get("image");
                     if (image != null) {
                         imageView.setImageBitmap(image);
-                        imageUri = getImageUri(this, image);
+                        imageUri = FirebaseMethods.getImageUri(this, image);
                     }
                 }
                 break;
@@ -208,7 +210,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         if (imageUri != null) {
             activityIndicator.show();
             final StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() +
-                    "." + getFileExtension(imageUri));
+                    "." + FirebaseMethods.getFileExtension(imageUri,this));
 
             mUploadTask = fileReference.putFile(imageUri).
                     addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -219,7 +221,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                                 public void onSuccess(Uri uri) {
                                     // handles the retreival of tags when user enters each tag seperated by
                                     // commas.
-                                    Shirt shirt = new Shirt(name, color, uri.toString());
+                                    Item shirt = new Shirt(name, color, uri.toString());
                                     List<String> stringTag = Arrays.asList(tags.split(","));
                                     List<TagHolder> tagHolders = new ArrayList<>();
 
@@ -245,7 +247,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                                     shirt.setTags(tagHolders);
                                     String uploadId = databaseRef.push().getKey();
                                     databaseRef.child(uploadId).setValue(shirt);
-
+                                    activityIndicator.dismiss();
                                     // for each tag in the list, upload it onto firebase database.
                                 }
                             });
@@ -259,7 +261,6 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                     Toast.makeText(AddActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-            activityIndicator.dismiss();
         } else {
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
@@ -275,31 +276,6 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         BottomNavigationViewHelper.enableNavigation(AddActivity.this, bottomNavigationViewEx);
     }
 
-
-    /**
-     * gets the file extension type for particular URI.
-     * @param uri the image URI
-     * @return the file extension for this URI, eg jpeg,png
-     */
-    private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
-
-
-    /**
-     * Converts a bitmap image into its corresponding URI.
-     * @param context the context of the activity.
-     * @param inImage the bitmap to be converted
-     * @return the corresponding image URI.
-     */
-    private Uri getImageUri(Context context, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
 
     private void setUpSpinner() {
         List<String> names = Arrays.asList(

@@ -22,6 +22,8 @@ import com.example.recouture.Outfit.Click_Outfit;
 import com.example.recouture.Outfit.Outfit;
 import com.example.recouture.Outfit.ViewOutfits;
 import com.example.recouture.Posts.ViewPost;
+import com.example.recouture.utils.CommonUi;
+import com.example.recouture.utils.FirebaseMethods;
 import com.example.recouture.utils.GridImageAdapter;
 import com.example.recouture.utils.Post;
 import com.example.recouture.utils.UniversalImageLoader;
@@ -39,6 +41,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+
+
+
 
 public class ProfileActivity extends AppCompatActivity {
     private static final String TAG = "ProfileActivity";
@@ -131,27 +137,14 @@ public class ProfileActivity extends AppCompatActivity {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     posts.add(singleSnapshot.getValue(Post.class));
                 }
-
-                //setup image grid
-                int gridWidth = getResources().getDisplayMetrics().widthPixels;
-                int imageWidth = gridWidth / NUM_GRID_COLUMNS;
-                gridView.setColumnWidth(imageWidth);
-
-                ArrayList<String> imgUrls = new ArrayList<String>();
-                for (int i = 0; i < posts.size(); i++) {
-                    imgUrls.add(posts.get(i).getImage_path());
-                }
-                GridImageAdapter adapter = new GridImageAdapter(ProfileActivity.this, R.layout.layout_grid_imageview, "", imgUrls);
-                gridView.setAdapter(adapter);
+                ArrayList<String> imageUri = CommonUi.getPostUri(posts);
+                CommonUi.setGridView(ProfileActivity.this,gridView,imageUri);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d(TAG, "onCancelled: query cancelled");
             }
         });
-
-
     }
 
     private void setProfileImage(){

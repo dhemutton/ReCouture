@@ -36,6 +36,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class CreateOutfit extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == OUTFIT_REQUEST_CODE && resultCode == RESULT_OK) {
             List<Item> outfits = data.getExtras().getParcelableArrayList("outfits");
-            //itemList = outfits;
+            itemList = outfits;
             Log.i(TAG,"outfits " + outfits);
             for (Item item : outfits) {
                 CollageView collageView = new CollageView(this);
@@ -140,10 +141,12 @@ public class CreateOutfit extends AppCompatActivity {
         Bitmap b = null;
         b = ScreenshotUtils.getScreenShot(rootContent);
 
+        //create outfit
 
         Intent intent = new Intent(CreateOutfit.this, SaveOutfit.class);
         String file = createImageFromBitmap(b);
         intent.putExtra("myImage", file);
+        intent.putParcelableArrayListExtra("itemList",(ArrayList)itemList);
         startActivity(intent);
     }
 

@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.recouture.Calendar.CalendarActivity;
 import com.example.recouture.Calendar.Event;
 import com.example.recouture.HomePage.HomepageActivity;
+import com.example.recouture.Item;
 import com.example.recouture.StartUpPage.ActivityIndicator;
 import com.example.recouture.utils.EventDecorator;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,15 +51,21 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import com.example.recouture.R.layout.*;
 
+
 /**
  * Created by User on 7/24/2017.
  */
 
 public class ConfirmPlan extends AppCompatActivity {
 
+    /*
+    add a listener for events database and to check for 4 days before and after
+    see if that day has any event that has the same item . If it has notify
+     */
+
     private static final String TAG = "NextActivity";
 
-    private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
+    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
 
     //firebase
     private FirebaseUser firebaseUser;
@@ -90,6 +97,15 @@ public class ConfirmPlan extends AppCompatActivity {
         setContentView(R.layout.activity_confirm_plan);
         theDate = (TextView) findViewById(R.id.date);
         activityIndicator = new ActivityIndicator(this);
+
+        // get outfit
+        Outfit outfit = getIntent().getParcelableExtra("outfit");
+        for (Item item : outfit.getItemList()) {
+            Log.i(TAG,item.toString());
+        }
+
+
+        Log.i(TAG,outfit.toString());
 
         date = getIntent().getParcelableExtra("calendarDay");
         theDate.setText(FORMATTER.format(date.getDate()));
@@ -143,33 +159,12 @@ public class ConfirmPlan extends AppCompatActivity {
         ImageView image = (ImageView) findViewById(R.id.imageShare);
         Bitmap bitmap = (Bitmap) intent.getParcelableExtra("planning");
         image.setImageBitmap(bitmap);
-        imageUri = getImageUri(ConfirmPlan.this, bitmap);
+        imageUri = FirebaseMethods.getImageUri(ConfirmPlan.this, bitmap);
     }
 
-    /**
-     * Converts a bitmap image into its corresponding URI.
-     *
-     * @param context the context of the activity.
-     * @param inImage the bitmap to be converted
-     * @return the corresponding image URI.
-     */
-    private Uri getImageUri(Context context, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
 
-    /**
-     * gets the file extension type for particular URI.
-     * @param uri the image URI
-     * @return the file extension for this URI, eg jpeg,png
-     */
-    private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
+
+
 
 
     /**
@@ -185,7 +180,7 @@ public class ConfirmPlan extends AppCompatActivity {
         if (imageUri != null) {
             activityIndicator.show();
             final StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() +
-                    "." + getFileExtension(imageUri));
+                    "." + FirebaseMethods.getFileExtension(imageUri,getApplicationContext()));
 
             mUploadTask = fileReference.putFile(imageUri).
                     addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

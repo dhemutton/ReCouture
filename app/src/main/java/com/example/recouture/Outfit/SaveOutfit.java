@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.recouture.Add.AddActivity;
 import com.example.recouture.Calendar.CalendarActivity;
 import com.example.recouture.HomePage.HomepageActivity;
+import com.example.recouture.Item;
 import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.Shirt;
 import com.example.recouture.StartUpPage.ActivityIndicator;
@@ -48,6 +49,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,6 +71,7 @@ public class SaveOutfit extends AppCompatActivity {
     private String FIREBASE_IMAGE_STORAGE = "photos/users";
     private ActivityIndicator activityIndicator;
     private StorageTask mUploadTask;
+    private ArrayList<Item> itemArrayList;
 
 
 
@@ -81,12 +84,15 @@ public class SaveOutfit extends AppCompatActivity {
 
         img = (ImageView) findViewById(R.id.empty);
         activityIndicator = new ActivityIndicator(this);
+        itemArrayList = getIntent().getParcelableArrayListExtra("itemList");
 
         Bitmap b = null;
         try {
             b = BitmapFactory.decodeStream(SaveOutfit.this
                     .openFileInput("myImage"));
+            Log.i(TAG,b.toString());
             imageUri = getImageUri(this, b);
+            Log.i(TAG,imageUri.toString());
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -122,6 +128,9 @@ public class SaveOutfit extends AppCompatActivity {
      */
     private void uploadFile() {
 
+        // send the image uri here along with the List<Item> and add it into create outfit.
+
+
         final String name = editTextName.getText().toString().trim();
         final String location = "Outfits";
         final DatabaseReference databaseRef = mDatabaseRef.child("/" + location);
@@ -138,12 +147,12 @@ public class SaveOutfit extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    Outfit outfit = new Outfit(name, uri.toString());
+                                    Outfit outfit = new Outfit(name, uri.toString(),itemArrayList); // creation of outfit class .
                                     String uploadId = databaseRef.push().getKey();
                                     databaseRef.child(uploadId).setValue(outfit);
-
                                 }
                             });
+                            activityIndicator.dismiss();
                             Toast.makeText(SaveOutfit.this, "upload successful", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(SaveOutfit.this, HomepageActivity.class);
                             startActivity(i);
@@ -154,7 +163,6 @@ public class SaveOutfit extends AppCompatActivity {
                     Toast.makeText(SaveOutfit.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-            activityIndicator.dismiss();
         } else {
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
@@ -170,6 +178,7 @@ public class SaveOutfit extends AppCompatActivity {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        Log.i(TAG,"path " + path);
         return Uri.parse(path);
     }
 
@@ -193,5 +202,4 @@ public class SaveOutfit extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
     }
-
 }
