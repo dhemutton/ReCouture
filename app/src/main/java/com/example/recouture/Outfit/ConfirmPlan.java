@@ -67,6 +67,8 @@ public class ConfirmPlan extends AppCompatActivity {
 
     private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
 
+    private static final SimpleDateFormat FIREBASE_DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+
     //firebase
     private FirebaseUser firebaseUser;
     private StorageReference mStorageRef;
@@ -87,6 +89,8 @@ public class ConfirmPlan extends AppCompatActivity {
 
     private MaterialCalendarView materialCalendarView;
 
+    private  Outfit outfit;
+
 
     //vars
     private String mAppend = "file:/";
@@ -99,10 +103,7 @@ public class ConfirmPlan extends AppCompatActivity {
         activityIndicator = new ActivityIndicator(this);
 
         // get outfit
-        Outfit outfit = getIntent().getParcelableExtra("outfit");
-        for (Item item : outfit.getItemList()) {
-            Log.i(TAG,item.toString());
-        }
+        outfit = getIntent().getParcelableExtra("outfit");
 
 
         Log.i(TAG,outfit.toString());
@@ -173,7 +174,7 @@ public class ConfirmPlan extends AppCompatActivity {
      */
     private void uploadFile() {
 
-        final String dateConfirm = FORMATTER.format(date.getDate());
+        final String dateConfirm = FIREBASE_DATE_FORMATTER.format(date.getDate());
         final String location = "Events";
         final DatabaseReference databaseRef = mDatabaseRef.child("/" + location);
 
@@ -189,10 +190,9 @@ public class ConfirmPlan extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    Event event = new Event(dateConfirm, uri.toString());
-                                    String uploadId = databaseRef.push().getKey();
-                                    databaseRef.child(uploadId).setValue(event);
-
+                                    Event event = new Event(dateConfirm, uri.toString(),outfit);
+                                    String date = dateConfirm;
+                                    databaseRef.child(dateConfirm).setValue(event);
                                 }
                             });
                             Toast.makeText(ConfirmPlan.this, "upload successful", Toast.LENGTH_SHORT).show();

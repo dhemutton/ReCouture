@@ -78,9 +78,6 @@ public class PlanOutfit extends BaseActivity {
                 Log.i(TAG, "object is at pos : " + position + outfits.get(position).toString());
                 Outfit outfit = outfits.get(position);
                 //testing parcelable for outfitcal
-                List<Item> itemList = new ArrayList<>();
-                itemList.add(new Shirt());
-                outfit.setItemList(itemList);
                 Log.d(TAG, "onClick: navigating to the view planned outfits.");
                 view.buildDrawingCache();
                 Bitmap bitmap = view.getDrawingCache();

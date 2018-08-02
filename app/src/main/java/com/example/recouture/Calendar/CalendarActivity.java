@@ -1,6 +1,7 @@
 package com.example.recouture.Calendar;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,12 +18,20 @@ import com.example.recouture.Outfit.PlanOutfit;
 import com.example.recouture.R;
 import com.example.recouture.utils.BaseActivity;
 import com.example.recouture.utils.BottomNavigationViewHelper;
+import com.example.recouture.utils.EventDecorator;
 import com.example.recouture.utils.FirebaseMethods;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CalendarActivity extends BaseActivity {
     private static final String TAG = "CalendarActivity";
@@ -31,7 +40,33 @@ public class CalendarActivity extends BaseActivity {
     private TextView viewplanned;
     private TextView newplan;
 
+
+    private static final SimpleDateFormat FIREBASE_DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+
     private DatabaseReference eventDatabaseReference = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid()).child("Events");
+
+    private ValueEventListener valueEventListener = eventDatabaseReference.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
+                Event event = childSnapShot.getValue(Event.class);
+                try {
+                    Date date = FIREBASE_DATE_FORMATTER.parse(event.getmDate());
+                    CalendarDay calendarDay = CalendarDay.from(date);
+                    EventDecorator eventDecorator = new EventDecorator(calendarDay, Color.RED);
+                    mCalendarView.addDecorator(eventDecorator);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                //mCalendarView.addDecorator(event.getEventDecorator());
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    });
 
     private String date;
 
@@ -75,11 +110,7 @@ public class CalendarActivity extends BaseActivity {
                         startActivity(intent);
                     }
                 }
-
         });
-
-
-
     }
 
     @Override

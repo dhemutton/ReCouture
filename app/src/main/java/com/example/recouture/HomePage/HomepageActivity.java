@@ -241,9 +241,10 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
         }
     };
 
-    private void initImageLoader() {
+    public void initImageLoader() {
         UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
         ImageLoader.getInstance().init(universalImageLoader.getConfig());
+        Log.i(TAG,"init imageloader");
     }
 
     private void setupBottomNavigationView(){

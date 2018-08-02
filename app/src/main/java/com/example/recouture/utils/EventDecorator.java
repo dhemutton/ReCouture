@@ -16,7 +16,21 @@ public class EventDecorator implements DayViewDecorator {
         this.color = color;
     }
 
+    public CalendarDay getDate() {
+        return date;
+    }
 
+    public void setDate(CalendarDay date) {
+        this.date = date;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
 
     @Override
     public boolean shouldDecorate(CalendarDay calendarDay) {

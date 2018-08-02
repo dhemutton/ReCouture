@@ -30,7 +30,7 @@ public class UniversalImageLoader {
         mContext = context;
     }
 
-    public ImageLoaderConfiguration getConfig(){
+    public ImageLoaderConfiguration getConfig() {
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(defaultImage)
                 .showImageForEmptyUri(defaultImage)

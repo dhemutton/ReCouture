@@ -12,7 +12,8 @@ import java.util.List;
 public class Item implements Parcelable {
 
 
-    
+    public static final String CATEGORY = "Item";
+
 
     private String mName;
 
@@ -47,6 +48,18 @@ public class Item implements Parcelable {
         tags = in.createTypedArrayList(TagHolder.CREATOR);
         mKey = in.readString();
     }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -107,8 +120,8 @@ public class Item implements Parcelable {
 
 
     public String getCategory() {
-
-    };
+        return "Item";
+    }
 
 
 

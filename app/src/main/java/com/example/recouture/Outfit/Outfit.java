@@ -57,7 +57,12 @@ public class Outfit implements Parcelable{
 
     @Override
     public String toString() {
-        return mName;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(mName + " ");
+        for (Item item : itemList) {
+            stringBuilder.append(item.toString() + " ");
+        }
+        return stringBuilder.toString();
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.example.recouture.HomePage.HomepageActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -18,6 +19,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import java.util.ArrayList;
 
 import com.example.recouture.R;
+import com.example.recouture.HomePage.HomepageActivity.*;
 
 /**
  * Created by User on 6/4/2017.
@@ -38,6 +40,7 @@ public class GridImageAdapter extends ArrayAdapter<String>{
         this.layoutResource = layoutResource;
         mAppend = append;
         this.imgURLs = imgURLs; // image uris to display, can change this to outfit class.
+        ImageLoader.getInstance().init(new UniversalImageLoader(mContext).getConfig());
     }
 
     private static class ViewHolder{

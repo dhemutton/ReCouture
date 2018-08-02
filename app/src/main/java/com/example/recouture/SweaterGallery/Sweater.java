@@ -16,7 +16,7 @@ public class Sweater extends Item {
         super(mName,mColor,mImageUrl);
     }
 
-    @Override
+
     public String getCategory() {
         return CATEGORY;
     }
