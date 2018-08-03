@@ -25,9 +25,13 @@ import com.example.recouture.Calendar.Event;
 import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.Item;
 import com.example.recouture.StartUpPage.ActivityIndicator;
+import com.example.recouture.utils.EmptyRecyclerView;
 import com.example.recouture.utils.EventDecorator;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,9 +53,18 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Callable;
+
 import com.example.recouture.R.layout.*;
 import com.example.recouture.Calendar.CalendarUtils;
 
+import static android.content.ContentValues.TAG;
 import static com.example.recouture.Calendar.CalendarUtils.FIREBASE_DATE_FORMATTER;
 import static com.example.recouture.Calendar.CalendarUtils.FORMATTER;
 
@@ -76,7 +89,6 @@ public class ConfirmPlan extends AppCompatActivity {
     private StorageReference mStorageRef;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseRef;
     private FirebaseMethods mFirebaseMethods;
     private StorageTask mUploadTask;
@@ -92,6 +104,8 @@ public class ConfirmPlan extends AppCompatActivity {
     private MaterialCalendarView materialCalendarView;
 
     private  Outfit outfit;
+
+    private List<Event> firebaseEvents;
 
 
     //vars
@@ -115,11 +129,13 @@ public class ConfirmPlan extends AppCompatActivity {
 
         findMaterialCalendar();
 
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
         mStorageRef = FirebaseStorage.getInstance().getReference()
                 .child(FIREBASE_IMAGE_STORAGE + "/" + firebaseUser.getUid() + "/Events");
 
+        checkConflict(); // dummy test value
         setImage();
 
 
@@ -162,9 +178,130 @@ public class ConfirmPlan extends AppCompatActivity {
     add each day to dates. Then add one to the calendar.
     We get an arraylist of CalendarDay dates. Convert to a string of dates.
     Add single value event listener for events in firebase and with the same dates in the array list.
-    Check the items in that outfit and see whether they match the items in the current outfit.
+    Check the items in that outfit and see whether they match the items in the current outfit. Maybe add
+    all the firebase events into a arraylist and sort it. Then try to find the index of the date that
+    we upload using bin search. Then take 4 outfits from before the index and 4 outfits after the index.
+    For each outfit check if the date matches the range within the upload. If outfit matches the range ,
+    check if there is an item that has conflict with the current outfit that you are uploading.
+    -> Out of the 8 items check which dates are valid -> out of all the valid dates ->
+    loop through their itemList and for each item check if the current outfit has that item. O(itemListOutfit * itemListOtherOutfits). Get all the
+    items in the item list then sort the items according to name? O(itemListOutfit * log(itemListOtherOutfits)) .
 
      */
+
+    public boolean checkWithinDate(String firebaseDate, int maxDay, int minDay, int month, int year) {
+        String[] dateArray = firebaseDate.split("-");
+        int firebaseDay = Integer.valueOf(dateArray[0]);
+        int firebaseMonth = Integer.valueOf(dateArray[1]);
+        int firebaseYear = Integer.valueOf(dateArray[2]);
+        Log.i(TAG,"year : "  + firebaseYear + " month : " + firebaseMonth + "day : " + firebaseDay);
+        if (year == firebaseYear && month == firebaseMonth) {
+            if (firebaseDay <= maxDay && firebaseDay >= minDay) {
+                Log.i(TAG,"true");
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
+    public void checkConflict() {
+        Calendar calendar = date.getCalendar();
+        ArrayList<Date> dates = new ArrayList<>();
+        calendar.add(Calendar.DATE,-4);
+        int minDay = calendar.get(Calendar.DAY_OF_MONTH); // get min day
+        Log.i(TAG,"minDay " + minDay);
+        calendar.add(Calendar.DATE,8);
+        int maxDay = calendar.get(Calendar.DAY_OF_MONTH); // get max day
+        Log.i(TAG,"maxday " + maxDay);
+
+        int month = date.getMonth() + 1; // get month for the day u add outfit
+        Log.i(TAG,"calendarDayMonth " + month);
+
+        int year = date.getYear(); // get year for the day u add outfit.
+        Log.i(TAG,"calendarDayYear " + year);
+
+        Log.i(TAG,"check conflict");
+
+        readData(new FirebaseCallback() {
+            @Override
+            public void onCallBack(List<Event> events) {
+                Log.i(TAG, events.toString());
+                List<Event> filteredListOfEvents = new ArrayList<>();
+                for (Event event : events) {
+                    String date = event.getmDate();
+                    Log.i(TAG, date);
+                    if (checkWithinDate(date, maxDay, minDay, month, year)) {
+                        filteredListOfEvents.add(event);
+                    }
+                }
+                for (Event e : filteredListOfEvents) {
+                    Log.i(TAG, e.toString());
+                }
+                List<Item> itemList = getAllItemsFromEvents(filteredListOfEvents);
+                List<Item> similarItems = findSimilarOutfits(itemList, outfit.getItemList());
+                Log.i(TAG,similarItems.toString());
+                if (similarItems.size() >= 1) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (Item item : similarItems) {
+                        stringBuilder.append(item.toString() + ", ");
+                    }
+                    String names = stringBuilder.toString();
+                    Toast.makeText(ConfirmPlan.this, "Similar items found : " + names, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+
+    private List<Item> findSimilarOutfits(List<Item> itemList1, List<Item> outfitList) {
+        Collections.sort(itemList1);
+        List<Item> similarItems = new ArrayList<>();
+        for (Item item : itemList1) {
+            int index = Collections.binarySearch(outfitList,item);
+            if (index > -1) {
+                similarItems.add(item);
+            }
+        }
+        return similarItems;
+    }
+
+    private List<Item> getAllItemsFromEvents(List<Event> events) {
+        List<Item> itemList = new ArrayList<>();
+        for (Event event : events) {
+            List<Item> items = event.getOutfit().getItemList();
+            itemList.addAll(items);
+        }
+        return itemList;
+    }
+
+
+    public void readData(FirebaseCallback firebaseCallback) {
+        mDatabaseRef.child("Events").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Event> events = new ArrayList<>();
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    Event event = childSnapshot.getValue(Event.class);
+                    events.add(event);
+                }
+
+//                for (Event event : events) {
+//                    Log.i(TAG,event.toString());
+//                }
+                firebaseCallback.onCallBack(events);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
 
 
 
@@ -216,6 +353,7 @@ public class ConfirmPlan extends AppCompatActivity {
                                     databaseRef.child(dateConfirm).setValue(event);
                                 }
                             });
+
                             Toast.makeText(ConfirmPlan.this, "upload successful", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(ConfirmPlan.this, CalendarActivity.class);
                             startActivity(i);
@@ -231,4 +369,9 @@ public class ConfirmPlan extends AppCompatActivity {
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
+}
+
+
+interface FirebaseCallback {
+    void onCallBack(List<Event> events);
 }

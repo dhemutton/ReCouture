@@ -2,6 +2,7 @@ package com.example.recouture;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.google.firebase.database.Exclude;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Item implements Parcelable {
+public class Item implements Parcelable,Comparable<Item> {
 
 
     public static final String CATEGORY = "Item";
@@ -124,6 +125,22 @@ public class Item implements Parcelable {
     }
 
 
+    @Override
+    public int compareTo(@NonNull Item item) {
+        int result = mName.compareTo(item.getmName());
+        if (result == 0) {
+            int result1 = mColor.compareTo(item.getmColor());
+            if (result1 == 0) {
+                return mImageUrl.compareTo(item.getmImageUrl());
+            } else {
+                return result1;
+            }
+        }
+        return result;
+    }
 
-
+    @Override
+    public String toString() {
+        return mName;
+    }
 }

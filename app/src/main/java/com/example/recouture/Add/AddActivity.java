@@ -221,7 +221,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                                 public void onSuccess(Uri uri) {
                                     // handles the retreival of tags when user enters each tag seperated by
                                     // commas.
-                                    Item shirt = new Shirt(name, color, uri.toString());
+                                    Item item = new Item(name, color, uri.toString());
                                     List<String> stringTag = Arrays.asList(tags.split(","));
                                     List<TagHolder> tagHolders = new ArrayList<>();
 
@@ -244,9 +244,9 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 //                                            Log.i("AddActivity",shirt.retrieveTagHolder(shirtTag).toString());
 //                                        }
                                     }
-                                    shirt.setTags(tagHolders);
+                                    item.setTags(tagHolders);
                                     String uploadId = databaseRef.push().getKey();
-                                    databaseRef.child(uploadId).setValue(shirt);
+                                    databaseRef.child(uploadId).setValue(item);
                                     activityIndicator.dismiss();
                                     // for each tag in the list, upload it onto firebase database.
                                 }

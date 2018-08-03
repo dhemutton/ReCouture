@@ -7,7 +7,7 @@ import com.example.recouture.Item;
 public class Outerwear extends Item {
 
 
-    public static final String CATEGORY = "Shoes";
+    public static final String CATEGORY = "Outerwear";
 
     public Outerwear() {}
 

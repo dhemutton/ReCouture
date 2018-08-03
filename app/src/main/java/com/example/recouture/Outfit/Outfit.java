@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Outfit implements Parcelable{
 
-    private List<Item> itemList = new ArrayList<>();
+    private List<Item> itemList;
     private String mName;
     private String mImageUrl;
 
