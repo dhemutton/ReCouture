@@ -25,12 +25,8 @@ public class Outfit implements Parcelable{
         this.itemList = items;
     }
 
-    public List<Item> getItemList() {
-        return itemList;
-    }
-
     protected Outfit(Parcel in) {
-        in.readList(itemList,Item.class.getClassLoader());
+        itemList = in.createTypedArrayList(Item.CREATOR);
         mName = in.readString();
         mImageUrl = in.readString();
     }
@@ -46,6 +42,10 @@ public class Outfit implements Parcelable{
             return new Outfit[size];
         }
     };
+
+    public List<Item> getItemList() {
+        return itemList;
+    }
 
     public String getmName() {
         return mName;
@@ -65,6 +65,12 @@ public class Outfit implements Parcelable{
         return stringBuilder.toString();
     }
 
+
+
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -72,12 +78,8 @@ public class Outfit implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeList(itemList);
+        parcel.writeTypedList(itemList);
         parcel.writeString(mName);
         parcel.writeString(mImageUrl);
-    }
-
-    public void setItemList(List<Item> itemList) {
-        this.itemList = itemList;
     }
 }

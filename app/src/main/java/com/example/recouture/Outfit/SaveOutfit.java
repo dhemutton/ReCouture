@@ -86,6 +86,11 @@ public class SaveOutfit extends AppCompatActivity {
         activityIndicator = new ActivityIndicator(this);
         itemArrayList = getIntent().getParcelableArrayListExtra("itemList");
 
+
+        for (Item item : itemArrayList) {
+            Log.i(TAG,item.getCategory());
+        }
+
         Bitmap b = null;
         try {
             b = BitmapFactory.decodeStream(SaveOutfit.this

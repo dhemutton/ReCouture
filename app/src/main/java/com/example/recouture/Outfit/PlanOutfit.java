@@ -33,6 +33,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PlanOutfit extends BaseActivity {
@@ -85,6 +86,14 @@ public class PlanOutfit extends BaseActivity {
                 intent.putExtra("planning", bitmap);
                 intent.putExtra("calendarDay", date);
                 intent.putExtra("outfit", outfit);
+
+                for (Item item : outfit.getItemList()) {
+                    if (item instanceof Shirt) {
+                        Log.i(TAG,"this is shirt");
+                    }
+                }
+
+                intent.putParcelableArrayListExtra("itemList",(ArrayList)outfit.getItemList());
                 startActivity(intent);
             }
         });
@@ -116,6 +125,14 @@ public class PlanOutfit extends BaseActivity {
                     Log.i(TAG,singleSnapshot.toString());
                     outfits.add(singleSnapshot.getValue(Outfit.class));
                 }
+
+
+                for (Outfit outfit : outfits) {
+                    List<Item> itemList = outfit.getItemList();
+                    for (Item item : itemList) {
+                        Log.i(TAG,item.getCategory());
+                    }
+                }
                 ArrayList<String> imageUri = CommonUi.getOutfitUri(outfits);
                 CommonUi.setGridView(PlanOutfit.this,gridView,imageUri);
             }
@@ -125,7 +142,5 @@ public class PlanOutfit extends BaseActivity {
             }
         });
     }
-
-
 }
 

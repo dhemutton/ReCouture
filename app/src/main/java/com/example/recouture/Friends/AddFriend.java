@@ -68,9 +68,6 @@ public class AddFriend extends BaseActivity {
     };
 
 
-
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(setView());

@@ -109,6 +109,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             i.putExtra("password", password);
                             startActivity(i);
                         } else {
+                            task.getException().printStackTrace();
                             Toast.makeText(SignUpActivity.this,"Could not register... please try again",
                                     Toast.LENGTH_SHORT).show();
                         }

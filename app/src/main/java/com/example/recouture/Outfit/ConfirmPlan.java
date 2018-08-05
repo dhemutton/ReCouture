@@ -105,7 +105,6 @@ public class ConfirmPlan extends AppCompatActivity {
 
     private  Outfit outfit;
 
-    private List<Event> firebaseEvents;
 
 
     //vars
@@ -121,11 +120,16 @@ public class ConfirmPlan extends AppCompatActivity {
         // get outfit
         outfit = getIntent().getParcelableExtra("outfit");
 
+        List<Item> itemList = getIntent().getParcelableArrayListExtra("itemList");
 
         Log.i(TAG,outfit.toString());
 
         date = getIntent().getParcelableExtra("calendarDay");
         theDate.setText(FORMATTER.format(date.getDate()));
+
+        for (Item item : itemList) {
+            Log.i(TAG,item.getCategory());
+        }
 
         findMaterialCalendar();
 

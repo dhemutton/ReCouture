@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,6 +54,9 @@ public class ViewPlanned extends BaseActivity {
 
     private String firebaseDate;
 
+    private TextView deleteOutfit;
+
+
 
 
     @Override
@@ -59,7 +64,10 @@ public class ViewPlanned extends BaseActivity {
         setContentView(setView());
         super.onCreate(savedInstanceState);
 
-        theDate = (TextView) findViewById(R.id.date);
+        setUpWidets();
+
+        FirebaseMethods firebaseMethods = new FirebaseMethods(this);
+
         Intent incomingIntent = getIntent();
 
         firebaseDate = incomingIntent.getStringExtra("date");
@@ -67,7 +75,27 @@ public class ViewPlanned extends BaseActivity {
         wantedDate = incomingIntent.getStringExtra("textViewDate");
         theDate.setText(wantedDate);
         Log.i(TAG,"date " + firebaseDate);
+
+        deleteOutfit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG,"onClick");
+                deleteOutfit(firebaseMethods.getMyRef(),firebaseDate);
+                startActivity(new Intent(ViewPlanned.this,CalendarActivity.class));
+            }
+        });
         checkEvent();
+    }
+
+    private void deleteOutfit(DatabaseReference databaseReference,String firebaseDate) {
+        databaseReference.child("Events").child(firebaseDate).removeValue();
+    }
+
+
+    public void setUpWidets() {
+        theDate = (TextView) findViewById(R.id.date);
+        deleteOutfit = findViewById(R.id.deleteOutfit);
+
     }
 
     @Override

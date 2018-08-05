@@ -70,27 +70,22 @@ public class SetUpProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_afterregister);
 
+        setUpWidgets();
+
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
         mStorageRef = FirebaseStorage.getInstance().getReference()
                 .child(FIREBASE_IMAGE_STORAGE + "/" + firebaseUser.getUid() + "/UserData");
 
-        username = (EditText) findViewById(R.id.display_name);
-        description = (EditText) findViewById(R.id.description);
-        website = (EditText) findViewById(R.id.website);
-        add = (ImageView) findViewById(R.id.saveChanges);
-        profilepic = (ImageView) findViewById(R.id.profile_photo);
-        upload = (TextView) findViewById(R.id.changeProfilePhoto);
 
         Intent i = getIntent();
 
         email = i.getStringExtra("email");
         password = i.getStringExtra("password");
 
+
         user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +103,16 @@ public class SetUpProfile extends AppCompatActivity {
     }
 
 
+    private void setUpWidgets() {
+        username = (EditText) findViewById(R.id.display_name);
+        description = (EditText) findViewById(R.id.description);
+        website = (EditText) findViewById(R.id.website);
+        add = (ImageView) findViewById(R.id.saveChanges);
+        profilepic = (ImageView) findViewById(R.id.profile_photo);
+        upload = (TextView) findViewById(R.id.changeProfilePhoto);
+    }
+
+
     /**
      * Upload file method. Handles logic of uploading all required data to firebase and displaying
      * it in recycler view.
@@ -118,16 +123,18 @@ public class SetUpProfile extends AppCompatActivity {
         desc = description.getText().toString().trim();
         site = website.getText().toString().trim();
 
+        user.setEmail(email);
+        user.setPassword(password);
         user.setDisplayname(displayname);
         user.setDescription(displayname);
         user.setWebsite(site);
         user.setUser_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         final String location = "UserData";
-        final DatabaseReference databaseRef = mDatabaseRef.child("/" + location);
+        final DatabaseReference databaseRef = mDatabaseRef.child(location);
+        Log.i(TAG,databaseRef.toString());
 
-        String uploadId = databaseRef.push().getKey();
-        databaseRef.child(uploadId).setValue(user);
+        databaseRef.setValue(user);
 
         Toast.makeText(SetUpProfile.this, "Profile saved" ,Toast.LENGTH_SHORT).show();
         Intent i = new Intent(SetUpProfile.this, HomepageActivity.class);
@@ -157,6 +164,4 @@ public class SetUpProfile extends AppCompatActivity {
             Glide.with(this).load(mImageUri.toString()).into(profilepic);
         }
     }
-
-
 }

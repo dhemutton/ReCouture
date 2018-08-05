@@ -53,7 +53,7 @@ public class FirebaseMethods {
     public FirebaseMethods(Context context) {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference();
+        myRef = mFirebaseDatabase.getReference().child(getUserUid());
         mStorageReference = FirebaseStorage.getInstance().getReference();
         mContext = context;
 
@@ -186,4 +186,11 @@ public class FirebaseMethods {
         return mime.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+    public DatabaseReference getMyRef() {
+        return myRef;
+    }
+
+    public void setMyRef(DatabaseReference myRef) {
+        this.myRef = myRef;
+    }
 }

@@ -37,5 +37,10 @@ public class Shirt extends Item {
         }
     };
 
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        super.writeToParcel(out, flags);
+    }
+
 
 }
