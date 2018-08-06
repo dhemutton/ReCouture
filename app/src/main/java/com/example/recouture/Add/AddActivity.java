@@ -37,6 +37,7 @@ import com.example.recouture.R;
 import com.example.recouture.ShirtGallery.Shirt;
 import com.example.recouture.StartUpPage.ActivityIndicator;
 import com.example.recouture.TagHolder;
+import com.example.recouture.utils.BaseActivity;
 import com.example.recouture.utils.BottomNavigationViewHelper;
 import com.example.recouture.utils.FirebaseMethods;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
@@ -61,29 +62,85 @@ import java.util.List;
 
 import dalvik.system.PathClassLoader;
 
-public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
+
+    /**
+     * debugging purposes
+     */
     private static final String TAG = "AddActivity";
-    private static final int ACTIVITY_NUM = 2;
+
+
+    /**
+     * Permission code to request Storage permission in OnRequestPermissions method.
+     */
     private int STORAGE_PERMISSION_CODE = 3;
 
+    /**
+     * View for selected image opened via Camera/Gallery.
+     */
     ImageView imageView;
+
+    /**
+     * Name of the picture to be uploaded
+     */
     EditText editTextName;
+
+    /**
+     * Spinner to select already determined categories to upload item to.
+     */
     Spinner spinnerTextCategory;
+
+    /**
+     * Color tag for the image to be uploaded.
+     */
     EditText editTextColor;
+
+    /**
+     * Set tags associated with the image.
+     */
     EditText editTextTags;
+
+    /**
+     * Button to upload the image.
+     */
     Button upload;
+
+    /**
+     * Uri of the image chosen either from camera or gallery.
+     */
     Uri imageUri;
+
+    /**
+     * Firebase storage reference path to upload image to.
+     */
     private StorageReference mStorageRef;
+
+    /**
+     * Firebase database reference to store data pertaining to the fields editTextTags, editTextColor,
+     * editTextName etc.
+     */
     private DatabaseReference mDatabaseRef;
+
     private FirebaseUser firebaseUser;
-    private StorageTask mUploadTask;
+
+    /**
+     * Custom progress dialog.
+     */
     private ActivityIndicator activityIndicator;
 
+    /**
+     * Category that this image belongs to. eg. Shirt,Outerwear
+     */
     private String category;
 
-    // firebase database for TAGS
+    /**
+     * FirebaseDatabase reference to store tags from editTextTags.
+     */
     private DatabaseReference mDatabaseTagRef;
 
+    /**
+     * Firebase file path for convenience.
+     */
     private String FIREBASE_IMAGE_STORAGE = "photos/users";
 
 
@@ -94,38 +151,22 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
      * corresponding methods to handle each request.
      * @param savedInstanceState
      */
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setContentView(setView());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_additem);
         Log.i(TAG, "onCreate: started");
-        setupBottomNavigationView();
-
-        imageView = findViewById(R.id.addPic);
 
 
-        spinnerTextCategory = findViewById(R.id.editTextCategory);
+        setUpWidgets();
+
 
         setUpSpinner();
 
-
-        editTextColor = findViewById(R.id.editTextColor);
-        editTextName = findViewById(R.id.editTextName);
-        editTextTags = findViewById(R.id.editTextTags);
-        upload = findViewById(R.id.upload);
-
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        mStorageRef = FirebaseStorage.getInstance().getReference()
-                .child(FIREBASE_IMAGE_STORAGE + "/" + firebaseUser.getUid() + "/Shirts");
 
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
-
-        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags");
-
-        activityIndicator = new ActivityIndicator(this);
-
-        ThreeBounce threeBounce = new ThreeBounce();
 
         Bundle extras = getIntent().getExtras();
 
@@ -148,6 +189,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 Intent intent = getIntent();
                 String image_path = intent.getStringExtra("imagePath");
                 imageUri = Uri.parse(image_path);
+                Log.i(TAG,imageUri.toString());
                 Picasso.get().load(imageUri).resize(100, 100).into(imageView);
             }
             break;
@@ -159,6 +201,31 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 uploadFile();
             }
         });
+    }
+
+
+    @Override
+    public int setView() {
+        return R.layout.layout_additem;
+    }
+
+
+    /**
+     * Sets up basic widgets in layout.
+     */
+    private void setUpWidgets() {
+        imageView = findViewById(R.id.addPic);
+        editTextColor = findViewById(R.id.editTextColor);
+        editTextName = findViewById(R.id.editTextName);
+        editTextTags = findViewById(R.id.editTextTags);
+        upload = findViewById(R.id.upload);
+        spinnerTextCategory = findViewById(R.id.editTextCategory);
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
+        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags");
+        activityIndicator = new ActivityIndicator(this);
+        ThreeBounce threeBounce = new ThreeBounce();
+
+
     }
 
 
@@ -204,6 +271,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         Log.i(TAG,tags);
         assert category != null;
         final DatabaseReference databaseRef = mDatabaseRef.child("/" + category);
+        mStorageRef = FirebaseStorage.getInstance().getReference()
+                .child(FIREBASE_IMAGE_STORAGE + "/" + firebaseUser.getUid() + category);
         //final DatabaseReference tagDataBaseRef = mDatabaseTagRef;
 
 
@@ -212,7 +281,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             final StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() +
                     "." + FirebaseMethods.getFileExtension(imageUri,this));
 
-            mUploadTask = fileReference.putFile(imageUri).
+            fileReference.putFile(imageUri).
                     addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
@@ -269,14 +338,11 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     /**
      * sets up library imported bottom navigation view for this activity.
      */
-    private void setupBottomNavigationView() {
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(AddActivity.this, bottomNavigationViewEx);
-    }
 
 
+    /**
+     * Sets up array adapter for spinner.
+     */
     private void setUpSpinner() {
         List<String> names = Arrays.asList(
                 "Shirts","Sleeveless","Sweater","Outerwear","Pants","Shorts","Skirts","Dresses","Shoes","Bags","Accessories","Swimwear");
@@ -287,6 +353,13 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
+    /**
+     * Called when item from spinner is selected.
+     * @param adapterView adapterView for this spinner.
+     * @param view referring to R.layout.simple_spinner_dropdown_item , inconsequential.
+     * @param i the position of the item clicked in the adapter.
+     *
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         category = adapterView.getItemAtPosition(i).toString();
@@ -297,4 +370,5 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
 }

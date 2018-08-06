@@ -110,6 +110,7 @@ public class PromptFragment extends Fragment {
             mImageUri = data.getData();
             Intent intent = new Intent(getActivity(),AddActivity.class);
             intent.putExtra("imagePath",mImageUri.toString());
+            Log.i(TAG,mImageUri.toString());
             intent.putExtra("requestCode",PICK_IMAGE_REQUEST);
             startActivity(intent);
         }

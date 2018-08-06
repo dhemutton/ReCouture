@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import com.example.recouture.HomePage.HomepageActivity;
 import com.example.recouture.Outfit.Outfit;
 import com.example.recouture.Outfit.SaveOutfit;
 import com.example.recouture.R;
+import com.example.recouture.utils.FirebaseMethods;
 import com.example.recouture.utils.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +34,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -71,6 +75,7 @@ public class SetUpProfile extends AppCompatActivity {
         setContentView(R.layout.fragment_afterregister);
 
         setUpWidgets();
+        //UniinitImageLoader();
 
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -132,14 +137,13 @@ public class SetUpProfile extends AppCompatActivity {
 
         final String location = "UserData";
         final DatabaseReference databaseRef = mDatabaseRef.child(location);
-        Log.i(TAG,databaseRef.toString());
+        Log.i(TAG, databaseRef.toString());
 
         databaseRef.setValue(user);
 
-        Toast.makeText(SetUpProfile.this, "Profile saved" ,Toast.LENGTH_SHORT).show();
+        Toast.makeText(SetUpProfile.this, "Profile saved", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(SetUpProfile.this, HomepageActivity.class);
         startActivity(i);
-
     }
 
 
@@ -157,11 +161,21 @@ public class SetUpProfile extends AppCompatActivity {
                 && data != null && data.getData() != null) {
             Log.i(TAG, "message");
             mImageUri = data.getData();
+            profilepic.setImageURI(mImageUri);
             //uploadFile();
-            user.setImage_path(mImageUri.toString());
-            Toast.makeText(SetUpProfile.this, "uploaded" ,Toast.LENGTH_LONG).show();
-
-            Glide.with(this).load(mImageUri.toString()).into(profilepic);
+            final StorageReference fileReference = mStorageRef.child("profilePicture " +
+                    "." + FirebaseMethods.getFileExtension(mImageUri, this));
+            fileReference.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            user.setImage_path(uri.toString());
+                        }
+                    });
+                }
+            });
         }
     }
 }

@@ -3,7 +3,14 @@ package com.example.recouture.Profile;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +22,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.GridView;
+
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.bumptech.glide.Glide;
@@ -45,6 +56,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -78,7 +94,7 @@ public class ProfileActivity extends BaseActivity {
 
         posts = new ArrayList<>();
 
-        setProfileImage();
+        //setProfileImage();
         addbutton = (ImageView) findViewById(R.id.addfriend);
         gridView = (GridView) findViewById(R.id.gridViewprofile) ;
         setupGridView();
@@ -127,19 +143,23 @@ public class ProfileActivity extends BaseActivity {
         TextView website = findViewById(R.id.website);
         CircleImageView profilePhoto = findViewById(R.id.profile_photo);
 
+        ImageLoader imageLoader = ImageLoader.getInstance();
+
         DatabaseReference databaseReference = new FirebaseMethods(this).getMyRef();
         Log.i(TAG,databaseReference.toString());
 
         databaseReference.child("UserData").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i(TAG,dataSnapshot.toString());
+                Log.i(TAG, dataSnapshot.toString());
                 User user = dataSnapshot.getValue(User.class);
-                Log.i(TAG,user.toString());
+                Log.i(TAG, user.toString());
                 displayName.setText(user.getDisplayname());
                 description.setText(user.getDescription());
                 website.setText(user.getWebsite());
-                Glide.with(ProfileActivity.this).load(user.getImage_path()).into(profilePhoto);
+                String uri = user.getImage_path();
+                UniversalImageLoader.setImage(uri, profilePhoto, mProgressBar, "");
+
             }
 
             @Override
@@ -149,6 +169,7 @@ public class ProfileActivity extends BaseActivity {
         });
 
     }
+
 
     private void setMenuChecked(){
         Menu menu = bottomNavigationViewEx.getMenu();
