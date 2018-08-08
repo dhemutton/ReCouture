@@ -152,6 +152,9 @@ public class ProfileActivity extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG, dataSnapshot.toString());
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Log.i(TAG,dataSnapshot1.toString());
+                }
                 User user = dataSnapshot.getValue(User.class);
                 Log.i(TAG, user.toString());
                 displayName.setText(user.getDisplayname());
