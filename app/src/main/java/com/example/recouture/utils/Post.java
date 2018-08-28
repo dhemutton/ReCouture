@@ -13,10 +13,10 @@ import java.util.List;
 
         private String date_created;
         private String image_path;
-    private String photo_id;
-    private String photo_name;
-    private List<Like> likes;
-    private String user_id;
+        private String photo_id;
+        private String photo_name;
+        private List<Like> likes;
+        private String user_id;
 
 
     public Post() {
@@ -65,6 +65,12 @@ import java.util.List;
         return likes;
     }
 
+    public String getPhoto_id() {
+        return photo_id;
+    }
+
+    public String getUser_id() { return user_id; }
+
     public void setDate_created(String date_created) {
         this.date_created = date_created;
     }
@@ -81,25 +87,19 @@ import java.util.List;
         this.likes = likes;
     }
 
-    public String getPhoto_id() {
-        return photo_id;
-    }
-
     public void setPhoto_id(String photo_id) {
         this.photo_id = photo_id;
-    }
-
-    public static Creator<Post> getCREATOR() {
-        return CREATOR;
     }
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public static Creator<Post> getCREATOR() {
+        return CREATOR;
     }
+
+
 
     @Override
     public String toString() {

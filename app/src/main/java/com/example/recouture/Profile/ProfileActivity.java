@@ -27,6 +27,9 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.bumptech.glide.Glide;
 import com.example.recouture.Calendar.Event;
@@ -39,6 +42,7 @@ import com.example.recouture.utils.BaseActivity;
 import com.example.recouture.utils.CommonUi;
 import com.example.recouture.utils.FirebaseMethods;
 import com.example.recouture.utils.GridImageAdapter;
+import com.example.recouture.utils.Like;
 import com.example.recouture.utils.Post;
 import com.example.recouture.utils.UniversalImageLoader;
 import android.content.Context;
@@ -79,6 +83,9 @@ public class ProfileActivity extends BaseActivity {
     private ArrayList<Post> posts;
     private GridView gridView;
     private ImageView addbutton;
+    private TextView displayName;
+    private TextView description;
+    private TextView website;
 
 
 
@@ -138,10 +145,10 @@ public class ProfileActivity extends BaseActivity {
     }
 
     private void setUpProfile() {
-        TextView displayName = findViewById(R.id.display_name);
-        TextView description = findViewById(R.id.description);
-        TextView website = findViewById(R.id.website);
-        CircleImageView profilePhoto = findViewById(R.id.profile_photo);
+         displayName = findViewById(R.id.display_name);
+         description = findViewById(R.id.description);
+         website = findViewById(R.id.website);
+         profilePhoto = findViewById(R.id.profile_photo);
 
         ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -189,7 +196,26 @@ public class ProfileActivity extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    posts.add(singleSnapshot.getValue(Post.class));
+                    //posts.add(singleSnapshot.getValue(Post.class));
+
+                    Post post = new Post();
+                    Map<String, Object> objectMap = (HashMap<String, Object>) singleSnapshot.getValue();
+
+                    post.setPhoto_name(objectMap.get(getString(R.string.field_photo_name)).toString());
+                    post.setPhoto_id(objectMap.get(getString(R.string.field_photo_id)).toString());
+                    post.setUser_id(objectMap.get(getString(R.string.field_user_id)).toString());
+                    post.setDate_created(objectMap.get(getString(R.string.field_date_created)).toString());
+                    post.setImage_path(objectMap.get(getString(R.string.field_image_path)).toString());
+
+                    List<Like> likesList = new ArrayList<Like>();
+                    for (DataSnapshot dSnapshot : singleSnapshot
+                            .child(getString(R.string.field_likes)).getChildren()) {
+                        Like like = new Like();
+                        like.setUser_id(dSnapshot.getValue(Like.class).getUser_id());
+                        likesList.add(like);
+                    }
+                    post.setLikes(likesList);
+                    posts.add(post);
                 }
                 ArrayList<String> imageUri = CommonUi.getPostUri(posts);
                 CommonUi.setGridView(ProfileActivity.this,gridView,imageUri);
