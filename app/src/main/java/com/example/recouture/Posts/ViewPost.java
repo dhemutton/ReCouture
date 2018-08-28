@@ -90,9 +90,11 @@ public class ViewPost extends AppCompatActivity {
         mHeart = new Heart(mHeartWhite, mHeartRed);
         mGestureDetector = new GestureDetector(ViewPost.this, new GestureListener());
 
-        name = i.getStringExtra("name");
-        url = i.getStringExtra("viewing");
-        datecreated = i.getStringExtra("date");
+//        name = i.getStringExtra("name");
+//        url = i.getStringExtra("viewing");
+//        datecreated = i.getStringExtra("date");
+
+        mPost = (Post)i.getSerializableExtra("post");
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
