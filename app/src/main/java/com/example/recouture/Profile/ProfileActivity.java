@@ -131,9 +131,9 @@ public class ProfileActivity extends BaseActivity {
                 Log.d(TAG, "onClick: navigating to the click outfits.");
                 Post post = posts.get(position);
                 Intent intent = new Intent(ProfileActivity.this, ViewPost.class);
-//                intent.putExtra("viewing", post.getImage_path());
-//                intent.putExtra("name", post.getPhoto_id());
-//                intent.putExtra("date", post.getDate_created());
+                intent.putExtra("viewing", post.getImage_path());
+                intent.putExtra("name", post.getPhoto_id());
+                intent.putExtra("date", post.getDate_created());
                 intent.putExtra("post", post);
                 startActivity(intent);
             }

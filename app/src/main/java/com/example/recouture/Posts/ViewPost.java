@@ -90,11 +90,11 @@ public class ViewPost extends AppCompatActivity {
         mHeart = new Heart(mHeartWhite, mHeartRed);
         mGestureDetector = new GestureDetector(ViewPost.this, new GestureListener());
 
-//        name = i.getStringExtra("name");
-//        url = i.getStringExtra("viewing");
-//        datecreated = i.getStringExtra("date");
+        name = i.getStringExtra("name");
+        url = i.getStringExtra("viewing");
+        datecreated = i.getStringExtra("date");
 
-        mPost = (Post)i.getSerializableExtra("post");
+        mPost = (Post) i.getParcelableExtra("post");
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -343,7 +343,6 @@ public class ViewPost extends AppCompatActivity {
                 .child("Posts")
                 .child(mPost.getPhoto_id())
                 .child(getString(R.string.field_likes))
-                .child(newLikeID)
                 .setValue(like);
 
         mHeart.toggleLike();
