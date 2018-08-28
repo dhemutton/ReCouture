@@ -47,7 +47,7 @@ public class ViewPlanned extends BaseActivity {
     private String imgUrl;
     private String mAppend = "file:/";
     private static final String TAG = "ViewPlanned";
-    private static final int ACTIVITY_NUM = 1;
+
 
     private String wantedDate;
     private String suppliedUri;
@@ -55,6 +55,8 @@ public class ViewPlanned extends BaseActivity {
     private String firebaseDate;
 
     private TextView deleteOutfit;
+
+    private ImageView backArrow;
 
 
 
@@ -74,6 +76,14 @@ public class ViewPlanned extends BaseActivity {
 
         wantedDate = incomingIntent.getStringExtra("textViewDate");
         theDate.setText(wantedDate);
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewPlanned.super.onBackPressed();
+            }
+        });
+
         Log.i(TAG,"date " + firebaseDate);
 
         deleteOutfit.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +105,7 @@ public class ViewPlanned extends BaseActivity {
     public void setUpWidets() {
         theDate = (TextView) findViewById(R.id.date);
         deleteOutfit = findViewById(R.id.deleteOutfit);
+        backArrow = findViewById(R.id.ivBackArrow);
 
     }
 
@@ -137,28 +148,5 @@ public class ViewPlanned extends BaseActivity {
 
             }
         });
-//        Query query = reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Events");
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-//                    Log.i(TAG,singleSnapshot.toString());
-//                    events.add(singleSnapshot.getValue(Event.class));
-//                }
-//
-//                for (int i = 0; i < events.size(); i++) {
-//                    if (events.get(i).getmDate().equals(wantedDate)) {
-//                        suppliedUri = events.get(i).getmImageUrl();
-//                        setImage();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.d(TAG, "onCancelled: query cancelled");
-//            }
-//        });
     }
-
 }

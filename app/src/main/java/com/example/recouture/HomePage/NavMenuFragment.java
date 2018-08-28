@@ -97,6 +97,7 @@ public class NavMenuFragment extends Fragment {
         SignOutFragment fragment = new SignOutFragment();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.add(R.id.signoutfragment,fragment);
+        fragmentTransaction.remove(this);
         fragmentTransaction.commit();
     }
 }

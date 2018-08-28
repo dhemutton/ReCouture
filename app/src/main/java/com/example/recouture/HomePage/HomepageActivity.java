@@ -33,6 +33,7 @@ import com.example.recouture.SweaterGallery.SweaterActivity;
 import com.example.recouture.SwimwearGallery.Swimwear;
 import com.example.recouture.SwimwearGallery.SwimwearActivity;
 import com.example.recouture.TagHolder;
+import com.example.recouture.utils.FirebaseMethods;
 import com.example.recouture.utils.UniversalImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -67,10 +68,11 @@ import java.util.List;
 
 
 public class HomepageActivity extends AppCompatActivity implements HomepageOnClick {
+
     private static final String TAG = "HomeActivity";
+
     private static final int ACTIVITY_NUM = 0;
-    private DrawerLayout myDrawer;
-    private ActionBarDrawerToggle myToggle;
+
 
     private final int REQUEST_CODE = 1;
 
@@ -84,7 +86,9 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
     private boolean chooseOutfit;
 
     private RecyclerView recyclerView;
+
     private ImageAdapter imageAdapter;
+
     private FragmentManager manager;
     private EditText searchText;
     private RecyclerView searchRecyclerView;
@@ -95,6 +99,12 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
     private  Context mContext = HomepageActivity.this;
 
     private Query query;
+
+    private boolean isOpen = false;
+
+    private NavMenuFragment navMenuFragment;
+
+
     private TextWatcher filterTextWatcher = new TextWatcher() {
 
         @Override
@@ -128,6 +138,10 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_2);
+
+
+
+
         Log.d(TAG, "onCreate: starting.");
 
         RelativeLayout relativeLayout = findViewById(R.id.outfitDone);
@@ -163,8 +177,13 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: navigating to 'menu dropdown'");
-                    addFragmentViewNav();
-
+                    if (!isOpen) {
+                        addFragmentViewNav();
+                        isOpen = true;
+                    } else {
+                        closeFragmentViewNav();
+                        isOpen = false;
+                    }
             }
         });
 
@@ -265,10 +284,15 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
     }
 
     private void addFragmentViewNav() {
-        NavMenuFragment fragment = new NavMenuFragment();
+        navMenuFragment = new NavMenuFragment();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.add(R.id.navbarfragment,fragment);
+        fragmentTransaction.add(R.id.navbarfragment,navMenuFragment);
         fragmentTransaction.commit();
+    }
+
+    private void closeFragmentViewNav() {
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.remove(navMenuFragment).commit();
     }
 
     @Override
@@ -404,6 +428,7 @@ public class HomepageActivity extends AppCompatActivity implements HomepageOnCli
         setResult(RESULT_OK, data);
         super.finish();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -37,6 +37,7 @@ public class ViewOutfits extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
     private ArrayList<Outfit> outfits;
+    private ImageView backArrow;
 
 
 
@@ -44,13 +45,17 @@ public class ViewOutfits extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewoufits);
-        gridView = (GridView)findViewById(R.id.gridview) ;
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-        outfits = new ArrayList<>();
+        setUpWidets();
 
         setupGridView();
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewOutfits.super.onBackPressed();
+            }
+        });
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -88,5 +93,14 @@ public class ViewOutfits extends AppCompatActivity {
             }
         });
     }
+
+    private void setUpWidets() {
+        gridView = (GridView)findViewById(R.id.gridview) ;
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        backArrow = findViewById(R.id.back);
+        outfits = new ArrayList<>();
+    }
+
 }
 

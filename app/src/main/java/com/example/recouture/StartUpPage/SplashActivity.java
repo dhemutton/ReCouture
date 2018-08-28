@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.recouture.R;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         Log.i(TAG,Thread.currentThread().getName());
 
         init();

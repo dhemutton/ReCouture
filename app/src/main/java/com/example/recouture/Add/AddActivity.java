@@ -220,8 +220,8 @@ public class AddActivity extends BaseActivity implements AdapterView.OnItemSelec
         editTextTags = findViewById(R.id.editTextTags);
         upload = findViewById(R.id.upload);
         spinnerTextCategory = findViewById(R.id.editTextCategory);
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
-        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid() + "/Tags");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid());
+        mDatabaseTagRef = FirebaseDatabase.getInstance().getReference(FirebaseMethods.getUserUid() + "/Tags");
         activityIndicator = new ActivityIndicator(this);
         ThreeBounce threeBounce = new ThreeBounce();
 
@@ -272,7 +272,7 @@ public class AddActivity extends BaseActivity implements AdapterView.OnItemSelec
         assert category != null;
         final DatabaseReference databaseRef = mDatabaseRef.child("/" + category);
         mStorageRef = FirebaseStorage.getInstance().getReference()
-                .child(FIREBASE_IMAGE_STORAGE + "/" + firebaseUser.getUid() + category);
+                .child(FIREBASE_IMAGE_STORAGE + "/" + FirebaseMethods.getUserUid() + "/" + category);
         //final DatabaseReference tagDataBaseRef = mDatabaseTagRef;
 
 
