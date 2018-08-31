@@ -86,6 +86,7 @@ public class ProfileActivity extends BaseActivity {
     private TextView displayName;
     private TextView description;
     private TextView website;
+    private String username;
 
 
 
@@ -134,6 +135,7 @@ public class ProfileActivity extends BaseActivity {
                 intent.putExtra("viewing", post.getImage_path());
                 intent.putExtra("name", post.getPhoto_id());
                 intent.putExtra("date", post.getDate_created());
+                intent.putExtra("displayName", username);
                 intent.putExtra("post", post);
                 startActivity(intent);
             }
@@ -165,6 +167,7 @@ public class ProfileActivity extends BaseActivity {
                 }
                 User user = dataSnapshot.getValue(User.class);
                 Log.i(TAG, user.toString());
+                username = user.getDisplayname();
                 displayName.setText(user.getDisplayname());
                 description.setText(user.getDescription());
                 website.setText(user.getWebsite());

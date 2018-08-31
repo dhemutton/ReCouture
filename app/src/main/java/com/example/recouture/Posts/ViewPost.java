@@ -47,6 +47,8 @@ public class ViewPost extends AppCompatActivity {
     private String name;
     private String url;
     private String datecreated;
+    private String displayName;
+
     private TextView mTimestamp, mLikes, userTop, userBot;
     private ImageView mHeartRed,mHeartWhite;
     private GestureDetector mGestureDetector;
@@ -93,6 +95,7 @@ public class ViewPost extends AppCompatActivity {
         name = i.getStringExtra("name");
         url = i.getStringExtra("viewing");
         datecreated = i.getStringExtra("date");
+        displayName = i.getStringExtra("displayName");
 
         mPost = (Post) i.getParcelableExtra("post");
 
@@ -156,8 +159,8 @@ public class ViewPost extends AppCompatActivity {
         }else{
             mTimestamp.setText("TODAY");
         }
-        userTop.setText(firebaseUser.getUid());
-        userBot.setText(firebaseUser.getUid());
+        userTop.setText(displayName);
+        userBot.setText(displayName);
         mLikes.setText(mLikesString);
 
         if(mLikedByCurrentUser){
