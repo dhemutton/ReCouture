@@ -45,7 +45,7 @@
             <com.example.recouture.utils.SquareImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/post_image"
+                android:id="@+id/post_image_feed"
                 android:layout_below="@id/relLayout1"
                 android:scaleType="centerCrop"/>
 
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/relLayout2"
-                android:layout_below="@+id/post_image"
+                android:layout_below="@+id/post_image_feed"
                 android:background="@color/white">
 
                 <RelativeLayout
@@ -65,7 +65,7 @@
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:id="@+id/image_heart_red"
+                        android:id="@+id/image_heart_feed"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="20dp"
                         android:src="@drawable/ic_heart"
@@ -74,7 +74,7 @@
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:id="@+id/image_heart"
+                        android:id="@+id/image_heart_feed"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="20dp"
                         android:src="@drawable/ic_heart_white"
@@ -109,7 +109,7 @@
                     android:text="Liked by Mitch, Tom, Mohammed and 30 others"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:id="@+id/image_likes"/>
+                    android:id="@+id/image_likes_feed"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                     android:textColor="@color/grey"
                     android:textSize="18sp"
                     android:layout_below="@+id/image_comments_link"
-                    android:id="@+id/image_time_posted"
+                    android:id="@+id/image_time_posted_feed"
                     android:layout_marginTop="15dp"/>
 
             </RelativeLayout>

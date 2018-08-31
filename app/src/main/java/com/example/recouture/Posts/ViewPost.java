@@ -22,6 +22,7 @@ import com.example.recouture.utils.Heart;
 import com.example.recouture.utils.Like;
 import com.example.recouture.utils.Post;
 import com.example.recouture.utils.User;
+import com.github.ybq.android.spinkit.style.Circle;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +40,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ViewPost extends AppCompatActivity {
 
     private static final String TAG = "Click Post";
@@ -47,14 +50,18 @@ public class ViewPost extends AppCompatActivity {
     private String name;
     private String url;
     private String datecreated;
-    private TextView mTimestamp, mLikes, userTop, userBot;
+    //private TextView mTimestamp, mLikes, userTop, userBot;
     private ImageView mHeartRed,mHeartWhite;
     private GestureDetector mGestureDetector;
     private Heart mHeart;
+    private TextView mLikes;
     private Post mPost;
     private Boolean mLikedByCurrentUser;
     private StringBuilder mUsers;
     private String mLikesString = "";
+    private TextView mTimestamp;
+
+    private CircleImageView profilePhoto;
 
 
 
@@ -65,6 +72,7 @@ public class ViewPost extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseMethods mFirebaseMethods;
     private FirebaseUser firebaseUser;
+
 
 
 
@@ -82,10 +90,12 @@ public class ViewPost extends AppCompatActivity {
         myRef = mFirebaseDatabase.getReference();
 
         ImageView imageView = (ImageView) findViewById(R.id.post_image);
-        TextView picName = (TextView) findViewById(R.id.image_caption);
+        TextView picName = (TextView) findViewById(R.id.usernamePost);
         mLikes = (TextView) findViewById(R.id.image_likes);
         mHeartRed = (ImageView) findViewById(R.id.image_heart_red);
         mHeartWhite = (ImageView) findViewById(R.id.image_heart);
+
+        profilePhoto = findViewById(R.id.profile_photo_post);
 
         mHeart = new Heart(mHeartWhite, mHeartRed);
         mGestureDetector = new GestureDetector(ViewPost.this, new GestureListener());
@@ -94,12 +104,26 @@ public class ViewPost extends AppCompatActivity {
         url = i.getStringExtra("viewing");
         datecreated = i.getStringExtra("date");
 
+
         mPost = (Post) i.getParcelableExtra("post");
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        userBot = (TextView) findViewById(R.id.user);
-        userTop = (TextView) findViewById(R.id.username);
+        myRef.child(firebaseUser.getUid()).child("UserData").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User userData = dataSnapshot.getValue(User.class);
+                picName.setText(userData.getDisplayname());
+                Glide.with(getApplicationContext()).load(userData.getImage_path()).into(profilePhoto);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         Glide.with(this).load(url).into(imageView);
         mTimestamp = (TextView) findViewById(R.id.image_time_posted);
@@ -156,8 +180,6 @@ public class ViewPost extends AppCompatActivity {
         }else{
             mTimestamp.setText("TODAY");
         }
-        userTop.setText(firebaseUser.getUid());
-        userBot.setText(firebaseUser.getUid());
         mLikes.setText(mLikesString);
 
         if(mLikedByCurrentUser){

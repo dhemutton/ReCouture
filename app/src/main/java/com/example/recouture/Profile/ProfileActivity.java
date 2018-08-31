@@ -89,6 +89,7 @@ public class ProfileActivity extends BaseActivity {
 
 
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_profile);
@@ -128,11 +129,12 @@ public class ProfileActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 Log.d(TAG, "onClick: navigating to the click outfits.");
                 Post post = posts.get(position);
                 Intent intent = new Intent(ProfileActivity.this, ViewPost.class);
                 intent.putExtra("viewing", post.getImage_path());
-                intent.putExtra("name", post.getPhoto_id());
+                intent.putExtra("name", post.getPhoto_name());
                 intent.putExtra("date", post.getDate_created());
                 intent.putExtra("post", post);
                 startActivity(intent);
@@ -170,15 +172,12 @@ public class ProfileActivity extends BaseActivity {
                 website.setText(user.getWebsite());
                 String uri = user.getImage_path();
                 UniversalImageLoader.setImage(uri, profilePhoto, mProgressBar, "");
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
     }
 
 
@@ -212,8 +211,10 @@ public class ProfileActivity extends BaseActivity {
                     for (DataSnapshot dSnapshot : singleSnapshot
                             .child(getString(R.string.field_likes)).getChildren()) {
                         Like like = new Like();
-                        like.setUser_id(dSnapshot.getValue(Like.class).getUser_id());
-                        likesList.add(like);
+                        String like1 = dSnapshot.getValue(String.class);
+                        Log.i(TAG,like1);
+                        //like.setUser_id(dSnapshot.getValue(Like.class).getUser_id());
+                        //likesList.add(like);
                     }
                     post.setLikes(likesList);
                     posts.add(post);
