@@ -1,5 +1,6 @@
 package com.example.recouture.Posts;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -52,7 +53,7 @@ public class ViewPost extends AppCompatActivity {
     private String datecreated;
     private String displayName;
 
-    private TextView mTimestamp, mLikes, userTop, userBot;
+    private TextView mTimestamp, mLikes;
 
     private ImageView mHeartRed,mHeartWhite;
     private GestureDetector mGestureDetector;
@@ -91,7 +92,8 @@ public class ViewPost extends AppCompatActivity {
         myRef = mFirebaseDatabase.getReference();
 
         ImageView imageView = (ImageView) findViewById(R.id.post_image);
-        TextView picName = (TextView) findViewById(R.id.usernamePost);
+        TextView lowerpicName = (TextView) findViewById(R.id.usernamePost);
+        TextView picName = (TextView) findViewById(R.id.user);
         mLikes = (TextView) findViewById(R.id.image_likes);
         mHeartRed = (ImageView) findViewById(R.id.image_heart_red);
         mHeartWhite = (ImageView) findViewById(R.id.image_heart);
@@ -116,6 +118,8 @@ public class ViewPost extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User userData = dataSnapshot.getValue(User.class);
                 picName.setText(userData.getDisplayname());
+                lowerpicName.setText(userData.getDisplayname());
+
                 Glide.with(getApplicationContext()).load(userData.getImage_path()).into(profilePhoto);
             }
 
@@ -124,8 +128,6 @@ public class ViewPost extends AppCompatActivity {
 
             }
         });
-
-
 
         Glide.with(this).load(url).into(imageView);
         mTimestamp = (TextView) findViewById(R.id.image_time_posted);
@@ -175,6 +177,7 @@ public class ViewPost extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupWidgets(){
         String timestampDiff = getTimestampDifference();
         if(!timestampDiff.equals("0")){
@@ -183,14 +186,12 @@ public class ViewPost extends AppCompatActivity {
             mTimestamp.setText("TODAY");
         }
 
-       /* userTop.setText(displayName);
-        userBot.setText(displayName);*/
-
         mLikes.setText(mLikesString);
 
         if(mLikedByCurrentUser){
             mHeartWhite.setVisibility(View.GONE);
             mHeartRed.setVisibility(View.VISIBLE);
+
             mHeartRed.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -374,6 +375,7 @@ public class ViewPost extends AppCompatActivity {
                 .setValue(like);
 
         mHeart.toggleLike();
+        mLikedByCurrentUser = true;
         getLikesString();
     }
 
